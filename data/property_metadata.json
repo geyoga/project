@@ -1,0 +1,131 @@
+{
+  "40_145": {
+    "property": "西菅田",
+
+    "primary_station": "鴨居",
+    "access_type": "bus",
+    "bus_minutes": 9,
+    "walk_minutes": 5,
+
+    "train_line": "JR Yokohama Line",
+
+    "orientation": null,
+
+    "elevator": null,
+    "balcony": null,
+    "storage": null,
+
+    "bath_toilet_separate": null,
+    "washing_machine_inside": null,
+
+    "gas_type": null,
+    "bike_parking": null,
+
+    "surroundings": {
+      "supermarket": {
+        "name": null,
+        "distance_m": null
+      },
+
+      "convenience_store": {
+        "name": null,
+        "distance_m": null
+      },
+
+      "daycare": {
+        "name": null,
+        "distance_m": null
+      },
+
+      "elementary_school": {
+        "name": null,
+        "distance_m": null
+      },
+
+      "clinic": {
+        "name": null,
+        "distance_m": null
+      },
+
+      "hospital": {
+        "name": null,
+        "distance_m": null
+      },
+
+      "park": {
+        "name": null,
+        "distance_m": null
+      },
+
+      "pharmacy": {
+        "name": null,
+        "distance_m": null
+      }
+    }
+  },
+
+  "40_203": {
+    "property": "霧が丘グリーンタウン",
+
+    "primary_station": "青葉台",
+    "access_type": "bus",
+    "bus_minutes": 19,
+    "walk_minutes": 4,
+
+    "train_line": "Tokyu Den-en-toshi Line",
+
+    "orientation": null,
+
+    "elevator": null,
+    "balcony": null,
+    "storage": null,
+
+    "bath_toilet_separate": null,
+    "washing_machine_inside": null,
+
+    "gas_type": null,
+    "bike_parking": null,
+
+    "surroundings": {
+      "supermarket": {
+        "name": null,
+        "distance_m": null
+      },
+
+      "convenience_store": {
+        "name": null,
+        "distance_m": null
+      },
+
+      "daycare": {
+        "name": null,
+        "distance_m": null
+      },
+
+      "elementary_school": {
+        "name": null,
+        "distance_m": null
+      },
+
+      "clinic": {
+        "name": null,
+        "distance_m": null
+      },
+
+      "hospital": {
+        "name": null,
+        "distance_m": null
+      },
+
+      "park": {
+        "name": null,
+        "distance_m": null
+      },
+
+      "pharmacy": {
+        "name": null,
+        "distance_m": null
+      }
+    }
+  }
+}

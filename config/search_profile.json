@@ -1,0 +1,27 @@
+{
+  "destination": "Futako-Tamagawa",
+
+  "preferred_monthly_max": 100000,
+  "absolute_monthly_max": 120000,
+
+  "minimum_area_m2": 35,
+  "minimum_layout": "2DK",
+
+  "maximum_station_walk_minutes": 15,
+  "maximum_commute_minutes": 60,
+
+  "preferred_building_age_max": 20,
+
+  "family_size": 3,
+
+  "preferred_line": "Tokyu Den-en-toshi Line",
+
+  "ur_area_codes": [
+    "102",
+    "113"
+  ],
+
+  "initial_cost": {
+    "ur_move_in_proration_ratio": 0.5
+  }
+}

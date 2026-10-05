@@ -1,0 +1,16 @@
+{
+  "鴨居:Futako-Tamagawa": {
+    "destination": "Futako-Tamagawa",
+    "train_minutes": 43,
+    "transfers": 1,
+    "direct": false,
+    "source": "static_fallback"
+  },
+  "青葉台:Futako-Tamagawa": {
+    "destination": "Futako-Tamagawa",
+    "train_minutes": 23,
+    "transfers": 0,
+    "direct": true,
+    "source": "static_fallback"
+  }
+}
