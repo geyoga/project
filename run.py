@@ -4,6 +4,12 @@ import sys
 
 from pathlib import Path
 
+from services.storage import (
+    initialize_database,
+    start_crawl_run,
+    finish_crawl_run,
+    save_observed_listings,
+)
 
 BASE_DIR = Path(__file__).resolve().parent
 
@@ -1521,6 +1527,8 @@ def calculate_score(
 
 
 def main():
+    initialize_database()
+
     profile = load_profile()
 
     property_metadata = (
@@ -1530,6 +1538,10 @@ def main():
     area_codes = profile.get(
         "ur_area_codes",
         [],
+    )
+
+    run_id = start_crawl_run(
+    len(area_codes)
     )
 
     if not area_codes:
@@ -1549,6 +1561,10 @@ def main():
         )
 
         return
+    
+    run_id = start_crawl_run(
+    len(area_codes)
+    )
 
     all_rooms = []
     crawl_errors = []
@@ -1582,6 +1598,7 @@ def main():
     # Enrich + filter + rank
     # --------------------------------------------------------
 
+    observed_rooms = []
     matches = []
 
     for room in all_rooms:
@@ -1616,6 +1633,17 @@ def main():
             )
         )
 
+        # Give every observed room a score
+        # if possible.
+        room["score"] = calculate_score(
+            room,
+            profile,
+        )
+
+        observed_rooms.append(
+            room
+        )
+
         if not passes_hard_filters(
             room,
             profile,
@@ -1645,6 +1673,39 @@ def main():
         )
     )
 
+    database_changes = (
+        save_observed_listings(
+            run_id,
+            observed_rooms,
+
+            # Very important:
+            # don't mark listings removed when
+            # part of the crawl failed.
+            mark_missing_inactive=(
+                len(crawl_errors)
+                == 0
+            ),
+        )
+    )
+
+    finish_crawl_run(
+        run_id=run_id,
+
+        areas_failed=len(
+            crawl_errors
+        ),
+
+        rooms_found=len(
+            all_rooms
+        ),
+
+        rooms_matching=len(
+            matches
+        ),
+
+        crawl_errors=crawl_errors,
+    )
+
     # --------------------------------------------------------
     # Output
     # --------------------------------------------------------
@@ -1665,10 +1726,18 @@ def main():
 
             "rooms_matching":
                 len(matches),
+
+            "changes":
+                len(
+                    database_changes
+                ),
         },
 
         "crawl_errors":
             crawl_errors,
+
+        "changes":
+            database_changes,
 
         "matches":
             matches,
