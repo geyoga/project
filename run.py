@@ -1,6 +1,7 @@
 import json
 import re
 import sys
+import argparse
 
 from pathlib import Path
 
@@ -673,15 +674,6 @@ def passes_hard_filters(
         )
 
     if reasons:
-        print(
-            f'REJECTED: '
-            f'{room.get("property")} '
-            f'{room.get("room")} -> '
-            + ", ".join(
-                reasons
-            ),
-            file=sys.stderr,
-        )
 
         return False
 
@@ -1524,6 +1516,16 @@ def calculate_score(
         1,
     )
 
+def parse_args():
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument(
+        "--alerts-only",
+        action="store_true",
+        help="Print only notification messages",
+    )
+
+    return parser.parse_args()
 
 # ============================================================
 # MAIN
@@ -1531,6 +1533,8 @@ def calculate_score(
 
 
 def main():
+    args = parse_args()
+
     initialize_database()
 
     profile = load_profile()
@@ -1549,16 +1553,33 @@ def main():
     )
 
     if not area_codes:
+        if args.alerts_only:
+            if not notifications:
+                print("NO_ALERTS")
+                return
+
+            for index, notification in enumerate(
+                notifications
+            ):
+                if index > 0:
+                    print(
+                        "\n"
+                        "--------------------"
+                        "\n"
+                    )
+
+                print(
+                    notification[
+                        "message"
+                    ]
+                )
+
+            return
+
+
         print(
             json.dumps(
-                {
-                    "error":
-                        "No UR area codes configured",
-
-                    "detail":
-                        "Add ur_area_codes to "
-                        "config/search_profile.json",
-                },
+                output,
                 ensure_ascii=False,
                 indent=2,
             )
@@ -1709,6 +1730,27 @@ def main():
     # --------------------------------------------------------
     # Output
     # --------------------------------------------------------
+
+    if args.alerts_only:
+        if not notifications:
+            print("NO_ALERTS")
+            return
+
+        for index, notification in enumerate(
+            notifications
+        ):
+            if index > 0:
+                print(
+                    "\n"
+                    "--------------------"
+                    "\n"
+                )
+
+            print(
+                notification["message"]
+            )
+
+        return
 
     output = {
         "profile": profile,
