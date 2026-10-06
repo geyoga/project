@@ -5,9 +5,7 @@ import sys
 from pathlib import Path
 
 
-BASE_DIR = Path(
-    "/workspace/apartment-agent"
-)
+BASE_DIR = Path(__file__).resolve().parent
 
 CONFIG_PATH = (
     BASE_DIR

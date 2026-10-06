@@ -9,8 +9,11 @@ from services.walking import (
     walking_route,
 )
 
-BASE_DIR = Path(
-    "/workspace/apartment-agent"
+BASE_DIR = (
+    Path(__file__)
+    .resolve()
+    .parent
+    .parent
 )
 
 CACHE_PATH = (

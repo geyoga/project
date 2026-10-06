@@ -178,5 +178,95 @@
         "routing_source": "Valhalla/OpenStreetMap"
       }
     }
+  },
+  "40_414": {
+    "coordinates": {
+      "latitude": 35.4689074,
+      "longitude": 139.6325856,
+      "geocoded_name": "アミティ横浜, 中央市場通り, 栄町, 上反町, 神奈川区, 横浜市, 神奈川県, 231-0017, 日本"
+    },
+    "surroundings": {
+      "supermarket": {
+        "name": "卸値プラザ栄光本店",
+        "straight_line_distance_m": 216,
+        "latitude": 35.4696484,
+        "longitude": 139.6303812,
+        "walking_distance_m": 314,
+        "walking_minutes": 6,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "convenience_store": {
+        "name": "セブン-イレブン",
+        "straight_line_distance_m": 340,
+        "latitude": 35.4675957,
+        "longitude": 139.6292002,
+        "walking_distance_m": 350,
+        "walking_minutes": 6,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "daycare": {
+        "name": "おれんじハウス横浜駅前保育園",
+        "straight_line_distance_m": 385,
+        "latitude": 35.4693786,
+        "longitude": 139.6283728,
+        "walking_distance_m": 553,
+        "walking_minutes": 8,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "elementary_school": {
+        "name": "横浜市立幸ヶ谷小学校",
+        "straight_line_distance_m": 350,
+        "latitude": 35.4717097,
+        "longitude": 139.6308195,
+        "walking_distance_m": 670,
+        "walking_minutes": 9,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "clinic": {
+        "name": "横浜ポートサイド 中崎クリニック",
+        "straight_line_distance_m": 341,
+        "latitude": 35.4674776,
+        "longitude": 139.6292495,
+        "walking_distance_m": 349,
+        "walking_minutes": 6,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "pediatric_clinic": {
+        "name": "横浜ポートサイド 中崎クリニック",
+        "straight_line_distance_m": 341,
+        "latitude": 35.4674776,
+        "longitude": 139.6292495,
+        "walking_distance_m": 349,
+        "walking_minutes": 6,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "hospital": {
+        "name": "けいゆう病院",
+        "straight_line_distance_m": 1071,
+        "latitude": 35.4593026,
+        "longitude": 139.6334239,
+        "walking_distance_m": 1718,
+        "walking_minutes": 22,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "park": {
+        "name": "神奈川公園",
+        "straight_line_distance_m": 201,
+        "latitude": 35.4704635,
+        "longitude": 139.6314522,
+        "walking_distance_m": 489,
+        "walking_minutes": 6,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "pharmacy": {
+        "name": "ポートサイド薬局",
+        "straight_line_distance_m": 323,
+        "latitude": 35.467908,
+        "longitude": 139.6292319,
+        "walking_distance_m": 334,
+        "walking_minutes": 5,
+        "routing_source": "Valhalla/OpenStreetMap"
+      }
+    }
   }
 }

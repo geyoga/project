@@ -2,7 +2,12 @@ import json
 import sys
 from pathlib import Path
 
-BASE_DIR = Path("/workspace/apartment-agent")
+BASE_DIR = (
+    Path(__file__)
+    .resolve()
+    .parent
+    .parent
+)
 sys.path.insert(0, str(BASE_DIR))
 
 from crawlers.ur import fetch_area, extract_properties
