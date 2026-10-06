@@ -11,6 +11,10 @@ from services.storage import (
     save_observed_listings,
 )
 
+from services.alerts import (
+    build_notifications,
+)
+
 BASE_DIR = Path(__file__).resolve().parent
 
 CONFIG_PATH = (
@@ -1561,10 +1565,7 @@ def main():
         )
 
         return
-    
-    run_id = start_crawl_run(
-    len(area_codes)
-    )
+
 
     all_rooms = []
     crawl_errors = []
@@ -1650,13 +1651,6 @@ def main():
         ):
             continue
 
-        room[
-            "score"
-        ] = calculate_score(
-            room,
-            profile,
-        )
-
         matches.append(
             room
         )
@@ -1682,10 +1676,16 @@ def main():
             # don't mark listings removed when
             # part of the crawl failed.
             mark_missing_inactive=(
-                len(crawl_errors)
-                == 0
+                len(crawl_errors) == 0
+                and len(observed_rooms) > 0
             ),
         )
+    )
+
+    notifications = build_notifications(
+        database_changes,
+        observed_rooms,
+        min_score=70,
     )
 
     finish_crawl_run(
@@ -1711,8 +1711,7 @@ def main():
     # --------------------------------------------------------
 
     output = {
-        "profile":
-            profile,
+        "profile": profile,
 
         "stats": {
             "areas_requested":
@@ -1728,9 +1727,10 @@ def main():
                 len(matches),
 
             "changes":
-                len(
-                    database_changes
-                ),
+                len(database_changes),
+
+            "notifications":
+                len(notifications),
         },
 
         "crawl_errors":
@@ -1738,6 +1738,9 @@ def main():
 
         "changes":
             database_changes,
+
+        "notifications":
+            notifications,
 
         "matches":
             matches,
