@@ -19,6 +19,10 @@ from services.storage import (
     mark_notifications_delivered,
 )
 
+from services.incoming import (
+    load_incoming_listings,
+)
+
 BASE_DIR = Path(__file__).resolve().parent
 
 CONFIG_PATH = (
@@ -1638,6 +1642,28 @@ def main():
                 }
             )
 
+    incoming_rooms, incoming_errors = (
+        load_incoming_listings()
+    )
+
+    all_rooms.extend(
+        incoming_rooms
+    )
+
+    for error in incoming_errors:
+        crawl_errors.append(
+            {
+                "source":
+                    "incoming",
+
+                "file":
+                    error.get("file"),
+
+                "error":
+                    error.get("error"),
+            }
+        )
+
     # --------------------------------------------------------
     # Enrich + filter + rank
     # --------------------------------------------------------
@@ -1651,9 +1677,10 @@ def main():
             property_metadata,
         )
 
-        room = enrich_ur_property(
-            room
-        )
+        if room.get("source") == "ur":
+            room = enrich_ur_property(
+                room
+            )
 
         room = enrich_surroundings(
             room
@@ -1666,10 +1693,11 @@ def main():
             ],
         )
 
-        room = enrich_initial_cost(
-            room,
-            profile,
-        )
+        if room.get("source") == "ur":
+            room = enrich_initial_cost(
+                room,
+                profile,
+            )
 
         room = (
             enrich_foreigner_friendly(

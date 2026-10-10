@@ -19,61 +19,23 @@
     ],
     "initial_cost": {
       "ur_move_in_proration_ratio": 0.5
-    }
+    },
+    "suumo_watch_urls": []
   },
   "stats": {
     "areas_requested": 5,
     "areas_failed": 0,
-    "rooms_found": 18,
-    "rooms_matching": 16,
-    "changes": 11,
-    "notifications": 0
+    "rooms_found": 22,
+    "rooms_matching": 14,
+    "changes": 1,
+    "notifications_created": 0,
+    "notifications_pending": 0
   },
   "crawl_errors": [],
   "changes": [
     {
       "type": "new",
-      "listing_id": "ur:40:141:0:7号棟 824号室"
-    },
-    {
-      "type": "new",
-      "listing_id": "ur:40:288:0:3号棟 502号室"
-    },
-    {
-      "type": "new",
-      "listing_id": "ur:40:124:0:3-6号棟 201号室"
-    },
-    {
-      "type": "new",
-      "listing_id": "ur:40:124:0:4-6号棟 504号室"
-    },
-    {
-      "type": "new",
-      "listing_id": "ur:40:124:0:4-6号棟 506号室"
-    },
-    {
-      "type": "new",
-      "listing_id": "ur:40:124:0:4-8号棟 502号室"
-    },
-    {
-      "type": "new",
-      "listing_id": "ur:40:108:0:4-5号棟 502号室"
-    },
-    {
-      "type": "new",
-      "listing_id": "ur:40:108:0:6-8号棟 501号室"
-    },
-    {
-      "type": "new",
-      "listing_id": "ur:40:108:0:6-8号棟 502号室"
-    },
-    {
-      "type": "new",
-      "listing_id": "ur:40:338:0:9号棟 102号室"
-    },
-    {
-      "type": "new",
-      "listing_id": "ur:40:387:0:9号棟 406号室"
+      "listing_id": "suumo:000109951702"
     }
   ],
   "notifications": [],
@@ -82,13 +44,13 @@
       "source": "ur",
       "source_url": "https://www.ur-net.go.jp/chintai/sp/kanto/kanagawa/40_2030_room.html",
       "property": "霧が丘グリーンタウン",
-      "room": "22-10号棟 203号室",
-      "rent": 95700,
+      "room": "22-7号棟 304号室",
+      "rent": 93500,
       "management_fee": 5000,
-      "monthly_total": 100700,
+      "monthly_total": 98500,
       "layout": "3DK",
-      "area_m2": 67.0,
-      "floor": "2階",
+      "area_m2": 65.0,
+      "floor": "3階",
       "shisya": "40",
       "danchi": "203",
       "shikibetu": "0",
@@ -211,7 +173,7 @@
           "routing_source": "Valhalla/OpenStreetMap"
         }
       },
-      "floor_number": 2,
+      "floor_number": 3,
       "structure": "・駐車場などを見る",
       "structure_raw": "・駐車場などを見る",
       "building_age_min_years": 39,
@@ -233,15 +195,15 @@
       "total_commute_minutes": 46,
       "commute_source": "static_fallback",
       "initial_cost": {
-        "deposit": 191400,
+        "deposit": 187000,
         "deposit_months": 2,
         "key_money": 0,
         "agency_fee": 0,
         "guarantor_fee": 0,
-        "estimated_prorated_rent_and_fee": 50350,
-        "estimated_total": 241750,
-        "estimated_min": 194757,
-        "estimated_max": 292100,
+        "estimated_prorated_rent_and_fee": 49250,
+        "estimated_total": 236250,
+        "estimated_min": 190283,
+        "estimated_max": 285500,
         "currency": "JPY",
         "estimate_only": true
       },
@@ -256,11 +218,11 @@
         "notes": "Applicant still needs to satisfy applicable UR residence-status and income requirements."
       },
       "score_breakdown": {
-        "budget": 73.1,
+        "budget": 76.5,
         "commute": 70,
         "space": 100,
         "layout": 90,
-        "floor": 100,
+        "floor": 85,
         "building_age": 20,
         "structure": 50,
         "facilities": 50,
@@ -272,217 +234,21 @@
         "initial_cost": 90,
         "foreigner_friendly": 100
       },
-      "score": 70.4
+      "score": 70.0
     },
     {
       "source": "ur",
-      "source_url": "https://www.ur-net.go.jp/chintai/sp/kanto/kanagawa/40_2030_room.html",
-      "property": "霧が丘グリーンタウン",
-      "room": "22-5号棟 505号室",
-      "rent": 89400,
-      "management_fee": 5000,
-      "monthly_total": 94400,
-      "layout": "2LDK",
-      "area_m2": 67.0,
-      "floor": "5階",
-      "shisya": "40",
-      "danchi": "203",
-      "shikibetu": "0",
-      "orientation": null,
-      "elevator": null,
-      "balcony": null,
-      "storage": {
-        "available": null,
-        "walk_in_closet": null,
-        "shoe_box": null,
-        "shoe_walk_in_closet": null,
-        "trunk_room": null,
-        "oshiire": null
-      },
-      "bath_toilet_separate": null,
-      "washing_machine_inside": null,
-      "bidet": null,
-      "air_conditioner": null,
-      "bike_parking": null,
-      "bathroom_dryer": null,
-      "reheating_bath": null,
-      "independent_washbasin": null,
-      "monitor_intercom": null,
-      "delivery_box": null,
-      "gas_type": null,
-      "internet_type": null,
-      "internet_available": null,
-      "ftth": null,
-      "facility_detection": {
-        "source": "ur_api",
-        "confidence": "explicit_only"
-      },
-      "area_code": "113",
-      "property_key": "40_203",
-      "primary_station": "青葉台",
-      "access_type": "bus",
-      "bus_minutes": 19,
-      "station_walk_minutes": 4,
-      "train_line": "Tokyu Den-en-toshi Line",
-      "surroundings": {
-        "supermarket": {
-          "name": "MEGAドン・キホーテ",
-          "straight_line_distance_m": 448,
-          "latitude": 35.5165685,
-          "longitude": 139.5017681,
-          "walking_distance_m": 706,
-          "walking_minutes": 9,
-          "routing_source": "Valhalla/OpenStreetMap"
-        },
-        "convenience_store": {
-          "name": "ローソン",
-          "straight_line_distance_m": 619,
-          "latitude": 35.5193881,
-          "longitude": 139.5063206,
-          "walking_distance_m": 720,
-          "walking_minutes": 8,
-          "routing_source": "Valhalla/OpenStreetMap"
-        },
-        "daycare": {
-          "name": "横浜市霧が丘保育園",
-          "straight_line_distance_m": 73,
-          "latitude": 35.514394,
-          "longitude": 139.505935,
-          "walking_distance_m": 100,
-          "walking_minutes": 1,
-          "routing_source": "Valhalla/OpenStreetMap"
-        },
-        "elementary_school": {
-          "name": "横浜市立義務教育学校霧が丘学園小学部",
-          "straight_line_distance_m": 264,
-          "latitude": 35.512087,
-          "longitude": 139.5073572,
-          "walking_distance_m": 475,
-          "walking_minutes": 6,
-          "routing_source": "Valhalla/OpenStreetMap"
-        },
-        "clinic": {
-          "name": "きりが丘眼科",
-          "straight_line_distance_m": 175,
-          "latitude": 35.5137159,
-          "longitude": 139.5035164,
-          "walking_distance_m": 329,
-          "walking_minutes": 4,
-          "routing_source": "Valhalla/OpenStreetMap"
-        },
-        "pediatric_clinic": {
-          "name": "ちはら小児クリニック",
-          "straight_line_distance_m": 479,
-          "latitude": 35.5178547,
-          "longitude": 139.503428,
-          "walking_distance_m": 689,
-          "walking_minutes": 8,
-          "routing_source": "Valhalla/OpenStreetMap"
-        },
-        "hospital": {
-          "name": "横浜旭中央総合病院",
-          "straight_line_distance_m": 996,
-          "latitude": 35.5074308,
-          "longitude": 139.4977878,
-          "walking_distance_m": 1320,
-          "walking_minutes": 17,
-          "routing_source": "Valhalla/OpenStreetMap"
-        },
-        "park": {
-          "name": "霧が池公園",
-          "straight_line_distance_m": 116,
-          "latitude": 35.5130523,
-          "longitude": 139.5046382,
-          "walking_distance_m": 177,
-          "walking_minutes": 2,
-          "routing_source": "Valhalla/OpenStreetMap"
-        },
-        "pharmacy": {
-          "name": "霧が丘薬局",
-          "straight_line_distance_m": 102,
-          "latitude": 35.513504,
-          "longitude": 139.5044081,
-          "walking_distance_m": 101,
-          "walking_minutes": 1,
-          "routing_source": "Valhalla/OpenStreetMap"
-        }
-      },
-      "floor_number": 5,
-      "structure": "・駐車場などを見る",
-      "structure_raw": "・駐車場などを見る",
-      "building_age_min_years": 39,
-      "building_age_max_years": 45,
-      "building_age_estimate_years": 42,
-      "management_age_raw": "39年～45年",
-      "address": "横浜市緑区霧が丘3-22-5ほか",
-      "property_url": "https://www.ur-net.go.jp/chintai/kanto/kanagawa/40_2030.html",
-      "coordinates": {
-        "latitude": 35.5138716,
-        "longitude": 139.5054398,
-        "geocoded_name": "霧が丘グリーンタウン, 緑区, 横浜市, 神奈川県, 231-0017, 日本"
-      },
-      "surroundings_source": "OpenStreetMap",
-      "surroundings_distance_type": "straight_line",
-      "train_commute_minutes": 23,
-      "transfers": 0,
-      "direct_train": true,
-      "total_commute_minutes": 46,
-      "commute_source": "static_fallback",
-      "initial_cost": {
-        "deposit": 178800,
-        "deposit_months": 2,
-        "key_money": 0,
-        "agency_fee": 0,
-        "guarantor_fee": 0,
-        "estimated_prorated_rent_and_fee": 47200,
-        "estimated_total": 226000,
-        "estimated_min": 181947,
-        "estimated_max": 273200,
-        "currency": "JPY",
-        "estimate_only": true
-      },
-      "foreigner_friendly": {
-        "score": 100,
-        "status": "high",
-        "evidence": [
-          "foreign_nationals_explicitly_accepted",
-          "no_guarantor_required",
-          "english_guidance_available"
-        ],
-        "notes": "Applicant still needs to satisfy applicable UR residence-status and income requirements."
-      },
-      "score_breakdown": {
-        "budget": 80.6,
-        "commute": 70,
-        "space": 100,
-        "layout": 90,
-        "floor": 45,
-        "building_age": 20,
-        "structure": 50,
-        "facilities": 50,
-        "orientation": 50,
-        "elevator": 50,
-        "bike_parking": 50,
-        "gas": 50,
-        "surroundings": 92.7,
-        "initial_cost": 90,
-        "foreigner_friendly": 100
-      },
-      "score": 68.2
-    },
-    {
-      "source": "ur",
-      "source_url": "https://www.ur-net.go.jp/chintai/sp/kanto/kanagawa/40_1240_room.html",
-      "property": "上和田",
-      "room": "3-6号棟 201号室",
-      "rent": 65700,
-      "management_fee": 3100,
-      "monthly_total": 68800,
-      "layout": "3DK",
-      "area_m2": 53.0,
+      "source_url": "https://www.ur-net.go.jp/chintai/sp/kanto/kanagawa/40_1410_room.html",
+      "property": "奈良北",
+      "room": "9号棟 201号室",
+      "rent": 67000,
+      "management_fee": 2900,
+      "monthly_total": 69900,
+      "layout": "2DK",
+      "area_m2": 41.0,
       "floor": "2階",
       "shisya": "40",
-      "danchi": "124",
+      "danchi": "141",
       "shikibetu": "0",
       "orientation": null,
       "elevator": null,
@@ -513,39 +279,127 @@
         "source": "ur_api",
         "confidence": "explicit_only"
       },
-      "area_code": "213",
-      "property_key": "40_124",
+      "area_code": "117",
+      "property_key": "40_141",
       "primary_station": null,
       "access_type": null,
       "bus_minutes": null,
       "station_walk_minutes": null,
       "train_line": null,
-      "surroundings": {},
+      "surroundings": {
+        "supermarket": {
+          "name": null,
+          "straight_line_distance_m": null,
+          "walking_distance_m": null,
+          "walking_minutes": null,
+          "latitude": null,
+          "longitude": null,
+          "routing_source": null
+        },
+        "convenience_store": {
+          "name": null,
+          "straight_line_distance_m": null,
+          "walking_distance_m": null,
+          "walking_minutes": null,
+          "latitude": null,
+          "longitude": null,
+          "routing_source": null
+        },
+        "daycare": {
+          "name": "深川保育所",
+          "straight_line_distance_m": 660,
+          "latitude": 34.647292,
+          "longitude": 135.982204,
+          "walking_distance_m": 574,
+          "walking_minutes": 6,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "elementary_school": {
+          "name": null,
+          "straight_line_distance_m": null,
+          "walking_distance_m": null,
+          "walking_minutes": null,
+          "latitude": null,
+          "longitude": null,
+          "routing_source": null
+        },
+        "clinic": {
+          "name": null,
+          "straight_line_distance_m": null,
+          "walking_distance_m": null,
+          "walking_minutes": null,
+          "latitude": null,
+          "longitude": null,
+          "routing_source": null
+        },
+        "pediatric_clinic": {
+          "name": null,
+          "straight_line_distance_m": null,
+          "walking_distance_m": null,
+          "walking_minutes": null,
+          "latitude": null,
+          "longitude": null,
+          "routing_source": null
+        },
+        "hospital": {
+          "name": null,
+          "straight_line_distance_m": null,
+          "walking_distance_m": null,
+          "walking_minutes": null,
+          "latitude": null,
+          "longitude": null,
+          "routing_source": null
+        },
+        "park": {
+          "name": "フォレストパーク神野山",
+          "straight_line_distance_m": 3298,
+          "latitude": 34.6699256,
+          "longitude": 135.9995318,
+          "walking_distance_m": 5844,
+          "walking_minutes": 93,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "pharmacy": {
+          "name": null,
+          "straight_line_distance_m": null,
+          "walking_distance_m": null,
+          "walking_minutes": null,
+          "latitude": null,
+          "longitude": null,
+          "routing_source": null
+        }
+      },
       "floor_number": 2,
       "structure": "・駐車場などを見る",
       "structure_raw": "・駐車場などを見る",
-      "building_age_min_years": 57,
-      "building_age_max_years": 57,
-      "building_age_estimate_years": 57,
-      "management_age_raw": "57年",
-      "address": "大和市上和田2412",
-      "property_url": "https://www.ur-net.go.jp/chintai/kanto/kanagawa/40_1240.html",
-      "surroundings_error": "HTTP Error 504: Gateway Timeout",
+      "building_age_min_years": 54,
+      "building_age_max_years": 55,
+      "building_age_estimate_years": 54,
+      "management_age_raw": "54年～55年",
+      "address": "横浜市青葉区奈良町2913",
+      "property_url": "https://www.ur-net.go.jp/chintai/kanto/kanagawa/40_1410.html",
+      "coordinates": {
+        "latitude": 34.6481398,
+        "longitude": 135.9750591,
+        "geocoded_name": "奈良若草カントリー倶楽部, 北野吐山線, 上深川町, 奈良市, 奈良県, 632-0199, 日本"
+      },
+      "surroundings_source": "OpenStreetMap",
+      "surroundings_distance_type": "straight_line",
       "train_commute_minutes": null,
       "transfers": null,
       "direct_train": null,
       "total_commute_minutes": null,
       "commute_source": null,
       "initial_cost": {
-        "deposit": 131400,
+        "deposit": 134000,
         "deposit_months": 2,
         "key_money": 0,
         "agency_fee": 0,
         "guarantor_fee": 0,
-        "estimated_prorated_rent_and_fee": 34400,
-        "estimated_total": 165800,
-        "estimated_min": 133693,
-        "estimated_max": 200200,
+        "estimated_prorated_rent_and_fee": 34950,
+        "estimated_total": 168950,
+        "estimated_min": 136330,
+        "estimated_max": 203900,
         "currency": "JPY",
         "estimate_only": true
       },
@@ -562,8 +416,8 @@
       "score_breakdown": {
         "budget": 100,
         "commute": 45,
-        "space": 87.0,
-        "layout": 90,
+        "space": 69.0,
+        "layout": 70,
         "floor": 100,
         "building_age": 20,
         "structure": 50,
@@ -572,11 +426,11 @@
         "elevator": 50,
         "bike_parking": 50,
         "gas": 50,
-        "surroundings": 50,
+        "surroundings": 59.4,
         "initial_cost": 100,
         "foreigner_friendly": 100
       },
-      "score": 66.4
+      "score": 64.6
     },
     {
       "source": "ur",
@@ -726,7 +580,6 @@
         "geocoded_name": "相模台団地, 南区, 相模原市, 神奈川県, 日本"
       },
       "surroundings_source": "OpenStreetMap",
-      "surroundings_attribution": "© OpenStreetMap contributors",
       "surroundings_distance_type": "straight_line",
       "train_commute_minutes": null,
       "transfers": null,
@@ -1021,7 +874,89 @@
       "bus_minutes": null,
       "station_walk_minutes": null,
       "train_line": null,
-      "surroundings": {},
+      "surroundings": {
+        "supermarket": {
+          "name": "まいばすけっと",
+          "straight_line_distance_m": 757,
+          "latitude": 35.4513735,
+          "longitude": 139.4670912,
+          "walking_distance_m": 1090,
+          "walking_minutes": 13,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "convenience_store": {
+          "name": "セブン-イレブン",
+          "straight_line_distance_m": 250,
+          "latitude": 35.4490763,
+          "longitude": 139.4743138,
+          "walking_distance_m": 275,
+          "walking_minutes": 3,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "daycare": {
+          "name": "はひふへほいくえん",
+          "straight_line_distance_m": 597,
+          "latitude": 35.4469914,
+          "longitude": 139.4668527,
+          "walking_distance_m": 1274,
+          "walking_minutes": 16,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "elementary_school": {
+          "name": "大和市立上和田小学校",
+          "straight_line_distance_m": 734,
+          "latitude": 35.441062,
+          "longitude": 139.4697812,
+          "walking_distance_m": 1242,
+          "walking_minutes": 15,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "clinic": {
+          "name": "石垣内科小児科医院",
+          "straight_line_distance_m": 401,
+          "latitude": 35.4480272,
+          "longitude": 139.4692194,
+          "walking_distance_m": 1032,
+          "walking_minutes": 12,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "pediatric_clinic": {
+          "name": "石垣内科小児科医院",
+          "straight_line_distance_m": 401,
+          "latitude": 35.4480272,
+          "longitude": 139.4692194,
+          "walking_distance_m": 1032,
+          "walking_minutes": 12,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "hospital": {
+          "name": "桜ヶ丘中央病院",
+          "straight_line_distance_m": 930,
+          "latitude": 35.4514204,
+          "longitude": 139.4647746,
+          "walking_distance_m": 1350,
+          "walking_minutes": 17,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "park": {
+          "name": "緑の広場9号",
+          "straight_line_distance_m": 336,
+          "latitude": 35.4462143,
+          "longitude": 139.4698491,
+          "walking_distance_m": 860,
+          "walking_minutes": 10,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "pharmacy": {
+          "name": "クリエイト エス・ディー",
+          "straight_line_distance_m": 589,
+          "latitude": 35.4461859,
+          "longitude": 139.4670104,
+          "walking_distance_m": 1363,
+          "walking_minutes": 17,
+          "routing_source": "Valhalla/OpenStreetMap"
+        }
+      },
       "floor_number": 5,
       "structure": "・駐車場などを見る",
       "structure_raw": "・駐車場などを見る",
@@ -1031,7 +966,13 @@
       "management_age_raw": "57年",
       "address": "大和市上和田2412",
       "property_url": "https://www.ur-net.go.jp/chintai/kanto/kanagawa/40_1240.html",
-      "surroundings_error": "HTTP Error 504: Gateway Timeout",
+      "coordinates": {
+        "latitude": 35.4469459,
+        "longitude": 139.4734456,
+        "geocoded_name": "上和田, 大和市, 神奈川県, 242-0014, 日本"
+      },
+      "surroundings_source": "OpenStreetMap",
+      "surroundings_distance_type": "straight_line",
       "train_commute_minutes": null,
       "transfers": null,
       "direct_train": null,
@@ -1073,11 +1014,11 @@
         "elevator": 50,
         "bike_parking": 50,
         "gas": 50,
-        "surroundings": 50,
+        "surroundings": 61.1,
         "initial_cost": 100,
         "foreigner_friendly": 100
       },
-      "score": 63.1
+      "score": 63.9
     },
     {
       "source": "ur",
@@ -1129,7 +1070,89 @@
       "bus_minutes": null,
       "station_walk_minutes": null,
       "train_line": null,
-      "surroundings": {},
+      "surroundings": {
+        "supermarket": {
+          "name": "まいばすけっと",
+          "straight_line_distance_m": 757,
+          "latitude": 35.4513735,
+          "longitude": 139.4670912,
+          "walking_distance_m": 1090,
+          "walking_minutes": 13,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "convenience_store": {
+          "name": "セブン-イレブン",
+          "straight_line_distance_m": 250,
+          "latitude": 35.4490763,
+          "longitude": 139.4743138,
+          "walking_distance_m": 275,
+          "walking_minutes": 3,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "daycare": {
+          "name": "はひふへほいくえん",
+          "straight_line_distance_m": 597,
+          "latitude": 35.4469914,
+          "longitude": 139.4668527,
+          "walking_distance_m": 1274,
+          "walking_minutes": 16,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "elementary_school": {
+          "name": "大和市立上和田小学校",
+          "straight_line_distance_m": 734,
+          "latitude": 35.441062,
+          "longitude": 139.4697812,
+          "walking_distance_m": 1242,
+          "walking_minutes": 15,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "clinic": {
+          "name": "石垣内科小児科医院",
+          "straight_line_distance_m": 401,
+          "latitude": 35.4480272,
+          "longitude": 139.4692194,
+          "walking_distance_m": 1032,
+          "walking_minutes": 12,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "pediatric_clinic": {
+          "name": "石垣内科小児科医院",
+          "straight_line_distance_m": 401,
+          "latitude": 35.4480272,
+          "longitude": 139.4692194,
+          "walking_distance_m": 1032,
+          "walking_minutes": 12,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "hospital": {
+          "name": "桜ヶ丘中央病院",
+          "straight_line_distance_m": 930,
+          "latitude": 35.4514204,
+          "longitude": 139.4647746,
+          "walking_distance_m": 1350,
+          "walking_minutes": 17,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "park": {
+          "name": "緑の広場9号",
+          "straight_line_distance_m": 336,
+          "latitude": 35.4462143,
+          "longitude": 139.4698491,
+          "walking_distance_m": 860,
+          "walking_minutes": 10,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "pharmacy": {
+          "name": "クリエイト エス・ディー",
+          "straight_line_distance_m": 589,
+          "latitude": 35.4461859,
+          "longitude": 139.4670104,
+          "walking_distance_m": 1363,
+          "walking_minutes": 17,
+          "routing_source": "Valhalla/OpenStreetMap"
+        }
+      },
       "floor_number": 5,
       "structure": "・駐車場などを見る",
       "structure_raw": "・駐車場などを見る",
@@ -1139,7 +1162,13 @@
       "management_age_raw": "57年",
       "address": "大和市上和田2412",
       "property_url": "https://www.ur-net.go.jp/chintai/kanto/kanagawa/40_1240.html",
-      "surroundings_error": "HTTP Error 504: Gateway Timeout",
+      "coordinates": {
+        "latitude": 35.4469459,
+        "longitude": 139.4734456,
+        "geocoded_name": "上和田, 大和市, 神奈川県, 242-0014, 日本"
+      },
+      "surroundings_source": "OpenStreetMap",
+      "surroundings_distance_type": "straight_line",
       "train_commute_minutes": null,
       "transfers": null,
       "direct_train": null,
@@ -1181,11 +1210,11 @@
         "elevator": 50,
         "bike_parking": 50,
         "gas": 50,
-        "surroundings": 50,
+        "surroundings": 61.1,
         "initial_cost": 100,
         "foreigner_friendly": 100
       },
-      "score": 63.1
+      "score": 63.9
     },
     {
       "source": "ur",
@@ -1237,7 +1266,89 @@
       "bus_minutes": null,
       "station_walk_minutes": null,
       "train_line": null,
-      "surroundings": {},
+      "surroundings": {
+        "supermarket": {
+          "name": "まいばすけっと",
+          "straight_line_distance_m": 757,
+          "latitude": 35.4513735,
+          "longitude": 139.4670912,
+          "walking_distance_m": 1090,
+          "walking_minutes": 13,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "convenience_store": {
+          "name": "セブン-イレブン",
+          "straight_line_distance_m": 250,
+          "latitude": 35.4490763,
+          "longitude": 139.4743138,
+          "walking_distance_m": 275,
+          "walking_minutes": 3,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "daycare": {
+          "name": "はひふへほいくえん",
+          "straight_line_distance_m": 597,
+          "latitude": 35.4469914,
+          "longitude": 139.4668527,
+          "walking_distance_m": 1274,
+          "walking_minutes": 16,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "elementary_school": {
+          "name": "大和市立上和田小学校",
+          "straight_line_distance_m": 734,
+          "latitude": 35.441062,
+          "longitude": 139.4697812,
+          "walking_distance_m": 1242,
+          "walking_minutes": 15,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "clinic": {
+          "name": "石垣内科小児科医院",
+          "straight_line_distance_m": 401,
+          "latitude": 35.4480272,
+          "longitude": 139.4692194,
+          "walking_distance_m": 1032,
+          "walking_minutes": 12,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "pediatric_clinic": {
+          "name": "石垣内科小児科医院",
+          "straight_line_distance_m": 401,
+          "latitude": 35.4480272,
+          "longitude": 139.4692194,
+          "walking_distance_m": 1032,
+          "walking_minutes": 12,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "hospital": {
+          "name": "桜ヶ丘中央病院",
+          "straight_line_distance_m": 930,
+          "latitude": 35.4514204,
+          "longitude": 139.4647746,
+          "walking_distance_m": 1350,
+          "walking_minutes": 17,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "park": {
+          "name": "緑の広場9号",
+          "straight_line_distance_m": 336,
+          "latitude": 35.4462143,
+          "longitude": 139.4698491,
+          "walking_distance_m": 860,
+          "walking_minutes": 10,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "pharmacy": {
+          "name": "クリエイト エス・ディー",
+          "straight_line_distance_m": 589,
+          "latitude": 35.4461859,
+          "longitude": 139.4670104,
+          "walking_distance_m": 1363,
+          "walking_minutes": 17,
+          "routing_source": "Valhalla/OpenStreetMap"
+        }
+      },
       "floor_number": 5,
       "structure": "・駐車場などを見る",
       "structure_raw": "・駐車場などを見る",
@@ -1247,7 +1358,13 @@
       "management_age_raw": "57年",
       "address": "大和市上和田2412",
       "property_url": "https://www.ur-net.go.jp/chintai/kanto/kanagawa/40_1240.html",
-      "surroundings_error": "HTTP Error 504: Gateway Timeout",
+      "coordinates": {
+        "latitude": 35.4469459,
+        "longitude": 139.4734456,
+        "geocoded_name": "上和田, 大和市, 神奈川県, 242-0014, 日本"
+      },
+      "surroundings_source": "OpenStreetMap",
+      "surroundings_distance_type": "straight_line",
       "train_commute_minutes": null,
       "transfers": null,
       "direct_train": null,
@@ -1289,415 +1406,23 @@
         "elevator": 50,
         "bike_parking": 50,
         "gas": 50,
-        "surroundings": 50,
+        "surroundings": 61.1,
         "initial_cost": 100,
         "foreigner_friendly": 100
       },
-      "score": 63.1
-    },
-    {
-      "source": "ur",
-      "source_url": "https://www.ur-net.go.jp/chintai/sp/kanto/kanagawa/40_2030_room.html",
-      "property": "霧が丘グリーンタウン",
-      "room": "24-5号棟 502号室",
-      "rent": 106800,
-      "management_fee": 5000,
-      "monthly_total": 111800,
-      "layout": "3LDK",
-      "area_m2": 84.0,
-      "floor": "5階",
-      "shisya": "40",
-      "danchi": "203",
-      "shikibetu": "0",
-      "orientation": null,
-      "elevator": null,
-      "balcony": null,
-      "storage": {
-        "available": null,
-        "walk_in_closet": null,
-        "shoe_box": null,
-        "shoe_walk_in_closet": null,
-        "trunk_room": null,
-        "oshiire": null
-      },
-      "bath_toilet_separate": null,
-      "washing_machine_inside": null,
-      "bidet": null,
-      "air_conditioner": null,
-      "bike_parking": null,
-      "bathroom_dryer": null,
-      "reheating_bath": null,
-      "independent_washbasin": null,
-      "monitor_intercom": null,
-      "delivery_box": null,
-      "gas_type": null,
-      "internet_type": null,
-      "internet_available": null,
-      "ftth": null,
-      "facility_detection": {
-        "source": "ur_api",
-        "confidence": "explicit_only"
-      },
-      "area_code": "113",
-      "property_key": "40_203",
-      "primary_station": "青葉台",
-      "access_type": "bus",
-      "bus_minutes": 19,
-      "station_walk_minutes": 4,
-      "train_line": "Tokyu Den-en-toshi Line",
-      "surroundings": {
-        "supermarket": {
-          "name": "MEGAドン・キホーテ",
-          "straight_line_distance_m": 448,
-          "latitude": 35.5165685,
-          "longitude": 139.5017681,
-          "walking_distance_m": 706,
-          "walking_minutes": 9,
-          "routing_source": "Valhalla/OpenStreetMap"
-        },
-        "convenience_store": {
-          "name": "ローソン",
-          "straight_line_distance_m": 619,
-          "latitude": 35.5193881,
-          "longitude": 139.5063206,
-          "walking_distance_m": 720,
-          "walking_minutes": 8,
-          "routing_source": "Valhalla/OpenStreetMap"
-        },
-        "daycare": {
-          "name": "横浜市霧が丘保育園",
-          "straight_line_distance_m": 73,
-          "latitude": 35.514394,
-          "longitude": 139.505935,
-          "walking_distance_m": 100,
-          "walking_minutes": 1,
-          "routing_source": "Valhalla/OpenStreetMap"
-        },
-        "elementary_school": {
-          "name": "横浜市立義務教育学校霧が丘学園小学部",
-          "straight_line_distance_m": 264,
-          "latitude": 35.512087,
-          "longitude": 139.5073572,
-          "walking_distance_m": 475,
-          "walking_minutes": 6,
-          "routing_source": "Valhalla/OpenStreetMap"
-        },
-        "clinic": {
-          "name": "きりが丘眼科",
-          "straight_line_distance_m": 175,
-          "latitude": 35.5137159,
-          "longitude": 139.5035164,
-          "walking_distance_m": 329,
-          "walking_minutes": 4,
-          "routing_source": "Valhalla/OpenStreetMap"
-        },
-        "pediatric_clinic": {
-          "name": "ちはら小児クリニック",
-          "straight_line_distance_m": 479,
-          "latitude": 35.5178547,
-          "longitude": 139.503428,
-          "walking_distance_m": 689,
-          "walking_minutes": 8,
-          "routing_source": "Valhalla/OpenStreetMap"
-        },
-        "hospital": {
-          "name": "横浜旭中央総合病院",
-          "straight_line_distance_m": 996,
-          "latitude": 35.5074308,
-          "longitude": 139.4977878,
-          "walking_distance_m": 1320,
-          "walking_minutes": 17,
-          "routing_source": "Valhalla/OpenStreetMap"
-        },
-        "park": {
-          "name": "霧が池公園",
-          "straight_line_distance_m": 116,
-          "latitude": 35.5130523,
-          "longitude": 139.5046382,
-          "walking_distance_m": 177,
-          "walking_minutes": 2,
-          "routing_source": "Valhalla/OpenStreetMap"
-        },
-        "pharmacy": {
-          "name": "霧が丘薬局",
-          "straight_line_distance_m": 102,
-          "latitude": 35.513504,
-          "longitude": 139.5044081,
-          "walking_distance_m": 101,
-          "walking_minutes": 1,
-          "routing_source": "Valhalla/OpenStreetMap"
-        }
-      },
-      "floor_number": 5,
-      "structure": "・駐車場などを見る",
-      "structure_raw": "・駐車場などを見る",
-      "building_age_min_years": 39,
-      "building_age_max_years": 45,
-      "building_age_estimate_years": 42,
-      "management_age_raw": "39年～45年",
-      "address": "横浜市緑区霧が丘3-22-5ほか",
-      "property_url": "https://www.ur-net.go.jp/chintai/kanto/kanagawa/40_2030.html",
-      "coordinates": {
-        "latitude": 35.5138716,
-        "longitude": 139.5054398,
-        "geocoded_name": "霧が丘グリーンタウン, 緑区, 横浜市, 神奈川県, 231-0017, 日本"
-      },
-      "surroundings_source": "OpenStreetMap",
-      "surroundings_distance_type": "straight_line",
-      "train_commute_minutes": 23,
-      "transfers": 0,
-      "direct_train": true,
-      "total_commute_minutes": 46,
-      "commute_source": "static_fallback",
-      "initial_cost": {
-        "deposit": 213600,
-        "deposit_months": 2,
-        "key_money": 0,
-        "agency_fee": 0,
-        "guarantor_fee": 0,
-        "estimated_prorated_rent_and_fee": 55900,
-        "estimated_total": 269500,
-        "estimated_min": 217327,
-        "estimated_max": 325400,
-        "currency": "JPY",
-        "estimate_only": true
-      },
-      "foreigner_friendly": {
-        "score": 100,
-        "status": "high",
-        "evidence": [
-          "foreign_nationals_explicitly_accepted",
-          "no_guarantor_required",
-          "english_guidance_available"
-        ],
-        "notes": "Applicant still needs to satisfy applicable UR residence-status and income requirements."
-      },
-      "score_breakdown": {
-        "budget": 42.6,
-        "commute": 70,
-        "space": 100,
-        "layout": 100,
-        "floor": 45,
-        "building_age": 20,
-        "structure": 50,
-        "facilities": 50,
-        "orientation": 50,
-        "elevator": 50,
-        "bike_parking": 50,
-        "gas": 50,
-        "surroundings": 92.7,
-        "initial_cost": 80,
-        "foreigner_friendly": 100
-      },
-      "score": 62.7
-    },
-    {
-      "source": "ur",
-      "source_url": "https://www.ur-net.go.jp/chintai/sp/kanto/kanagawa/40_2030_room.html",
-      "property": "霧が丘グリーンタウン",
-      "room": "24-5号棟 407号室",
-      "rent": 109400,
-      "management_fee": 5000,
-      "monthly_total": 114400,
-      "layout": "3LDK",
-      "area_m2": 84.0,
-      "floor": "4階",
-      "shisya": "40",
-      "danchi": "203",
-      "shikibetu": "0",
-      "orientation": null,
-      "elevator": null,
-      "balcony": null,
-      "storage": {
-        "available": null,
-        "walk_in_closet": null,
-        "shoe_box": null,
-        "shoe_walk_in_closet": null,
-        "trunk_room": null,
-        "oshiire": null
-      },
-      "bath_toilet_separate": null,
-      "washing_machine_inside": null,
-      "bidet": null,
-      "air_conditioner": null,
-      "bike_parking": null,
-      "bathroom_dryer": null,
-      "reheating_bath": null,
-      "independent_washbasin": null,
-      "monitor_intercom": null,
-      "delivery_box": null,
-      "gas_type": null,
-      "internet_type": null,
-      "internet_available": null,
-      "ftth": null,
-      "facility_detection": {
-        "source": "ur_api",
-        "confidence": "explicit_only"
-      },
-      "area_code": "113",
-      "property_key": "40_203",
-      "primary_station": "青葉台",
-      "access_type": "bus",
-      "bus_minutes": 19,
-      "station_walk_minutes": 4,
-      "train_line": "Tokyu Den-en-toshi Line",
-      "surroundings": {
-        "supermarket": {
-          "name": "MEGAドン・キホーテ",
-          "straight_line_distance_m": 448,
-          "latitude": 35.5165685,
-          "longitude": 139.5017681,
-          "walking_distance_m": 706,
-          "walking_minutes": 9,
-          "routing_source": "Valhalla/OpenStreetMap"
-        },
-        "convenience_store": {
-          "name": "ローソン",
-          "straight_line_distance_m": 619,
-          "latitude": 35.5193881,
-          "longitude": 139.5063206,
-          "walking_distance_m": 720,
-          "walking_minutes": 8,
-          "routing_source": "Valhalla/OpenStreetMap"
-        },
-        "daycare": {
-          "name": "横浜市霧が丘保育園",
-          "straight_line_distance_m": 73,
-          "latitude": 35.514394,
-          "longitude": 139.505935,
-          "walking_distance_m": 100,
-          "walking_minutes": 1,
-          "routing_source": "Valhalla/OpenStreetMap"
-        },
-        "elementary_school": {
-          "name": "横浜市立義務教育学校霧が丘学園小学部",
-          "straight_line_distance_m": 264,
-          "latitude": 35.512087,
-          "longitude": 139.5073572,
-          "walking_distance_m": 475,
-          "walking_minutes": 6,
-          "routing_source": "Valhalla/OpenStreetMap"
-        },
-        "clinic": {
-          "name": "きりが丘眼科",
-          "straight_line_distance_m": 175,
-          "latitude": 35.5137159,
-          "longitude": 139.5035164,
-          "walking_distance_m": 329,
-          "walking_minutes": 4,
-          "routing_source": "Valhalla/OpenStreetMap"
-        },
-        "pediatric_clinic": {
-          "name": "ちはら小児クリニック",
-          "straight_line_distance_m": 479,
-          "latitude": 35.5178547,
-          "longitude": 139.503428,
-          "walking_distance_m": 689,
-          "walking_minutes": 8,
-          "routing_source": "Valhalla/OpenStreetMap"
-        },
-        "hospital": {
-          "name": "横浜旭中央総合病院",
-          "straight_line_distance_m": 996,
-          "latitude": 35.5074308,
-          "longitude": 139.4977878,
-          "walking_distance_m": 1320,
-          "walking_minutes": 17,
-          "routing_source": "Valhalla/OpenStreetMap"
-        },
-        "park": {
-          "name": "霧が池公園",
-          "straight_line_distance_m": 116,
-          "latitude": 35.5130523,
-          "longitude": 139.5046382,
-          "walking_distance_m": 177,
-          "walking_minutes": 2,
-          "routing_source": "Valhalla/OpenStreetMap"
-        },
-        "pharmacy": {
-          "name": "霧が丘薬局",
-          "straight_line_distance_m": 102,
-          "latitude": 35.513504,
-          "longitude": 139.5044081,
-          "walking_distance_m": 101,
-          "walking_minutes": 1,
-          "routing_source": "Valhalla/OpenStreetMap"
-        }
-      },
-      "floor_number": 4,
-      "structure": "・駐車場などを見る",
-      "structure_raw": "・駐車場などを見る",
-      "building_age_min_years": 39,
-      "building_age_max_years": 45,
-      "building_age_estimate_years": 42,
-      "management_age_raw": "39年～45年",
-      "address": "横浜市緑区霧が丘3-22-5ほか",
-      "property_url": "https://www.ur-net.go.jp/chintai/kanto/kanagawa/40_2030.html",
-      "coordinates": {
-        "latitude": 35.5138716,
-        "longitude": 139.5054398,
-        "geocoded_name": "霧が丘グリーンタウン, 緑区, 横浜市, 神奈川県, 231-0017, 日本"
-      },
-      "surroundings_source": "OpenStreetMap",
-      "surroundings_distance_type": "straight_line",
-      "train_commute_minutes": 23,
-      "transfers": 0,
-      "direct_train": true,
-      "total_commute_minutes": 46,
-      "commute_source": "static_fallback",
-      "initial_cost": {
-        "deposit": 218800,
-        "deposit_months": 2,
-        "key_money": 0,
-        "agency_fee": 0,
-        "guarantor_fee": 0,
-        "estimated_prorated_rent_and_fee": 57200,
-        "estimated_total": 276000,
-        "estimated_min": 222613,
-        "estimated_max": 333200,
-        "currency": "JPY",
-        "estimate_only": true
-      },
-      "foreigner_friendly": {
-        "score": 100,
-        "status": "high",
-        "evidence": [
-          "foreign_nationals_explicitly_accepted",
-          "no_guarantor_required",
-          "english_guidance_available"
-        ],
-        "notes": "Applicant still needs to satisfy applicable UR residence-status and income requirements."
-      },
-      "score_breakdown": {
-        "budget": 35.4,
-        "commute": 70,
-        "space": 100,
-        "layout": 100,
-        "floor": 55,
-        "building_age": 20,
-        "structure": 50,
-        "facilities": 50,
-        "orientation": 50,
-        "elevator": 50,
-        "bike_parking": 50,
-        "gas": 50,
-        "surroundings": 92.7,
-        "initial_cost": 80,
-        "foreigner_friendly": 100
-      },
-      "score": 62.2
+      "score": 63.9
     },
     {
       "source": "ur",
       "source_url": "https://www.ur-net.go.jp/chintai/sp/kanto/kanagawa/40_3380_room.html",
       "property": "鶴ヶ丘",
-      "room": "9号棟 102号室",
-      "rent": 109500,
+      "room": "6号棟 306号室",
+      "rent": 111800,
       "management_fee": 3400,
-      "monthly_total": 112900,
+      "monthly_total": 115200,
       "layout": "3DK",
-      "area_m2": 64.0,
-      "floor": "1階",
+      "area_m2": 63.0,
+      "floor": "3階",
       "shisya": "40",
       "danchi": "338",
       "shikibetu": "0",
@@ -1820,7 +1545,7 @@
           "routing_source": "Valhalla/OpenStreetMap"
         }
       },
-      "floor_number": 1,
+      "floor_number": 3,
       "structure": "・駐車場などを見る",
       "structure_raw": "・駐車場などを見る",
       "building_age_min_years": 25,
@@ -1835,7 +1560,6 @@
         "geocoded_name": "鶴ヶ丘, 行幸道路, 三丁目, 南台, 南区, 相模原市, 神奈川県, 252-0313, 日本"
       },
       "surroundings_source": "OpenStreetMap",
-      "surroundings_attribution": "© OpenStreetMap contributors",
       "surroundings_distance_type": "straight_line",
       "train_commute_minutes": null,
       "transfers": null,
@@ -1843,15 +1567,15 @@
       "total_commute_minutes": null,
       "commute_source": null,
       "initial_cost": {
-        "deposit": 219000,
+        "deposit": 223600,
         "deposit_months": 2,
         "key_money": 0,
         "agency_fee": 0,
         "guarantor_fee": 0,
-        "estimated_prorated_rent_and_fee": 56450,
-        "estimated_total": 275450,
-        "estimated_min": 222763,
-        "estimated_max": 331900,
+        "estimated_prorated_rent_and_fee": 57600,
+        "estimated_total": 281200,
+        "estimated_min": 227440,
+        "estimated_max": 338800,
         "currency": "JPY",
         "estimate_only": true
       },
@@ -1866,11 +1590,11 @@
         "notes": "Applicant still needs to satisfy applicable UR residence-status and income requirements."
       },
       "score_breakdown": {
-        "budget": 39.5,
+        "budget": 33.2,
         "commute": 45,
         "space": 100,
         "layout": 90,
-        "floor": 70,
+        "floor": 85,
         "building_age": 55,
         "structure": 50,
         "facilities": 50,
@@ -1883,6 +1607,202 @@
         "foreigner_friendly": 100
       },
       "score": 61.9
+    },
+    {
+      "source": "ur",
+      "source_url": "https://www.ur-net.go.jp/chintai/sp/kanto/kanagawa/40_1450_room.html",
+      "property": "西菅田",
+      "room": "1-2号棟 501号室",
+      "rent": 77100,
+      "management_fee": 5200,
+      "monthly_total": 82300,
+      "layout": "3DK",
+      "area_m2": 50.0,
+      "floor": "5階",
+      "shisya": "40",
+      "danchi": "145",
+      "shikibetu": "0",
+      "orientation": null,
+      "elevator": null,
+      "balcony": null,
+      "storage": {
+        "available": null,
+        "walk_in_closet": null,
+        "shoe_box": null,
+        "shoe_walk_in_closet": null,
+        "trunk_room": null,
+        "oshiire": null
+      },
+      "bath_toilet_separate": null,
+      "washing_machine_inside": null,
+      "bidet": null,
+      "air_conditioner": null,
+      "bike_parking": null,
+      "bathroom_dryer": null,
+      "reheating_bath": null,
+      "independent_washbasin": null,
+      "monitor_intercom": null,
+      "delivery_box": null,
+      "gas_type": null,
+      "internet_type": null,
+      "internet_available": null,
+      "ftth": null,
+      "facility_detection": {
+        "source": "ur_api",
+        "confidence": "explicit_only"
+      },
+      "area_code": "102",
+      "property_key": "40_145",
+      "primary_station": "鴨居",
+      "access_type": "bus",
+      "bus_minutes": 9,
+      "station_walk_minutes": 5,
+      "train_line": "JR Yokohama Line",
+      "surroundings": {
+        "supermarket": {
+          "name": "ビッグ・エー横浜西菅田団地店",
+          "straight_line_distance_m": 105,
+          "latitude": 35.4977221,
+          "longitude": 139.5741599,
+          "walking_distance_m": 310,
+          "walking_minutes": 4,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "convenience_store": {
+          "name": "セブン-イレブン",
+          "straight_line_distance_m": 704,
+          "latitude": 35.5031421,
+          "longitude": 139.5736197,
+          "walking_distance_m": 1094,
+          "walking_minutes": 15,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "daycare": {
+          "name": "横浜市西菅田保育園",
+          "straight_line_distance_m": 104,
+          "latitude": 35.4969758,
+          "longitude": 139.5757962,
+          "walking_distance_m": 219,
+          "walking_minutes": 3,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "elementary_school": {
+          "name": "横浜市立菅田の丘小学校",
+          "straight_line_distance_m": 1034,
+          "latitude": 35.4963937,
+          "longitude": 139.5860546,
+          "walking_distance_m": 1360,
+          "walking_minutes": 18,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "clinic": {
+          "name": "上菅田医院",
+          "straight_line_distance_m": 1036,
+          "latitude": 35.4902835,
+          "longitude": 139.5665621,
+          "walking_distance_m": 1566,
+          "walking_minutes": 22,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "pediatric_clinic": {
+          "name": "鴨居小児科内科医院",
+          "straight_line_distance_m": 1582,
+          "latitude": 35.5109165,
+          "longitude": 139.5719138,
+          "walking_distance_m": 2319,
+          "walking_minutes": 30,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "hospital": {
+          "name": "恵生会竹山病院",
+          "straight_line_distance_m": 1142,
+          "latitude": 35.495912,
+          "longitude": 139.562095,
+          "walking_distance_m": 1839,
+          "walking_minutes": 25,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "park": {
+          "name": "菅田みどりの丘公園",
+          "straight_line_distance_m": 322,
+          "latitude": 35.4975905,
+          "longitude": 139.5780963,
+          "walking_distance_m": 434,
+          "walking_minutes": 6,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "pharmacy": {
+          "name": "クリエイト菅田店",
+          "straight_line_distance_m": 211,
+          "latitude": 35.4986032,
+          "longitude": 139.5737133,
+          "walking_distance_m": 378,
+          "walking_minutes": 5,
+          "routing_source": "Valhalla/OpenStreetMap"
+        }
+      },
+      "floor_number": 5,
+      "structure": "・駐車場などを見る",
+      "structure_raw": "・駐車場などを見る",
+      "building_age_min_years": 32,
+      "building_age_max_years": 54,
+      "building_age_estimate_years": 43,
+      "management_age_raw": "32年～54年",
+      "address": "横浜市神奈川区菅田町488ほか",
+      "property_url": "https://www.ur-net.go.jp/chintai/kanto/kanagawa/40_1450.html",
+      "coordinates": {
+        "latitude": 35.4968681,
+        "longitude": 139.5746516,
+        "geocoded_name": "西菅田団地, 神奈川区, 横浜市, 神奈川県, 231-0017, 日本"
+      },
+      "surroundings_source": "OpenStreetMap",
+      "surroundings_distance_type": "straight_line",
+      "train_commute_minutes": 43,
+      "transfers": 1,
+      "direct_train": false,
+      "total_commute_minutes": 57,
+      "commute_source": "static_fallback",
+      "initial_cost": {
+        "deposit": 154200,
+        "deposit_months": 2,
+        "key_money": 0,
+        "agency_fee": 0,
+        "guarantor_fee": 0,
+        "estimated_prorated_rent_and_fee": 41150,
+        "estimated_total": 195350,
+        "estimated_min": 156943,
+        "estimated_max": 236500,
+        "currency": "JPY",
+        "estimate_only": true
+      },
+      "foreigner_friendly": {
+        "score": 100,
+        "status": "high",
+        "evidence": [
+          "foreign_nationals_explicitly_accepted",
+          "no_guarantor_required",
+          "english_guidance_available"
+        ],
+        "notes": "Applicant still needs to satisfy applicable UR residence-status and income requirements."
+      },
+      "score_breakdown": {
+        "budget": 92.7,
+        "commute": 35,
+        "space": 82.5,
+        "layout": 90,
+        "floor": 45,
+        "building_age": 20,
+        "structure": 50,
+        "facilities": 50,
+        "orientation": 50,
+        "elevator": 50,
+        "bike_parking": 50,
+        "gas": 50,
+        "surroundings": 69.7,
+        "initial_cost": 100,
+        "foreigner_friendly": 100
+      },
+      "score": 61.3
     },
     {
       "source": "ur",
@@ -2082,114 +2002,6 @@
     },
     {
       "source": "ur",
-      "source_url": "https://www.ur-net.go.jp/chintai/sp/kanto/kanagawa/40_1080_room.html",
-      "property": "相模台",
-      "room": "4-5号棟 502号室",
-      "rent": 63000,
-      "management_fee": 3200,
-      "monthly_total": 66200,
-      "layout": "2DK",
-      "area_m2": 45.0,
-      "floor": "5階",
-      "shisya": "40",
-      "danchi": "108",
-      "shikibetu": "0",
-      "orientation": null,
-      "elevator": null,
-      "balcony": null,
-      "storage": {
-        "available": null,
-        "walk_in_closet": null,
-        "shoe_box": null,
-        "shoe_walk_in_closet": null,
-        "trunk_room": null,
-        "oshiire": null
-      },
-      "bath_toilet_separate": null,
-      "washing_machine_inside": null,
-      "bidet": null,
-      "air_conditioner": null,
-      "bike_parking": null,
-      "bathroom_dryer": null,
-      "reheating_bath": null,
-      "independent_washbasin": null,
-      "monitor_intercom": null,
-      "delivery_box": null,
-      "gas_type": null,
-      "internet_type": null,
-      "internet_available": null,
-      "ftth": null,
-      "facility_detection": {
-        "source": "ur_api",
-        "confidence": "explicit_only"
-      },
-      "area_code": "153",
-      "property_key": "40_108",
-      "primary_station": null,
-      "access_type": null,
-      "bus_minutes": null,
-      "station_walk_minutes": null,
-      "train_line": null,
-      "surroundings": {},
-      "floor_number": 5,
-      "structure": "・駐車場などを見る",
-      "structure_raw": "・駐車場などを見る",
-      "building_age_min_years": 59,
-      "building_age_max_years": 59,
-      "building_age_estimate_years": 59,
-      "management_age_raw": "59年",
-      "address": "相模原市南区相模台団地",
-      "property_url": "https://www.ur-net.go.jp/chintai/kanto/kanagawa/40_1080.html",
-      "surroundings_error": "HTTP Error 504: Gateway Timeout",
-      "train_commute_minutes": null,
-      "transfers": null,
-      "direct_train": null,
-      "total_commute_minutes": null,
-      "commute_source": null,
-      "initial_cost": {
-        "deposit": 126000,
-        "deposit_months": 2,
-        "key_money": 0,
-        "agency_fee": 0,
-        "guarantor_fee": 0,
-        "estimated_prorated_rent_and_fee": 33100,
-        "estimated_total": 159100,
-        "estimated_min": 128207,
-        "estimated_max": 192200,
-        "currency": "JPY",
-        "estimate_only": true
-      },
-      "foreigner_friendly": {
-        "score": 100,
-        "status": "high",
-        "evidence": [
-          "foreign_nationals_explicitly_accepted",
-          "no_guarantor_required",
-          "english_guidance_available"
-        ],
-        "notes": "Applicant still needs to satisfy applicable UR residence-status and income requirements."
-      },
-      "score_breakdown": {
-        "budget": 100,
-        "commute": 45,
-        "space": 75.0,
-        "layout": 70,
-        "floor": 45,
-        "building_age": 20,
-        "structure": 50,
-        "facilities": 50,
-        "orientation": 50,
-        "elevator": 50,
-        "bike_parking": 50,
-        "gas": 50,
-        "surroundings": 50,
-        "initial_cost": 100,
-        "foreigner_friendly": 100
-      },
-      "score": 61.1
-    },
-    {
-      "source": "ur",
       "source_url": "https://www.ur-net.go.jp/chintai/sp/kanto/kanagawa/40_1410_room.html",
       "property": "奈良北",
       "room": "7号棟 824号室",
@@ -2238,7 +2050,89 @@
       "bus_minutes": null,
       "station_walk_minutes": null,
       "train_line": null,
-      "surroundings": {},
+      "surroundings": {
+        "supermarket": {
+          "name": null,
+          "straight_line_distance_m": null,
+          "walking_distance_m": null,
+          "walking_minutes": null,
+          "latitude": null,
+          "longitude": null,
+          "routing_source": null
+        },
+        "convenience_store": {
+          "name": null,
+          "straight_line_distance_m": null,
+          "walking_distance_m": null,
+          "walking_minutes": null,
+          "latitude": null,
+          "longitude": null,
+          "routing_source": null
+        },
+        "daycare": {
+          "name": "深川保育所",
+          "straight_line_distance_m": 660,
+          "latitude": 34.647292,
+          "longitude": 135.982204,
+          "walking_distance_m": 574,
+          "walking_minutes": 6,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "elementary_school": {
+          "name": null,
+          "straight_line_distance_m": null,
+          "walking_distance_m": null,
+          "walking_minutes": null,
+          "latitude": null,
+          "longitude": null,
+          "routing_source": null
+        },
+        "clinic": {
+          "name": null,
+          "straight_line_distance_m": null,
+          "walking_distance_m": null,
+          "walking_minutes": null,
+          "latitude": null,
+          "longitude": null,
+          "routing_source": null
+        },
+        "pediatric_clinic": {
+          "name": null,
+          "straight_line_distance_m": null,
+          "walking_distance_m": null,
+          "walking_minutes": null,
+          "latitude": null,
+          "longitude": null,
+          "routing_source": null
+        },
+        "hospital": {
+          "name": null,
+          "straight_line_distance_m": null,
+          "walking_distance_m": null,
+          "walking_minutes": null,
+          "latitude": null,
+          "longitude": null,
+          "routing_source": null
+        },
+        "park": {
+          "name": "フォレストパーク神野山",
+          "straight_line_distance_m": 3298,
+          "latitude": 34.6699256,
+          "longitude": 135.9995318,
+          "walking_distance_m": 5844,
+          "walking_minutes": 93,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "pharmacy": {
+          "name": null,
+          "straight_line_distance_m": null,
+          "walking_distance_m": null,
+          "walking_minutes": null,
+          "latitude": null,
+          "longitude": null,
+          "routing_source": null
+        }
+      },
       "floor_number": 8,
       "structure": "・駐車場などを見る",
       "structure_raw": "・駐車場などを見る",
@@ -2248,7 +2142,13 @@
       "management_age_raw": "54年～55年",
       "address": "横浜市青葉区奈良町2913",
       "property_url": "https://www.ur-net.go.jp/chintai/kanto/kanagawa/40_1410.html",
-      "surroundings_error": "HTTP Error 504: Gateway Timeout",
+      "coordinates": {
+        "latitude": 34.6481398,
+        "longitude": 135.9750591,
+        "geocoded_name": "奈良若草カントリー倶楽部, 北野吐山線, 上深川町, 奈良市, 奈良県, 632-0199, 日本"
+      },
+      "surroundings_source": "OpenStreetMap",
+      "surroundings_distance_type": "straight_line",
       "train_commute_minutes": null,
       "transfers": null,
       "direct_train": null,
@@ -2290,11 +2190,11 @@
         "elevator": 50,
         "bike_parking": 50,
         "gas": 50,
-        "surroundings": 50,
+        "surroundings": 59.4,
         "initial_cost": 90,
         "foreigner_friendly": 100
       },
-      "score": 60.4
+      "score": 61.1
     },
     {
       "source": "ur",
@@ -2494,6 +2394,202 @@
     },
     {
       "source": "ur",
+      "source_url": "https://www.ur-net.go.jp/chintai/sp/kanto/kanagawa/40_3870_room.html",
+      "property": "コンフォールさがみ南",
+      "room": "9号棟 101号室",
+      "rent": 115100,
+      "management_fee": 4400,
+      "monthly_total": 119500,
+      "layout": "2LDK",
+      "area_m2": 57.0,
+      "floor": "1階",
+      "shisya": "40",
+      "danchi": "387",
+      "shikibetu": "0",
+      "orientation": null,
+      "elevator": null,
+      "balcony": null,
+      "storage": {
+        "available": null,
+        "walk_in_closet": null,
+        "shoe_box": null,
+        "shoe_walk_in_closet": null,
+        "trunk_room": null,
+        "oshiire": null
+      },
+      "bath_toilet_separate": null,
+      "washing_machine_inside": null,
+      "bidet": null,
+      "air_conditioner": null,
+      "bike_parking": null,
+      "bathroom_dryer": null,
+      "reheating_bath": null,
+      "independent_washbasin": null,
+      "monitor_intercom": null,
+      "delivery_box": null,
+      "gas_type": null,
+      "internet_type": null,
+      "internet_available": null,
+      "ftth": null,
+      "facility_detection": {
+        "source": "ur_api",
+        "confidence": "explicit_only"
+      },
+      "area_code": "153",
+      "property_key": "40_387",
+      "primary_station": null,
+      "access_type": null,
+      "bus_minutes": null,
+      "station_walk_minutes": null,
+      "train_line": null,
+      "surroundings": {
+        "supermarket": {
+          "name": "イトーヨーカドー",
+          "straight_line_distance_m": 311,
+          "latitude": 35.5155145,
+          "longitude": 139.4251074,
+          "walking_distance_m": 686,
+          "walking_minutes": 8,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "convenience_store": {
+          "name": "ローソン",
+          "straight_line_distance_m": 230,
+          "latitude": 35.5153869,
+          "longitude": 139.4259994,
+          "walking_distance_m": 614,
+          "walking_minutes": 8,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "daycare": {
+          "name": "相模翠ケ丘幼稚園",
+          "straight_line_distance_m": 283,
+          "latitude": 35.515582,
+          "longitude": 139.431578,
+          "walking_distance_m": 325,
+          "walking_minutes": 4,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "elementary_school": {
+          "name": "相模原市立東林小学校",
+          "straight_line_distance_m": 437,
+          "latitude": 35.5159799,
+          "longitude": 139.4332144,
+          "walking_distance_m": 557,
+          "walking_minutes": 7,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "clinic": {
+          "name": "滝島医院",
+          "straight_line_distance_m": 159,
+          "latitude": 35.516314,
+          "longitude": 139.4294131,
+          "walking_distance_m": 826,
+          "walking_minutes": 10,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "pediatric_clinic": {
+          "name": "まつだ小児科",
+          "straight_line_distance_m": 615,
+          "latitude": 35.5123842,
+          "longitude": 139.4225821,
+          "walking_distance_m": 939,
+          "walking_minutes": 11,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "hospital": {
+          "name": "さがみ循環器クリニック",
+          "straight_line_distance_m": 337,
+          "latitude": 35.512429,
+          "longitude": 139.4267269,
+          "walking_distance_m": 560,
+          "walking_minutes": 7,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "park": {
+          "name": "松が枝町市民緑地",
+          "straight_line_distance_m": 288,
+          "latitude": 35.5175431,
+          "longitude": 139.427496,
+          "walking_distance_m": 864,
+          "walking_minutes": 11,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "pharmacy": {
+          "name": "アクタ薬局",
+          "straight_line_distance_m": 153,
+          "latitude": 35.516314,
+          "longitude": 139.4292924,
+          "walking_distance_m": 823,
+          "walking_minutes": 10,
+          "routing_source": "Valhalla/OpenStreetMap"
+        }
+      },
+      "floor_number": 1,
+      "structure": "・駐車場などを見る",
+      "structure_raw": "・駐車場などを見る",
+      "building_age_min_years": 23,
+      "building_age_max_years": 27,
+      "building_age_estimate_years": 25,
+      "management_age_raw": "23年～27年",
+      "address": "相模原市南区相南1-24",
+      "property_url": "https://www.ur-net.go.jp/chintai/kanto/kanagawa/40_3870.html",
+      "coordinates": {
+        "latitude": 35.5150926,
+        "longitude": 139.4285092,
+        "geocoded_name": "コンフォールさがみ, 南区, 相模原市, 神奈川県, 日本"
+      },
+      "surroundings_source": "OpenStreetMap",
+      "surroundings_distance_type": "straight_line",
+      "train_commute_minutes": null,
+      "transfers": null,
+      "direct_train": null,
+      "total_commute_minutes": null,
+      "commute_source": null,
+      "initial_cost": {
+        "deposit": 230200,
+        "deposit_months": 2,
+        "key_money": 0,
+        "agency_fee": 0,
+        "guarantor_fee": 0,
+        "estimated_prorated_rent_and_fee": 59750,
+        "estimated_total": 289950,
+        "estimated_min": 234183,
+        "estimated_max": 349700,
+        "currency": "JPY",
+        "estimate_only": true
+      },
+      "foreigner_friendly": {
+        "score": 100,
+        "status": "high",
+        "evidence": [
+          "foreign_nationals_explicitly_accepted",
+          "no_guarantor_required",
+          "english_guidance_available"
+        ],
+        "notes": "Applicant still needs to satisfy applicable UR residence-status and income requirements."
+      },
+      "score_breakdown": {
+        "budget": 21.4,
+        "commute": 45,
+        "space": 93.0,
+        "layout": 90,
+        "floor": 70,
+        "building_age": 65,
+        "structure": 50,
+        "facilities": 50,
+        "orientation": 50,
+        "elevator": 50,
+        "bike_parking": 50,
+        "gas": 50,
+        "surroundings": 83.0,
+        "initial_cost": 80,
+        "foreigner_friendly": 100
+      },
+      "score": 58.8
+    },
+    {
+      "source": "ur",
       "source_url": "https://www.ur-net.go.jp/chintai/sp/kanto/kanagawa/40_2880_room.html",
       "property": "グリーンヒル鴨志田中央",
       "room": "3号棟 502号室",
@@ -2600,5 +2696,6 @@
       },
       "score": 56.9
     }
-  ]
+  ],
+  "pending_notifications": []
 }
