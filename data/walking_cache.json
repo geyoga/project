@@ -263,5 +263,190 @@
     "distance_m": 823,
     "walking_minutes": 10,
     "routing_source": "Valhalla/OpenStreetMap"
+  },
+  "34.648140,135.975059:34.647292,135.982204": {
+    "distance_m": 574,
+    "walking_minutes": 6,
+    "routing_source": "Valhalla/OpenStreetMap"
+  },
+  "34.648140,135.975059:34.669926,135.999532": {
+    "distance_m": 5844,
+    "walking_minutes": 93,
+    "routing_source": "Valhalla/OpenStreetMap"
+  },
+  "35.446946,139.473446:35.451374,139.467091": {
+    "distance_m": 1090,
+    "walking_minutes": 13,
+    "routing_source": "Valhalla/OpenStreetMap"
+  },
+  "35.446946,139.473446:35.449076,139.474314": {
+    "distance_m": 275,
+    "walking_minutes": 3,
+    "routing_source": "Valhalla/OpenStreetMap"
+  },
+  "35.446946,139.473446:35.446991,139.466853": {
+    "distance_m": 1274,
+    "walking_minutes": 16,
+    "routing_source": "Valhalla/OpenStreetMap"
+  },
+  "35.446946,139.473446:35.441062,139.469781": {
+    "distance_m": 1242,
+    "walking_minutes": 15,
+    "routing_source": "Valhalla/OpenStreetMap"
+  },
+  "35.446946,139.473446:35.448027,139.469219": {
+    "distance_m": 1032,
+    "walking_minutes": 12,
+    "routing_source": "Valhalla/OpenStreetMap"
+  },
+  "35.446946,139.473446:35.451420,139.464775": {
+    "distance_m": 1350,
+    "walking_minutes": 17,
+    "routing_source": "Valhalla/OpenStreetMap"
+  },
+  "35.446946,139.473446:35.446214,139.469849": {
+    "distance_m": 860,
+    "walking_minutes": 10,
+    "routing_source": "Valhalla/OpenStreetMap"
+  },
+  "35.446946,139.473446:35.446186,139.467010": {
+    "distance_m": 1363,
+    "walking_minutes": 17,
+    "routing_source": "Valhalla/OpenStreetMap"
+  },
+  "35.527839,139.432099:35.529506,139.427685": {
+    "distance_m": 669,
+    "walking_minutes": 8,
+    "routing_source": "Valhalla/OpenStreetMap"
+  },
+  "35.527839,139.432099:35.528450,139.430680": {
+    "distance_m": 312,
+    "walking_minutes": 4,
+    "routing_source": "Valhalla/OpenStreetMap"
+  },
+  "35.527839,139.432099:35.530529,139.434577": {
+    "distance_m": 482,
+    "walking_minutes": 6,
+    "routing_source": "Valhalla/OpenStreetMap"
+  },
+  "35.527839,139.432099:35.523258,139.428943": {
+    "distance_m": 762,
+    "walking_minutes": 9,
+    "routing_source": "Valhalla/OpenStreetMap"
+  },
+  "35.527839,139.432099:35.526647,139.430982": {
+    "distance_m": 240,
+    "walking_minutes": 3,
+    "routing_source": "Valhalla/OpenStreetMap"
+  },
+  "35.527839,139.432099:35.515848,139.421570": {
+    "distance_m": 1907,
+    "walking_minutes": 23,
+    "routing_source": "Valhalla/OpenStreetMap"
+  },
+  "35.527839,139.432099:35.528135,139.429356": {
+    "distance_m": 411,
+    "walking_minutes": 5,
+    "routing_source": "Valhalla/OpenStreetMap"
+  },
+  "35.527839,139.432099:35.528596,139.431554": {
+    "distance_m": 291,
+    "walking_minutes": 4,
+    "routing_source": "Valhalla/OpenStreetMap"
+  },
+  "35.527839,139.432099:35.529267,139.432648": {
+    "distance_m": 437,
+    "walking_minutes": 5,
+    "routing_source": "Valhalla/OpenStreetMap"
+  },
+  "35.533100,139.432221:35.532283,139.431414": {
+    "distance_m": 387,
+    "walking_minutes": 5,
+    "routing_source": "Valhalla/OpenStreetMap"
+  },
+  "35.533100,139.432221:35.532891,139.435545": {
+    "distance_m": 425,
+    "walking_minutes": 6,
+    "routing_source": "Valhalla/OpenStreetMap"
+  },
+  "35.533100,139.432221:35.531267,139.432619": {
+    "distance_m": 431,
+    "walking_minutes": 5,
+    "routing_source": "Valhalla/OpenStreetMap"
+  },
+  "35.533100,139.432221:35.532133,139.425898": {
+    "distance_m": 972,
+    "walking_minutes": 12,
+    "routing_source": "Valhalla/OpenStreetMap"
+  },
+  "35.533100,139.432221:35.532086,139.432082": {
+    "distance_m": 420,
+    "walking_minutes": 5,
+    "routing_source": "Valhalla/OpenStreetMap"
+  },
+  "35.533100,139.432221:35.542145,139.440647": {
+    "distance_m": 1720,
+    "walking_minutes": 21,
+    "routing_source": "Valhalla/OpenStreetMap"
+  },
+  "35.533100,139.432221:35.533856,139.433645": {
+    "distance_m": 367,
+    "walking_minutes": 5,
+    "routing_source": "Valhalla/OpenStreetMap"
+  },
+  "35.533100,139.432221:35.534085,139.430629": {
+    "distance_m": 511,
+    "walking_minutes": 8,
+    "routing_source": "Valhalla/OpenStreetMap"
+  },
+  "35.533100,139.432221:35.532014,139.431963": {
+    "distance_m": 437,
+    "walking_minutes": 5,
+    "routing_source": "Valhalla/OpenStreetMap"
+  },
+  "35.491770,139.456946:35.492149,139.457835": {
+    "distance_m": 91,
+    "walking_minutes": 1,
+    "routing_source": "Valhalla/OpenStreetMap"
+  },
+  "35.491770,139.456946:35.492492,139.455151": {
+    "distance_m": 296,
+    "walking_minutes": 4,
+    "routing_source": "Valhalla/OpenStreetMap"
+  },
+  "35.491770,139.456946:35.488311,139.454716": {
+    "distance_m": 577,
+    "walking_minutes": 7,
+    "routing_source": "Valhalla/OpenStreetMap"
+  },
+  "35.491770,139.456946:35.486826,139.461708": {
+    "distance_m": 892,
+    "walking_minutes": 11,
+    "routing_source": "Valhalla/OpenStreetMap"
+  },
+  "35.491770,139.456946:35.491765,139.457049": {
+    "distance_m": 8,
+    "walking_minutes": 0,
+    "routing_source": "Valhalla/OpenStreetMap"
+  },
+  "35.491770,139.456946:35.490509,139.453130": {
+    "distance_m": 374,
+    "walking_minutes": 5,
+    "routing_source": "Valhalla/OpenStreetMap"
+  },
+  "35.491770,139.456946:35.489808,139.455554": {
+    "distance_m": 312,
+    "walking_minutes": 4,
+    "routing_source": "Valhalla/OpenStreetMap"
+  },
+  "35.491770,139.456946:35.491049,139.455889": {
+    "distance_m": 201,
+    "walking_minutes": 2,
+    "routing_source": "Valhalla/OpenStreetMap"
+  },
+  "35.491770,139.456946:35.491828,139.457213": {
+    "distance_m": 24,
+    "walking_minutes": 0,
+    "routing_source": "Valhalla/OpenStreetMap"
   }
 }

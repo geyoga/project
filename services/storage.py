@@ -2,6 +2,7 @@ import json
 import sqlite3
 from datetime import datetime, timezone
 from pathlib import Path
+import hashlib
 
 
 BASE_DIR = (
@@ -131,16 +132,39 @@ def initialize_database():
                     REFERENCES crawl_runs(id)
             );
 
+            CREATE TABLE IF NOT EXISTS notification_events (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+                event_key TEXT NOT NULL UNIQUE,
+
+                listing_id TEXT NOT NULL,
+                crawl_run_id INTEGER,
+
+                event_type TEXT NOT NULL,
+
+                created_at TEXT NOT NULL,
+                delivered_at TEXT,
+
+                message TEXT NOT NULL,
+
+                FOREIGN KEY(listing_id)
+                    REFERENCES listings(listing_id),
+
+                FOREIGN KEY(crawl_run_id)
+                    REFERENCES crawl_runs(id)
+            );
+
+            CREATE INDEX IF NOT EXISTS
+                idx_notification_pending
+            ON notification_events(delivered_at);
 
             CREATE INDEX IF NOT EXISTS
                 idx_listings_active
             ON listings(active);
 
-
             CREATE INDEX IF NOT EXISTS
                 idx_listings_score
             ON listings(score);
-
 
             CREATE INDEX IF NOT EXISTS
                 idx_snapshots_listing
@@ -581,3 +605,165 @@ def save_observed_listings(
                 )
 
     return changes
+
+def make_notification_event_key(
+    notification,
+    run_id,
+):
+    event_type = notification.get(
+        "type"
+    )
+
+    listing_id = notification.get(
+        "listing_id"
+    )
+
+    # A listing should only ever be "new" once.
+    if event_type == "new":
+        return (
+            f"new:{listing_id}"
+        )
+
+    # Price changes can happen multiple times.
+    if event_type == "price_changed":
+        message = notification.get(
+            "message",
+            "",
+        )
+
+        digest = hashlib.sha256(
+            message.encode("utf-8")
+        ).hexdigest()[:16]
+
+        return (
+            f"price_changed:"
+            f"{listing_id}:"
+            f"{digest}"
+        )
+
+    # A listing may disappear and return
+    # multiple times in its lifetime.
+    if event_type == "returned":
+        return (
+            f"returned:"
+            f"{listing_id}:"
+            f"{run_id}"
+        )
+
+    return (
+        f"{event_type}:"
+        f"{listing_id}:"
+        f"{run_id}"
+    )
+
+
+def enqueue_notifications(
+    run_id,
+    notifications,
+):
+    inserted = 0
+
+    with connect() as conn:
+        for notification in notifications:
+            event_key = (
+                make_notification_event_key(
+                    notification,
+                    run_id,
+                )
+            )
+
+            cursor = conn.execute(
+                """
+                INSERT OR IGNORE
+                INTO notification_events (
+                    event_key,
+                    listing_id,
+                    crawl_run_id,
+                    event_type,
+                    created_at,
+                    message
+                )
+                VALUES (?, ?, ?, ?, ?, ?)
+                """,
+                (
+                    event_key,
+                    notification.get(
+                        "listing_id"
+                    ),
+                    run_id,
+                    notification.get(
+                        "type"
+                    ),
+                    utc_now(),
+                    notification.get(
+                        "message"
+                    ),
+                ),
+            )
+
+            if cursor.rowcount > 0:
+                inserted += 1
+
+    return inserted
+
+
+def get_pending_notifications():
+    with connect() as conn:
+        rows = conn.execute(
+            """
+            SELECT
+                id,
+                event_key,
+                listing_id,
+                event_type,
+                created_at,
+                message
+
+            FROM notification_events
+
+            WHERE delivered_at IS NULL
+
+            ORDER BY id ASC
+            """
+        ).fetchall()
+
+        return [
+            dict(row)
+            for row in rows
+        ]
+
+
+def mark_notifications_delivered(
+    notification_ids,
+):
+    if not notification_ids:
+        return 0
+
+    delivered_at = utc_now()
+
+    placeholders = ",".join(
+        "?"
+        for _ in notification_ids
+    )
+
+    query = f"""
+        UPDATE notification_events
+
+        SET delivered_at = ?
+
+        WHERE id IN ({placeholders})
+        AND delivered_at IS NULL
+    """
+
+    values = [
+        delivered_at,
+        *notification_ids,
+    ]
+
+    with connect() as conn:
+        cursor = conn.execute(
+            query,
+            values,
+        )
+
+        return cursor.rowcount

@@ -5,15 +5,18 @@ import argparse
 
 from pathlib import Path
 
+from services.alerts import (
+    build_notifications,
+)
+
 from services.storage import (
     initialize_database,
     start_crawl_run,
     finish_crawl_run,
     save_observed_listings,
-)
-
-from services.alerts import (
-    build_notifications,
+    enqueue_notifications,
+    get_pending_notifications,
+    mark_notifications_delivered,
 )
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -1522,7 +1525,15 @@ def parse_args():
     parser.add_argument(
         "--alerts-only",
         action="store_true",
-        help="Print only notification messages",
+        help="Print pending apartment alerts",
+    )
+
+    parser.add_argument(
+        "--mark-alerts-delivered",
+        nargs="+",
+        type=int,
+        metavar="ID",
+        help="Mark specific notification IDs as delivered",
     )
 
     return parser.parse_args()
@@ -1536,6 +1547,17 @@ def main():
     args = parse_args()
 
     initialize_database()
+
+    if args.mark_alerts_delivered:
+        count = mark_notifications_delivered(
+            args.mark_alerts_delivered
+        )
+
+        print(
+            f"MARKED_DELIVERED={count}"
+        )
+
+        return
 
     profile = load_profile()
 
@@ -1709,6 +1731,15 @@ def main():
         min_score=70,
     )
 
+    enqueue_notifications(
+        run_id,
+        notifications,
+    )
+
+    pending_notifications = (
+        get_pending_notifications()
+    )
+
     finish_crawl_run(
         run_id=run_id,
 
@@ -1732,12 +1763,12 @@ def main():
     # --------------------------------------------------------
 
     if args.alerts_only:
-        if not notifications:
+        if not pending_notifications:
             print("NO_ALERTS")
             return
 
         for index, notification in enumerate(
-            notifications
+            pending_notifications
         ):
             if index > 0:
                 print(
@@ -1745,6 +1776,10 @@ def main():
                     "--------------------"
                     "\n"
                 )
+
+            print(
+                f"[ALERT_ID={notification['id']}]"
+            )
 
             print(
                 notification["message"]
@@ -1771,8 +1806,11 @@ def main():
             "changes":
                 len(database_changes),
 
-            "notifications":
+            "notifications_created":
                 len(notifications),
+
+            "notifications_pending":
+                len(pending_notifications),
         },
 
         "crawl_errors":
@@ -1786,6 +1824,12 @@ def main():
 
         "matches":
             matches,
+
+        "notifications":
+            notifications,
+
+        "pending_notifications":
+            pending_notifications,
     }
 
     print(
