@@ -1,0 +1,18 @@
+{
+  "source": "suumo",
+  "source_listing_id": "000110367922",
+  "source_url": "https://suumo.jp/chintai/jnc_000110367922/",
+  "property": "ベルエポック中央林間",
+  "rent": 88000,
+  "management_fee": 2000,
+  "monthly_total": 90000,
+  "layout": "2DK",
+  "area_m2": 46.37,
+  "floor": 2,
+  "address": "神奈川県大和市中央林間西１",
+  "primary_station": "中央林間",
+  "station_walk_minutes": 13,
+  "building_age_estimate_years": 27,
+  "structure": "WOOD",
+  "orientation": "southwest"
+}

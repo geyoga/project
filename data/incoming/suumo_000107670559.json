@@ -1,0 +1,18 @@
+{
+  "source": "suumo",
+  "source_listing_id": "000107670559",
+  "source_url": "https://suumo.jp/chintai/jnc_000107670559/",
+  "property": "ヴェル・ドミール",
+  "rent": 109000,
+  "management_fee": 5000,
+  "monthly_total": 114000,
+  "layout": "2DK",
+  "area_m2": 51.03,
+  "floor": 4,
+  "address": "神奈川県大和市中央林間６",
+  "primary_station": "中央林間",
+  "station_walk_minutes": 5,
+  "building_age_estimate_years": 28,
+  "structure": "RC",
+  "orientation": "south"
+}

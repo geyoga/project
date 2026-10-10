@@ -1,0 +1,18 @@
+{
+  "source": "suumo",
+  "source_listing_id": "000109274590",
+  "source_url": "https://suumo.jp/chintai/jnc_000109274590/",
+  "property": "コーポレート中央林間1号棟",
+  "rent": 114000,
+  "management_fee": 6000,
+  "monthly_total": 120000,
+  "layout": "3LDK",
+  "area_m2": 63.08,
+  "floor": 2,
+  "address": "神奈川県大和市中央林間８",
+  "primary_station": "中央林間",
+  "station_walk_minutes": 9,
+  "building_age_estimate_years": 32,
+  "structure": "RC",
+  "orientation": "south"
+}

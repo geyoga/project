@@ -1,0 +1,18 @@
+{
+  "source": "suumo",
+  "source_listing_id": "000110367923",
+  "source_url": "https://suumo.jp/chintai/jnc_000110367923/",
+  "property": "恵ハイツ",
+  "rent": 59000,
+  "management_fee": 3000,
+  "monthly_total": 62000,
+  "layout": "2DK",
+  "area_m2": 35.28,
+  "floor": 1,
+  "address": "神奈川県大和市中央林間西１",
+  "primary_station": "中央林間",
+  "station_walk_minutes": 13,
+  "building_age_estimate_years": 41,
+  "structure": "WOOD",
+  "orientation": "northeast"
+}

@@ -25,19 +25,14 @@
   "stats": {
     "areas_requested": 5,
     "areas_failed": 0,
-    "rooms_found": 22,
-    "rooms_matching": 14,
-    "changes": 1,
+    "rooms_found": 33,
+    "rooms_matching": 27,
+    "changes": 0,
     "notifications_created": 0,
     "notifications_pending": 0
   },
   "crawl_errors": [],
-  "changes": [
-    {
-      "type": "new",
-      "listing_id": "suumo:000109951702"
-    }
-  ],
+  "changes": [],
   "notifications": [],
   "matches": [
     {
@@ -234,21 +229,22 @@
         "initial_cost": 90,
         "foreigner_friendly": 100
       },
-      "score": 70.0
+      "score": 70.0,
+      "listing_fingerprint": "3e73d3046753d4c46ae9"
     },
     {
       "source": "ur",
-      "source_url": "https://www.ur-net.go.jp/chintai/sp/kanto/kanagawa/40_1410_room.html",
-      "property": "奈良北",
-      "room": "9号棟 201号室",
-      "rent": 67000,
-      "management_fee": 2900,
-      "monthly_total": 69900,
-      "layout": "2DK",
-      "area_m2": 41.0,
-      "floor": "2階",
+      "source_url": "https://www.ur-net.go.jp/chintai/sp/kanto/kanagawa/40_2030_room.html",
+      "property": "霧が丘グリーンタウン",
+      "room": "22-13号棟 102号室",
+      "rent": 91400,
+      "management_fee": 5000,
+      "monthly_total": 96400,
+      "layout": "3DK",
+      "area_m2": 65.0,
+      "floor": "1階",
       "shisya": "40",
-      "danchi": "141",
+      "danchi": "203",
       "shikibetu": "0",
       "orientation": null,
       "elevator": null,
@@ -279,8 +275,205 @@
         "source": "ur_api",
         "confidence": "explicit_only"
       },
-      "area_code": "117",
-      "property_key": "40_141",
+      "area_code": "113",
+      "property_key": "40_203",
+      "primary_station": "青葉台",
+      "access_type": "bus",
+      "bus_minutes": 19,
+      "station_walk_minutes": 4,
+      "train_line": "Tokyu Den-en-toshi Line",
+      "surroundings": {
+        "supermarket": {
+          "name": "MEGAドン・キホーテ",
+          "straight_line_distance_m": 448,
+          "latitude": 35.5165685,
+          "longitude": 139.5017681,
+          "walking_distance_m": 706,
+          "walking_minutes": 9,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "convenience_store": {
+          "name": "ローソン",
+          "straight_line_distance_m": 619,
+          "latitude": 35.5193881,
+          "longitude": 139.5063206,
+          "walking_distance_m": 720,
+          "walking_minutes": 8,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "daycare": {
+          "name": "横浜市霧が丘保育園",
+          "straight_line_distance_m": 73,
+          "latitude": 35.514394,
+          "longitude": 139.505935,
+          "walking_distance_m": 100,
+          "walking_minutes": 1,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "elementary_school": {
+          "name": "横浜市立義務教育学校霧が丘学園小学部",
+          "straight_line_distance_m": 264,
+          "latitude": 35.512087,
+          "longitude": 139.5073572,
+          "walking_distance_m": 475,
+          "walking_minutes": 6,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "clinic": {
+          "name": "きりが丘眼科",
+          "straight_line_distance_m": 175,
+          "latitude": 35.5137159,
+          "longitude": 139.5035164,
+          "walking_distance_m": 329,
+          "walking_minutes": 4,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "pediatric_clinic": {
+          "name": "ちはら小児クリニック",
+          "straight_line_distance_m": 479,
+          "latitude": 35.5178547,
+          "longitude": 139.503428,
+          "walking_distance_m": 689,
+          "walking_minutes": 8,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "hospital": {
+          "name": "横浜旭中央総合病院",
+          "straight_line_distance_m": 996,
+          "latitude": 35.5074308,
+          "longitude": 139.4977878,
+          "walking_distance_m": 1320,
+          "walking_minutes": 17,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "park": {
+          "name": "霧が池公園",
+          "straight_line_distance_m": 116,
+          "latitude": 35.5130523,
+          "longitude": 139.5046382,
+          "walking_distance_m": 177,
+          "walking_minutes": 2,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "pharmacy": {
+          "name": "霧が丘薬局",
+          "straight_line_distance_m": 102,
+          "latitude": 35.513504,
+          "longitude": 139.5044081,
+          "walking_distance_m": 101,
+          "walking_minutes": 1,
+          "routing_source": "Valhalla/OpenStreetMap"
+        }
+      },
+      "floor_number": 1,
+      "structure": "・駐車場などを見る",
+      "structure_raw": "・駐車場などを見る",
+      "building_age_min_years": 39,
+      "building_age_max_years": 45,
+      "building_age_estimate_years": 42,
+      "management_age_raw": "39年～45年",
+      "address": "横浜市緑区霧が丘3-22-5ほか",
+      "property_url": "https://www.ur-net.go.jp/chintai/kanto/kanagawa/40_2030.html",
+      "coordinates": {
+        "latitude": 35.5138716,
+        "longitude": 139.5054398,
+        "geocoded_name": "霧が丘グリーンタウン, 緑区, 横浜市, 神奈川県, 231-0017, 日本"
+      },
+      "surroundings_source": "OpenStreetMap",
+      "surroundings_distance_type": "straight_line",
+      "train_commute_minutes": 23,
+      "transfers": 0,
+      "direct_train": true,
+      "total_commute_minutes": 46,
+      "commute_source": "static_fallback",
+      "initial_cost": {
+        "deposit": 182800,
+        "deposit_months": 2,
+        "key_money": 0,
+        "agency_fee": 0,
+        "guarantor_fee": 0,
+        "estimated_prorated_rent_and_fee": 48200,
+        "estimated_total": 231000,
+        "estimated_min": 186013,
+        "estimated_max": 279200,
+        "currency": "JPY",
+        "estimate_only": true
+      },
+      "foreigner_friendly": {
+        "score": 100,
+        "status": "high",
+        "evidence": [
+          "foreign_nationals_explicitly_accepted",
+          "no_guarantor_required",
+          "english_guidance_available"
+        ],
+        "notes": "Applicant still needs to satisfy applicable UR residence-status and income requirements."
+      },
+      "score_breakdown": {
+        "budget": 78.6,
+        "commute": 70,
+        "space": 100,
+        "layout": 90,
+        "floor": 70,
+        "building_age": 20,
+        "structure": 50,
+        "facilities": 50,
+        "orientation": 50,
+        "elevator": 50,
+        "bike_parking": 50,
+        "gas": 50,
+        "surroundings": 92.7,
+        "initial_cost": 90,
+        "foreigner_friendly": 100
+      },
+      "score": 69.4,
+      "listing_fingerprint": "42e2e742e9c21bab8e77"
+    },
+    {
+      "source": "ur",
+      "source_url": "https://www.ur-net.go.jp/chintai/sp/kanto/kanagawa/40_1240_room.html",
+      "property": "上和田",
+      "room": "2-3号棟 301号室",
+      "rent": 62600,
+      "management_fee": 3100,
+      "monthly_total": 65700,
+      "layout": "3DK",
+      "area_m2": 53.0,
+      "floor": "3階",
+      "shisya": "40",
+      "danchi": "124",
+      "shikibetu": "0",
+      "orientation": null,
+      "elevator": null,
+      "balcony": null,
+      "storage": {
+        "available": null,
+        "walk_in_closet": null,
+        "shoe_box": null,
+        "shoe_walk_in_closet": null,
+        "trunk_room": null,
+        "oshiire": null
+      },
+      "bath_toilet_separate": null,
+      "washing_machine_inside": null,
+      "bidet": null,
+      "air_conditioner": null,
+      "bike_parking": null,
+      "bathroom_dryer": null,
+      "reheating_bath": null,
+      "independent_washbasin": null,
+      "monitor_intercom": null,
+      "delivery_box": null,
+      "gas_type": null,
+      "internet_type": null,
+      "internet_available": null,
+      "ftth": null,
+      "facility_detection": {
+        "source": "ur_api",
+        "confidence": "explicit_only"
+      },
+      "area_code": "213",
+      "property_key": "40_124",
       "primary_station": null,
       "access_type": null,
       "bus_minutes": null,
@@ -288,100 +481,100 @@
       "train_line": null,
       "surroundings": {
         "supermarket": {
-          "name": null,
-          "straight_line_distance_m": null,
-          "walking_distance_m": null,
-          "walking_minutes": null,
-          "latitude": null,
-          "longitude": null,
-          "routing_source": null
+          "name": "まいばすけっと",
+          "straight_line_distance_m": 757,
+          "latitude": 35.4513735,
+          "longitude": 139.4670912,
+          "walking_distance_m": 1090,
+          "walking_minutes": 13,
+          "routing_source": "Valhalla/OpenStreetMap"
         },
         "convenience_store": {
-          "name": null,
-          "straight_line_distance_m": null,
-          "walking_distance_m": null,
-          "walking_minutes": null,
-          "latitude": null,
-          "longitude": null,
-          "routing_source": null
+          "name": "セブン-イレブン",
+          "straight_line_distance_m": 250,
+          "latitude": 35.4490763,
+          "longitude": 139.4743138,
+          "walking_distance_m": 275,
+          "walking_minutes": 3,
+          "routing_source": "Valhalla/OpenStreetMap"
         },
         "daycare": {
-          "name": "深川保育所",
-          "straight_line_distance_m": 660,
-          "latitude": 34.647292,
-          "longitude": 135.982204,
-          "walking_distance_m": 574,
-          "walking_minutes": 6,
+          "name": "はひふへほいくえん",
+          "straight_line_distance_m": 597,
+          "latitude": 35.4469914,
+          "longitude": 139.4668527,
+          "walking_distance_m": 1274,
+          "walking_minutes": 16,
           "routing_source": "Valhalla/OpenStreetMap"
         },
         "elementary_school": {
-          "name": null,
-          "straight_line_distance_m": null,
-          "walking_distance_m": null,
-          "walking_minutes": null,
-          "latitude": null,
-          "longitude": null,
-          "routing_source": null
+          "name": "大和市立上和田小学校",
+          "straight_line_distance_m": 734,
+          "latitude": 35.441062,
+          "longitude": 139.4697812,
+          "walking_distance_m": 1242,
+          "walking_minutes": 15,
+          "routing_source": "Valhalla/OpenStreetMap"
         },
         "clinic": {
-          "name": null,
-          "straight_line_distance_m": null,
-          "walking_distance_m": null,
-          "walking_minutes": null,
-          "latitude": null,
-          "longitude": null,
-          "routing_source": null
+          "name": "石垣内科小児科医院",
+          "straight_line_distance_m": 401,
+          "latitude": 35.4480272,
+          "longitude": 139.4692194,
+          "walking_distance_m": 1032,
+          "walking_minutes": 12,
+          "routing_source": "Valhalla/OpenStreetMap"
         },
         "pediatric_clinic": {
-          "name": null,
-          "straight_line_distance_m": null,
-          "walking_distance_m": null,
-          "walking_minutes": null,
-          "latitude": null,
-          "longitude": null,
-          "routing_source": null
+          "name": "石垣内科小児科医院",
+          "straight_line_distance_m": 401,
+          "latitude": 35.4480272,
+          "longitude": 139.4692194,
+          "walking_distance_m": 1032,
+          "walking_minutes": 12,
+          "routing_source": "Valhalla/OpenStreetMap"
         },
         "hospital": {
-          "name": null,
-          "straight_line_distance_m": null,
-          "walking_distance_m": null,
-          "walking_minutes": null,
-          "latitude": null,
-          "longitude": null,
-          "routing_source": null
+          "name": "桜ヶ丘中央病院",
+          "straight_line_distance_m": 930,
+          "latitude": 35.4514204,
+          "longitude": 139.4647746,
+          "walking_distance_m": 1350,
+          "walking_minutes": 17,
+          "routing_source": "Valhalla/OpenStreetMap"
         },
         "park": {
-          "name": "フォレストパーク神野山",
-          "straight_line_distance_m": 3298,
-          "latitude": 34.6699256,
-          "longitude": 135.9995318,
-          "walking_distance_m": 5844,
-          "walking_minutes": 93,
+          "name": "緑の広場9号",
+          "straight_line_distance_m": 336,
+          "latitude": 35.4462143,
+          "longitude": 139.4698491,
+          "walking_distance_m": 860,
+          "walking_minutes": 10,
           "routing_source": "Valhalla/OpenStreetMap"
         },
         "pharmacy": {
-          "name": null,
-          "straight_line_distance_m": null,
-          "walking_distance_m": null,
-          "walking_minutes": null,
-          "latitude": null,
-          "longitude": null,
-          "routing_source": null
+          "name": "クリエイト エス・ディー",
+          "straight_line_distance_m": 589,
+          "latitude": 35.4461859,
+          "longitude": 139.4670104,
+          "walking_distance_m": 1363,
+          "walking_minutes": 17,
+          "routing_source": "Valhalla/OpenStreetMap"
         }
       },
-      "floor_number": 2,
+      "floor_number": 3,
       "structure": "・駐車場などを見る",
       "structure_raw": "・駐車場などを見る",
-      "building_age_min_years": 54,
-      "building_age_max_years": 55,
-      "building_age_estimate_years": 54,
-      "management_age_raw": "54年～55年",
-      "address": "横浜市青葉区奈良町2913",
-      "property_url": "https://www.ur-net.go.jp/chintai/kanto/kanagawa/40_1410.html",
+      "building_age_min_years": 57,
+      "building_age_max_years": 57,
+      "building_age_estimate_years": 57,
+      "management_age_raw": "57年",
+      "address": "大和市上和田2412",
+      "property_url": "https://www.ur-net.go.jp/chintai/kanto/kanagawa/40_1240.html",
       "coordinates": {
-        "latitude": 34.6481398,
-        "longitude": 135.9750591,
-        "geocoded_name": "奈良若草カントリー倶楽部, 北野吐山線, 上深川町, 奈良市, 奈良県, 632-0199, 日本"
+        "latitude": 35.4469459,
+        "longitude": 139.4734456,
+        "geocoded_name": "上和田, 大和市, 神奈川県, 242-0014, 日本"
       },
       "surroundings_source": "OpenStreetMap",
       "surroundings_distance_type": "straight_line",
@@ -391,15 +584,15 @@
       "total_commute_minutes": null,
       "commute_source": null,
       "initial_cost": {
-        "deposit": 134000,
+        "deposit": 125200,
         "deposit_months": 2,
         "key_money": 0,
         "agency_fee": 0,
         "guarantor_fee": 0,
-        "estimated_prorated_rent_and_fee": 34950,
-        "estimated_total": 168950,
-        "estimated_min": 136330,
-        "estimated_max": 203900,
+        "estimated_prorated_rent_and_fee": 32850,
+        "estimated_total": 158050,
+        "estimated_min": 127390,
+        "estimated_max": 190900,
         "currency": "JPY",
         "estimate_only": true
       },
@@ -416,9 +609,9 @@
       "score_breakdown": {
         "budget": 100,
         "commute": 45,
-        "space": 69.0,
-        "layout": 70,
-        "floor": 100,
+        "space": 87.0,
+        "layout": 90,
+        "floor": 85,
         "building_age": 20,
         "structure": 50,
         "facilities": 50,
@@ -426,11 +619,167 @@
         "elevator": 50,
         "bike_parking": 50,
         "gas": 50,
-        "surroundings": 59.4,
+        "surroundings": 61.1,
         "initial_cost": 100,
         "foreigner_friendly": 100
       },
-      "score": 64.6
+      "score": 66.3,
+      "listing_fingerprint": "6b48d2ee64115417ef94"
+    },
+    {
+      "source": "suumo",
+      "source_listing_id": "000033424244",
+      "source_url": "https://suumo.jp/chintai/jnc_000033424244/",
+      "property": "プリンスコート 201号室",
+      "rent": 67000,
+      "management_fee": 3000,
+      "monthly_total": 70000,
+      "layout": "2DK",
+      "area_m2": 39.54,
+      "floor": "2階",
+      "address": "神奈川県大和市中央林間６",
+      "primary_station": null,
+      "station_walk_minutes": null,
+      "building_age_estimate_years": 39,
+      "structure": "STEEL",
+      "orientation": "south",
+      "floor_number": 2,
+      "access_type": null,
+      "train_line": null,
+      "shisya": null,
+      "danchi": null,
+      "shikibetu": null,
+      "area_code": null,
+      "facilities": {},
+      "foreigner_friendly": {
+        "score": 40,
+        "status": "unknown",
+        "evidence": [],
+        "notes": "Foreigner acceptance has not been verified."
+      },
+      "initial_cost": {
+        "estimated_total": null,
+        "estimate_only": true,
+        "source": "suumo"
+      },
+      "_incoming_file": "/home/coder/project/data/incoming/suumo_000033424244.json",
+      "property_key": "None_None",
+      "bus_minutes": null,
+      "surroundings": {
+        "supermarket": {
+          "name": "イオン",
+          "straight_line_distance_m": 456,
+          "latitude": 35.5023792,
+          "longitude": 139.4571393,
+          "walking_distance_m": 497,
+          "walking_minutes": 6,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "convenience_store": {
+          "name": "ローソン",
+          "straight_line_distance_m": 572,
+          "latitude": 35.5013449,
+          "longitude": 139.4535563,
+          "walking_distance_m": 690,
+          "walking_minutes": 9,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "daycare": {
+          "name": "Unnamed",
+          "straight_line_distance_m": 54,
+          "latitude": 35.4989906,
+          "longitude": 139.4587001,
+          "walking_distance_m": 42,
+          "walking_minutes": 1,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "elementary_school": {
+          "name": "大和市立林間小学校",
+          "straight_line_distance_m": 869,
+          "latitude": 35.4966016,
+          "longitude": 139.4495267,
+          "walking_distance_m": 981,
+          "walking_minutes": 12,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "clinic": {
+          "name": "つきみ野おなかと内科のクリニック",
+          "straight_line_distance_m": 496,
+          "latitude": 35.5026406,
+          "longitude": 139.4567424,
+          "walking_distance_m": 510,
+          "walking_minutes": 6,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "pediatric_clinic": {
+          "name": "なかむら小児科アレルギー科",
+          "straight_line_distance_m": 1030,
+          "latitude": 35.4905087,
+          "longitude": 139.4531305,
+          "walking_distance_m": 1246,
+          "walking_minutes": 15,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "hospital": {
+          "name": "大和市地域医療センター",
+          "straight_line_distance_m": 1013,
+          "latitude": 35.4898079,
+          "longitude": 139.4555539,
+          "walking_distance_m": 1195,
+          "walking_minutes": 14,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "park": {
+          "name": "坂上公園",
+          "straight_line_distance_m": 231,
+          "latitude": 35.500404,
+          "longitude": 139.4577576,
+          "walking_distance_m": 236,
+          "walking_minutes": 3,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "pharmacy": {
+          "name": "そうごう薬局",
+          "straight_line_distance_m": 505,
+          "latitude": 35.5026258,
+          "longitude": 139.4564586,
+          "walking_distance_m": 510,
+          "walking_minutes": 6,
+          "routing_source": "Valhalla/OpenStreetMap"
+        }
+      },
+      "storage": {},
+      "coordinates": {
+        "latitude": 35.4985197,
+        "longitude": 139.4588337,
+        "geocoded_name": "下鶴間, 大和市, 神奈川県, 242-0001, 日本"
+      },
+      "surroundings_source": "OpenStreetMap",
+      "surroundings_distance_type": "straight_line",
+      "train_commute_minutes": null,
+      "transfers": null,
+      "direct_train": null,
+      "total_commute_minutes": null,
+      "commute_source": null,
+      "score_breakdown": {
+        "budget": 100,
+        "commute": 45,
+        "space": 66.8,
+        "layout": 70,
+        "floor": 100,
+        "building_age": 35,
+        "structure": 65,
+        "facilities": 50,
+        "orientation": 100,
+        "elevator": 50,
+        "bike_parking": 50,
+        "gas": 50,
+        "surroundings": 83.7,
+        "initial_cost": 50,
+        "foreigner_friendly": 40
+      },
+      "score": 64.7,
+      "listing_fingerprint": "73ba398b6e8e39e22f82"
     },
     {
       "source": "ur",
@@ -626,7 +975,8 @@
         "initial_cost": 100,
         "foreigner_friendly": 100
       },
-      "score": 64.2
+      "score": 64.2,
+      "listing_fingerprint": "677b869ee4a80381b86c"
     },
     {
       "source": "ur",
@@ -822,7 +1172,163 @@
         "initial_cost": 100,
         "foreigner_friendly": 100
       },
-      "score": 64.2
+      "score": 64.2,
+      "listing_fingerprint": "0ef048cd5b566b0bfe04"
+    },
+    {
+      "source": "suumo",
+      "source_listing_id": "000109266728",
+      "source_url": "https://suumo.jp/chintai/jnc_000109266728/",
+      "property": "ラークスクエアII",
+      "rent": 105000,
+      "management_fee": 7000,
+      "monthly_total": 112000,
+      "layout": "2LDK",
+      "area_m2": 49.5,
+      "floor": "2階",
+      "address": "神奈川県大和市中央林間８",
+      "primary_station": null,
+      "station_walk_minutes": null,
+      "building_age_estimate_years": 0,
+      "structure": "STEEL",
+      "orientation": "south",
+      "floor_number": 2,
+      "access_type": null,
+      "train_line": null,
+      "shisya": null,
+      "danchi": null,
+      "shikibetu": null,
+      "area_code": null,
+      "facilities": {},
+      "foreigner_friendly": {
+        "score": 40,
+        "status": "unknown",
+        "evidence": [],
+        "notes": "Foreigner acceptance has not been verified."
+      },
+      "initial_cost": {
+        "estimated_total": null,
+        "estimate_only": true,
+        "source": "suumo"
+      },
+      "_incoming_file": "/home/coder/project/data/incoming/suumo_000109266728.json",
+      "property_key": "None_None",
+      "bus_minutes": null,
+      "surroundings": {
+        "supermarket": {
+          "name": "イオン",
+          "straight_line_distance_m": 456,
+          "latitude": 35.5023792,
+          "longitude": 139.4571393,
+          "walking_distance_m": 497,
+          "walking_minutes": 6,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "convenience_store": {
+          "name": "ローソン",
+          "straight_line_distance_m": 572,
+          "latitude": 35.5013449,
+          "longitude": 139.4535563,
+          "walking_distance_m": 690,
+          "walking_minutes": 9,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "daycare": {
+          "name": "Unnamed",
+          "straight_line_distance_m": 54,
+          "latitude": 35.4989906,
+          "longitude": 139.4587001,
+          "walking_distance_m": 42,
+          "walking_minutes": 1,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "elementary_school": {
+          "name": "大和市立林間小学校",
+          "straight_line_distance_m": 869,
+          "latitude": 35.4966016,
+          "longitude": 139.4495267,
+          "walking_distance_m": 981,
+          "walking_minutes": 12,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "clinic": {
+          "name": "つきみ野おなかと内科のクリニック",
+          "straight_line_distance_m": 496,
+          "latitude": 35.5026406,
+          "longitude": 139.4567424,
+          "walking_distance_m": 510,
+          "walking_minutes": 6,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "pediatric_clinic": {
+          "name": "なかむら小児科アレルギー科",
+          "straight_line_distance_m": 1030,
+          "latitude": 35.4905087,
+          "longitude": 139.4531305,
+          "walking_distance_m": 1246,
+          "walking_minutes": 15,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "hospital": {
+          "name": "大和市地域医療センター",
+          "straight_line_distance_m": 1013,
+          "latitude": 35.4898079,
+          "longitude": 139.4555539,
+          "walking_distance_m": 1195,
+          "walking_minutes": 14,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "park": {
+          "name": "坂上公園",
+          "straight_line_distance_m": 231,
+          "latitude": 35.500404,
+          "longitude": 139.4577576,
+          "walking_distance_m": 236,
+          "walking_minutes": 3,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "pharmacy": {
+          "name": "そうごう薬局",
+          "straight_line_distance_m": 505,
+          "latitude": 35.5026258,
+          "longitude": 139.4564586,
+          "walking_distance_m": 510,
+          "walking_minutes": 6,
+          "routing_source": "Valhalla/OpenStreetMap"
+        }
+      },
+      "storage": {},
+      "coordinates": {
+        "latitude": 35.4985197,
+        "longitude": 139.4588337,
+        "geocoded_name": "下鶴間, 大和市, 神奈川県, 242-0001, 日本"
+      },
+      "surroundings_source": "OpenStreetMap",
+      "surroundings_distance_type": "straight_line",
+      "train_commute_minutes": null,
+      "transfers": null,
+      "direct_train": null,
+      "total_commute_minutes": null,
+      "commute_source": null,
+      "score_breakdown": {
+        "budget": 42.0,
+        "commute": 45,
+        "space": 81.8,
+        "layout": 90,
+        "floor": 100,
+        "building_age": 100,
+        "structure": 65,
+        "facilities": 50,
+        "orientation": 100,
+        "elevator": 50,
+        "bike_parking": 50,
+        "gas": 50,
+        "surroundings": 83.7,
+        "initial_cost": 50,
+        "foreigner_friendly": 40
+      },
+      "score": 64.1,
+      "listing_fingerprint": "5a75853ecaa04c0f2546"
     },
     {
       "source": "ur",
@@ -1018,7 +1524,8 @@
         "initial_cost": 100,
         "foreigner_friendly": 100
       },
-      "score": 63.9
+      "score": 63.9,
+      "listing_fingerprint": "2630ec1ed848b07031cc"
     },
     {
       "source": "ur",
@@ -1214,7 +1721,8 @@
         "initial_cost": 100,
         "foreigner_friendly": 100
       },
-      "score": 63.9
+      "score": 63.9,
+      "listing_fingerprint": "c5e258bf37f0ef750236"
     },
     {
       "source": "ur",
@@ -1410,7 +1918,360 @@
         "initial_cost": 100,
         "foreigner_friendly": 100
       },
-      "score": 63.9
+      "score": 63.9,
+      "listing_fingerprint": "b3a150ef51dba5866535"
+    },
+    {
+      "source": "suumo",
+      "source_listing_id": "000110322839",
+      "source_url": "https://suumo.jp/chintai/jnc_000110322839/",
+      "property": "アークヒルズつきみ野",
+      "rent": 73000,
+      "management_fee": 5000,
+      "monthly_total": 78000,
+      "layout": "2DK",
+      "area_m2": 41.85,
+      "floor": "3階",
+      "address": "神奈川県大和市下鶴間",
+      "primary_station": null,
+      "station_walk_minutes": null,
+      "building_age_estimate_years": 39,
+      "structure": "RC",
+      "orientation": "southwest",
+      "floor_number": 3,
+      "access_type": null,
+      "train_line": null,
+      "shisya": null,
+      "danchi": null,
+      "shikibetu": null,
+      "area_code": null,
+      "facilities": {},
+      "foreigner_friendly": {
+        "score": 40,
+        "status": "unknown",
+        "evidence": [],
+        "notes": "Foreigner acceptance has not been verified."
+      },
+      "initial_cost": {
+        "estimated_total": null,
+        "estimate_only": true,
+        "source": "suumo"
+      },
+      "_incoming_file": "/home/coder/project/data/incoming/suumo_000110322839.json",
+      "property_key": "None_None",
+      "bus_minutes": null,
+      "surroundings": {
+        "supermarket": {
+          "name": "イオン",
+          "straight_line_distance_m": 456,
+          "latitude": 35.5023792,
+          "longitude": 139.4571393,
+          "walking_distance_m": 497,
+          "walking_minutes": 6,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "convenience_store": {
+          "name": "ローソン",
+          "straight_line_distance_m": 572,
+          "latitude": 35.5013449,
+          "longitude": 139.4535563,
+          "walking_distance_m": 690,
+          "walking_minutes": 9,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "daycare": {
+          "name": "Unnamed",
+          "straight_line_distance_m": 54,
+          "latitude": 35.4989906,
+          "longitude": 139.4587001,
+          "walking_distance_m": 42,
+          "walking_minutes": 1,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "elementary_school": {
+          "name": "大和市立林間小学校",
+          "straight_line_distance_m": 869,
+          "latitude": 35.4966016,
+          "longitude": 139.4495267,
+          "walking_distance_m": 981,
+          "walking_minutes": 12,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "clinic": {
+          "name": "つきみ野おなかと内科のクリニック",
+          "straight_line_distance_m": 496,
+          "latitude": 35.5026406,
+          "longitude": 139.4567424,
+          "walking_distance_m": 510,
+          "walking_minutes": 6,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "pediatric_clinic": {
+          "name": "なかむら小児科アレルギー科",
+          "straight_line_distance_m": 1030,
+          "latitude": 35.4905087,
+          "longitude": 139.4531305,
+          "walking_distance_m": 1246,
+          "walking_minutes": 15,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "hospital": {
+          "name": "大和市地域医療センター",
+          "straight_line_distance_m": 1013,
+          "latitude": 35.4898079,
+          "longitude": 139.4555539,
+          "walking_distance_m": 1195,
+          "walking_minutes": 14,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "park": {
+          "name": "坂上公園",
+          "straight_line_distance_m": 231,
+          "latitude": 35.500404,
+          "longitude": 139.4577576,
+          "walking_distance_m": 236,
+          "walking_minutes": 3,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "pharmacy": {
+          "name": "そうごう薬局",
+          "straight_line_distance_m": 505,
+          "latitude": 35.5026258,
+          "longitude": 139.4564586,
+          "walking_distance_m": 510,
+          "walking_minutes": 6,
+          "routing_source": "Valhalla/OpenStreetMap"
+        }
+      },
+      "storage": {},
+      "coordinates": {
+        "latitude": 35.4985197,
+        "longitude": 139.4588337,
+        "geocoded_name": "下鶴間, 大和市, 神奈川県, 242-0001, 日本"
+      },
+      "surroundings_source": "OpenStreetMap",
+      "surroundings_distance_type": "straight_line",
+      "train_commute_minutes": null,
+      "transfers": null,
+      "direct_train": null,
+      "total_commute_minutes": null,
+      "commute_source": null,
+      "score_breakdown": {
+        "budget": 97.0,
+        "commute": 45,
+        "space": 70.3,
+        "layout": 70,
+        "floor": 85,
+        "building_age": 35,
+        "structure": 95,
+        "facilities": 50,
+        "orientation": 50,
+        "elevator": 50,
+        "bike_parking": 50,
+        "gas": 50,
+        "surroundings": 83.7,
+        "initial_cost": 50,
+        "foreigner_friendly": 40
+      },
+      "score": 63.6,
+      "listing_fingerprint": "7260649fbfb9ce73b7cc"
+    },
+    {
+      "source": "ur",
+      "source_url": "https://www.ur-net.go.jp/chintai/sp/kanto/kanagawa/40_2030_room.html",
+      "property": "霧が丘グリーンタウン",
+      "room": "24-5号棟 407号室",
+      "rent": 109400,
+      "management_fee": 5000,
+      "monthly_total": 114400,
+      "layout": "3LDK",
+      "area_m2": 84.0,
+      "floor": "4階",
+      "shisya": "40",
+      "danchi": "203",
+      "shikibetu": "0",
+      "orientation": null,
+      "elevator": null,
+      "balcony": null,
+      "storage": {
+        "available": null,
+        "walk_in_closet": null,
+        "shoe_box": null,
+        "shoe_walk_in_closet": null,
+        "trunk_room": null,
+        "oshiire": null
+      },
+      "bath_toilet_separate": null,
+      "washing_machine_inside": null,
+      "bidet": null,
+      "air_conditioner": null,
+      "bike_parking": null,
+      "bathroom_dryer": null,
+      "reheating_bath": null,
+      "independent_washbasin": null,
+      "monitor_intercom": null,
+      "delivery_box": null,
+      "gas_type": null,
+      "internet_type": null,
+      "internet_available": null,
+      "ftth": null,
+      "facility_detection": {
+        "source": "ur_api",
+        "confidence": "explicit_only"
+      },
+      "area_code": "113",
+      "property_key": "40_203",
+      "primary_station": "青葉台",
+      "access_type": "bus",
+      "bus_minutes": 19,
+      "station_walk_minutes": 4,
+      "train_line": "Tokyu Den-en-toshi Line",
+      "surroundings": {
+        "supermarket": {
+          "name": "MEGAドン・キホーテ",
+          "straight_line_distance_m": 448,
+          "latitude": 35.5165685,
+          "longitude": 139.5017681,
+          "walking_distance_m": 706,
+          "walking_minutes": 9,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "convenience_store": {
+          "name": "ローソン",
+          "straight_line_distance_m": 619,
+          "latitude": 35.5193881,
+          "longitude": 139.5063206,
+          "walking_distance_m": 720,
+          "walking_minutes": 8,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "daycare": {
+          "name": "横浜市霧が丘保育園",
+          "straight_line_distance_m": 73,
+          "latitude": 35.514394,
+          "longitude": 139.505935,
+          "walking_distance_m": 100,
+          "walking_minutes": 1,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "elementary_school": {
+          "name": "横浜市立義務教育学校霧が丘学園小学部",
+          "straight_line_distance_m": 264,
+          "latitude": 35.512087,
+          "longitude": 139.5073572,
+          "walking_distance_m": 475,
+          "walking_minutes": 6,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "clinic": {
+          "name": "きりが丘眼科",
+          "straight_line_distance_m": 175,
+          "latitude": 35.5137159,
+          "longitude": 139.5035164,
+          "walking_distance_m": 329,
+          "walking_minutes": 4,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "pediatric_clinic": {
+          "name": "ちはら小児クリニック",
+          "straight_line_distance_m": 479,
+          "latitude": 35.5178547,
+          "longitude": 139.503428,
+          "walking_distance_m": 689,
+          "walking_minutes": 8,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "hospital": {
+          "name": "横浜旭中央総合病院",
+          "straight_line_distance_m": 996,
+          "latitude": 35.5074308,
+          "longitude": 139.4977878,
+          "walking_distance_m": 1320,
+          "walking_minutes": 17,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "park": {
+          "name": "霧が池公園",
+          "straight_line_distance_m": 116,
+          "latitude": 35.5130523,
+          "longitude": 139.5046382,
+          "walking_distance_m": 177,
+          "walking_minutes": 2,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "pharmacy": {
+          "name": "霧が丘薬局",
+          "straight_line_distance_m": 102,
+          "latitude": 35.513504,
+          "longitude": 139.5044081,
+          "walking_distance_m": 101,
+          "walking_minutes": 1,
+          "routing_source": "Valhalla/OpenStreetMap"
+        }
+      },
+      "floor_number": 4,
+      "structure": "・駐車場などを見る",
+      "structure_raw": "・駐車場などを見る",
+      "building_age_min_years": 39,
+      "building_age_max_years": 45,
+      "building_age_estimate_years": 42,
+      "management_age_raw": "39年～45年",
+      "address": "横浜市緑区霧が丘3-22-5ほか",
+      "property_url": "https://www.ur-net.go.jp/chintai/kanto/kanagawa/40_2030.html",
+      "coordinates": {
+        "latitude": 35.5138716,
+        "longitude": 139.5054398,
+        "geocoded_name": "霧が丘グリーンタウン, 緑区, 横浜市, 神奈川県, 231-0017, 日本"
+      },
+      "surroundings_source": "OpenStreetMap",
+      "surroundings_distance_type": "straight_line",
+      "train_commute_minutes": 23,
+      "transfers": 0,
+      "direct_train": true,
+      "total_commute_minutes": 46,
+      "commute_source": "static_fallback",
+      "initial_cost": {
+        "deposit": 218800,
+        "deposit_months": 2,
+        "key_money": 0,
+        "agency_fee": 0,
+        "guarantor_fee": 0,
+        "estimated_prorated_rent_and_fee": 57200,
+        "estimated_total": 276000,
+        "estimated_min": 222613,
+        "estimated_max": 333200,
+        "currency": "JPY",
+        "estimate_only": true
+      },
+      "foreigner_friendly": {
+        "score": 100,
+        "status": "high",
+        "evidence": [
+          "foreign_nationals_explicitly_accepted",
+          "no_guarantor_required",
+          "english_guidance_available"
+        ],
+        "notes": "Applicant still needs to satisfy applicable UR residence-status and income requirements."
+      },
+      "score_breakdown": {
+        "budget": 35.4,
+        "commute": 70,
+        "space": 100,
+        "layout": 100,
+        "floor": 55,
+        "building_age": 20,
+        "structure": 50,
+        "facilities": 50,
+        "orientation": 50,
+        "elevator": 50,
+        "bike_parking": 50,
+        "gas": 50,
+        "surroundings": 92.7,
+        "initial_cost": 80,
+        "foreigner_friendly": 100
+      },
+      "score": 62.2,
+      "listing_fingerprint": "ede4dfe52a56f4313ea3"
     },
     {
       "source": "ur",
@@ -1606,7 +2467,318 @@
         "initial_cost": 80,
         "foreigner_friendly": 100
       },
-      "score": 61.9
+      "score": 61.9,
+      "listing_fingerprint": "1afe69e9127448b899a0"
+    },
+    {
+      "source": "suumo",
+      "source_listing_id": "000110367922",
+      "source_url": "https://suumo.jp/chintai/jnc_000110367922/",
+      "property": "ベルエポック中央林間",
+      "rent": 88000,
+      "management_fee": 2000,
+      "monthly_total": 90000,
+      "layout": "2DK",
+      "area_m2": 46.37,
+      "floor": "2階",
+      "address": "神奈川県大和市中央林間西１",
+      "primary_station": null,
+      "station_walk_minutes": null,
+      "building_age_estimate_years": 27,
+      "structure": "WOOD",
+      "orientation": "southwest",
+      "floor_number": 2,
+      "access_type": null,
+      "train_line": null,
+      "shisya": null,
+      "danchi": null,
+      "shikibetu": null,
+      "area_code": null,
+      "facilities": {},
+      "foreigner_friendly": {
+        "score": 40,
+        "status": "unknown",
+        "evidence": [],
+        "notes": "Foreigner acceptance has not been verified."
+      },
+      "initial_cost": {
+        "estimated_total": null,
+        "estimate_only": true,
+        "source": "suumo"
+      },
+      "_incoming_file": "/home/coder/project/data/incoming/suumo_000110367922.json",
+      "property_key": "None_None",
+      "bus_minutes": null,
+      "surroundings": {
+        "supermarket": {
+          "name": "イオン",
+          "straight_line_distance_m": 456,
+          "latitude": 35.5023792,
+          "longitude": 139.4571393,
+          "walking_distance_m": 497,
+          "walking_minutes": 6,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "convenience_store": {
+          "name": "ローソン",
+          "straight_line_distance_m": 572,
+          "latitude": 35.5013449,
+          "longitude": 139.4535563,
+          "walking_distance_m": 690,
+          "walking_minutes": 9,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "daycare": {
+          "name": "Unnamed",
+          "straight_line_distance_m": 54,
+          "latitude": 35.4989906,
+          "longitude": 139.4587001,
+          "walking_distance_m": 42,
+          "walking_minutes": 1,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "elementary_school": {
+          "name": "大和市立林間小学校",
+          "straight_line_distance_m": 869,
+          "latitude": 35.4966016,
+          "longitude": 139.4495267,
+          "walking_distance_m": 981,
+          "walking_minutes": 12,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "clinic": {
+          "name": "つきみ野おなかと内科のクリニック",
+          "straight_line_distance_m": 496,
+          "latitude": 35.5026406,
+          "longitude": 139.4567424,
+          "walking_distance_m": 510,
+          "walking_minutes": 6,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "pediatric_clinic": {
+          "name": "なかむら小児科アレルギー科",
+          "straight_line_distance_m": 1030,
+          "latitude": 35.4905087,
+          "longitude": 139.4531305,
+          "walking_distance_m": 1246,
+          "walking_minutes": 15,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "hospital": {
+          "name": "大和市地域医療センター",
+          "straight_line_distance_m": 1013,
+          "latitude": 35.4898079,
+          "longitude": 139.4555539,
+          "walking_distance_m": 1195,
+          "walking_minutes": 14,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "park": {
+          "name": "坂上公園",
+          "straight_line_distance_m": 231,
+          "latitude": 35.500404,
+          "longitude": 139.4577576,
+          "walking_distance_m": 236,
+          "walking_minutes": 3,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "pharmacy": {
+          "name": "そうごう薬局",
+          "straight_line_distance_m": 505,
+          "latitude": 35.5026258,
+          "longitude": 139.4564586,
+          "walking_distance_m": 510,
+          "walking_minutes": 6,
+          "routing_source": "Valhalla/OpenStreetMap"
+        }
+      },
+      "storage": {},
+      "coordinates": {
+        "latitude": 35.4985197,
+        "longitude": 139.4588337,
+        "geocoded_name": "下鶴間, 大和市, 神奈川県, 242-0001, 日本"
+      },
+      "surroundings_source": "OpenStreetMap",
+      "surroundings_distance_type": "straight_line",
+      "train_commute_minutes": null,
+      "transfers": null,
+      "direct_train": null,
+      "total_commute_minutes": null,
+      "commute_source": null,
+      "score_breakdown": {
+        "budget": 85.0,
+        "commute": 45,
+        "space": 77.1,
+        "layout": 70,
+        "floor": 100,
+        "building_age": 55,
+        "structure": 25,
+        "facilities": 50,
+        "orientation": 50,
+        "elevator": 50,
+        "bike_parking": 50,
+        "gas": 50,
+        "surroundings": 83.7,
+        "initial_cost": 50,
+        "foreigner_friendly": 40
+      },
+      "score": 61.5,
+      "listing_fingerprint": "e6bb3331123937f5748a"
+    },
+    {
+      "source": "suumo",
+      "source_listing_id": "000110376344",
+      "source_url": "https://suumo.jp/chintai/jnc_000110376344/",
+      "property": "ドミールＴ",
+      "rent": 115000,
+      "management_fee": 5000,
+      "monthly_total": 120000,
+      "layout": "2LDK",
+      "area_m2": 55.48,
+      "floor": "2階",
+      "address": "神奈川県大和市中央林間８",
+      "primary_station": null,
+      "station_walk_minutes": null,
+      "building_age_estimate_years": 0,
+      "structure": "STEEL",
+      "orientation": "south",
+      "floor_number": 2,
+      "access_type": null,
+      "train_line": null,
+      "shisya": null,
+      "danchi": null,
+      "shikibetu": null,
+      "area_code": null,
+      "facilities": {},
+      "foreigner_friendly": {
+        "score": 40,
+        "status": "unknown",
+        "evidence": [],
+        "notes": "Foreigner acceptance has not been verified."
+      },
+      "initial_cost": {
+        "estimated_total": null,
+        "estimate_only": true,
+        "source": "suumo"
+      },
+      "_incoming_file": "/home/coder/project/data/incoming/suumo_000110376344.json",
+      "property_key": "None_None",
+      "bus_minutes": null,
+      "surroundings": {
+        "supermarket": {
+          "name": "イオン",
+          "straight_line_distance_m": 456,
+          "latitude": 35.5023792,
+          "longitude": 139.4571393,
+          "walking_distance_m": 497,
+          "walking_minutes": 6,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "convenience_store": {
+          "name": "ローソン",
+          "straight_line_distance_m": 572,
+          "latitude": 35.5013449,
+          "longitude": 139.4535563,
+          "walking_distance_m": 690,
+          "walking_minutes": 9,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "daycare": {
+          "name": "Unnamed",
+          "straight_line_distance_m": 54,
+          "latitude": 35.4989906,
+          "longitude": 139.4587001,
+          "walking_distance_m": 42,
+          "walking_minutes": 1,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "elementary_school": {
+          "name": "大和市立林間小学校",
+          "straight_line_distance_m": 869,
+          "latitude": 35.4966016,
+          "longitude": 139.4495267,
+          "walking_distance_m": 981,
+          "walking_minutes": 12,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "clinic": {
+          "name": "つきみ野おなかと内科のクリニック",
+          "straight_line_distance_m": 496,
+          "latitude": 35.5026406,
+          "longitude": 139.4567424,
+          "walking_distance_m": 510,
+          "walking_minutes": 6,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "pediatric_clinic": {
+          "name": "なかむら小児科アレルギー科",
+          "straight_line_distance_m": 1030,
+          "latitude": 35.4905087,
+          "longitude": 139.4531305,
+          "walking_distance_m": 1246,
+          "walking_minutes": 15,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "hospital": {
+          "name": "大和市地域医療センター",
+          "straight_line_distance_m": 1013,
+          "latitude": 35.4898079,
+          "longitude": 139.4555539,
+          "walking_distance_m": 1195,
+          "walking_minutes": 14,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "park": {
+          "name": "坂上公園",
+          "straight_line_distance_m": 231,
+          "latitude": 35.500404,
+          "longitude": 139.4577576,
+          "walking_distance_m": 236,
+          "walking_minutes": 3,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "pharmacy": {
+          "name": "そうごう薬局",
+          "straight_line_distance_m": 505,
+          "latitude": 35.5026258,
+          "longitude": 139.4564586,
+          "walking_distance_m": 510,
+          "walking_minutes": 6,
+          "routing_source": "Valhalla/OpenStreetMap"
+        }
+      },
+      "storage": {},
+      "coordinates": {
+        "latitude": 35.4985197,
+        "longitude": 139.4588337,
+        "geocoded_name": "下鶴間, 大和市, 神奈川県, 242-0001, 日本"
+      },
+      "surroundings_source": "OpenStreetMap",
+      "surroundings_distance_type": "straight_line",
+      "train_commute_minutes": null,
+      "transfers": null,
+      "direct_train": null,
+      "total_commute_minutes": null,
+      "commute_source": null,
+      "score_breakdown": {
+        "budget": 20,
+        "commute": 45,
+        "space": 90.7,
+        "layout": 90,
+        "floor": 100,
+        "building_age": 100,
+        "structure": 65,
+        "facilities": 50,
+        "orientation": 100,
+        "elevator": 50,
+        "bike_parking": 50,
+        "gas": 50,
+        "surroundings": 83.7,
+        "initial_cost": 50,
+        "foreigner_friendly": 40
+      },
+      "score": 61.5,
+      "listing_fingerprint": "ba8edc749207c929c767"
     },
     {
       "source": "ur",
@@ -1802,7 +2974,8 @@
         "initial_cost": 100,
         "foreigner_friendly": 100
       },
-      "score": 61.3
+      "score": 61.3,
+      "listing_fingerprint": "e1453686c156fae88c14"
     },
     {
       "source": "ur",
@@ -1998,7 +3171,8 @@
         "initial_cost": 100,
         "foreigner_friendly": 100
       },
-      "score": 61.3
+      "score": 61.3,
+      "listing_fingerprint": "0b896cb931a52218f014"
     },
     {
       "source": "ur",
@@ -2194,7 +3368,8 @@
         "initial_cost": 90,
         "foreigner_friendly": 100
       },
-      "score": 61.1
+      "score": 61.1,
+      "listing_fingerprint": "5df9f1aee4342584178c"
     },
     {
       "source": "ur",
@@ -2390,7 +3565,8 @@
         "initial_cost": 90,
         "foreigner_friendly": 100
       },
-      "score": 60.3
+      "score": 60.3,
+      "listing_fingerprint": "4f800711021f38d76cce"
     },
     {
       "source": "ur",
@@ -2586,7 +3762,783 @@
         "initial_cost": 80,
         "foreigner_friendly": 100
       },
-      "score": 58.8
+      "score": 58.8,
+      "listing_fingerprint": "d4f8e0b5559d0275dae0"
+    },
+    {
+      "source": "suumo",
+      "source_listing_id": "000109274590",
+      "source_url": "https://suumo.jp/chintai/jnc_000109274590/",
+      "property": "コーポレート中央林間1号棟",
+      "rent": 114000,
+      "management_fee": 6000,
+      "monthly_total": 120000,
+      "layout": "3LDK",
+      "area_m2": 63.08,
+      "floor": "2階",
+      "address": "神奈川県大和市中央林間８",
+      "primary_station": null,
+      "station_walk_minutes": null,
+      "building_age_estimate_years": 32,
+      "structure": "RC",
+      "orientation": "south",
+      "floor_number": 2,
+      "access_type": null,
+      "train_line": null,
+      "shisya": null,
+      "danchi": null,
+      "shikibetu": null,
+      "area_code": null,
+      "facilities": {},
+      "foreigner_friendly": {
+        "score": 40,
+        "status": "unknown",
+        "evidence": [],
+        "notes": "Foreigner acceptance has not been verified."
+      },
+      "initial_cost": {
+        "estimated_total": null,
+        "estimate_only": true,
+        "source": "suumo"
+      },
+      "_incoming_file": "/home/coder/project/data/incoming/suumo_000109274590.json",
+      "property_key": "None_None",
+      "bus_minutes": null,
+      "surroundings": {
+        "supermarket": {
+          "name": "イオン",
+          "straight_line_distance_m": 456,
+          "latitude": 35.5023792,
+          "longitude": 139.4571393,
+          "walking_distance_m": 497,
+          "walking_minutes": 6,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "convenience_store": {
+          "name": "ローソン",
+          "straight_line_distance_m": 572,
+          "latitude": 35.5013449,
+          "longitude": 139.4535563,
+          "walking_distance_m": 690,
+          "walking_minutes": 9,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "daycare": {
+          "name": "Unnamed",
+          "straight_line_distance_m": 54,
+          "latitude": 35.4989906,
+          "longitude": 139.4587001,
+          "walking_distance_m": 42,
+          "walking_minutes": 1,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "elementary_school": {
+          "name": "大和市立林間小学校",
+          "straight_line_distance_m": 869,
+          "latitude": 35.4966016,
+          "longitude": 139.4495267,
+          "walking_distance_m": 981,
+          "walking_minutes": 12,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "clinic": {
+          "name": "つきみ野おなかと内科のクリニック",
+          "straight_line_distance_m": 496,
+          "latitude": 35.5026406,
+          "longitude": 139.4567424,
+          "walking_distance_m": 510,
+          "walking_minutes": 6,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "pediatric_clinic": {
+          "name": "なかむら小児科アレルギー科",
+          "straight_line_distance_m": 1030,
+          "latitude": 35.4905087,
+          "longitude": 139.4531305,
+          "walking_distance_m": 1246,
+          "walking_minutes": 15,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "hospital": {
+          "name": "大和市地域医療センター",
+          "straight_line_distance_m": 1013,
+          "latitude": 35.4898079,
+          "longitude": 139.4555539,
+          "walking_distance_m": 1195,
+          "walking_minutes": 14,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "park": {
+          "name": "坂上公園",
+          "straight_line_distance_m": 231,
+          "latitude": 35.500404,
+          "longitude": 139.4577576,
+          "walking_distance_m": 236,
+          "walking_minutes": 3,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "pharmacy": {
+          "name": "そうごう薬局",
+          "straight_line_distance_m": 505,
+          "latitude": 35.5026258,
+          "longitude": 139.4564586,
+          "walking_distance_m": 510,
+          "walking_minutes": 6,
+          "routing_source": "Valhalla/OpenStreetMap"
+        }
+      },
+      "storage": {},
+      "coordinates": {
+        "latitude": 35.4985197,
+        "longitude": 139.4588337,
+        "geocoded_name": "下鶴間, 大和市, 神奈川県, 242-0001, 日本"
+      },
+      "surroundings_source": "OpenStreetMap",
+      "surroundings_distance_type": "straight_line",
+      "train_commute_minutes": null,
+      "transfers": null,
+      "direct_train": null,
+      "total_commute_minutes": null,
+      "commute_source": null,
+      "score_breakdown": {
+        "budget": 20,
+        "commute": 45,
+        "space": 100,
+        "layout": 100,
+        "floor": 100,
+        "building_age": 35,
+        "structure": 95,
+        "facilities": 50,
+        "orientation": 100,
+        "elevator": 50,
+        "bike_parking": 50,
+        "gas": 50,
+        "surroundings": 83.7,
+        "initial_cost": 50,
+        "foreigner_friendly": 40
+      },
+      "score": 58.4,
+      "listing_fingerprint": "f3210a4d0777195fac89"
+    },
+    {
+      "source": "suumo",
+      "source_listing_id": "000110376345",
+      "source_url": "https://suumo.jp/chintai/jnc_000110376345/",
+      "property": "小田急江ノ島線 中央林間駅 9階建 築32年",
+      "rent": 114000,
+      "management_fee": 6000,
+      "monthly_total": 120000,
+      "layout": "3LDK",
+      "area_m2": 63.08,
+      "floor": "2階",
+      "address": "神奈川県大和市中央林間８",
+      "primary_station": null,
+      "station_walk_minutes": null,
+      "building_age_estimate_years": 32,
+      "structure": "RC",
+      "orientation": "south",
+      "floor_number": 2,
+      "access_type": null,
+      "train_line": null,
+      "shisya": null,
+      "danchi": null,
+      "shikibetu": null,
+      "area_code": null,
+      "facilities": {},
+      "foreigner_friendly": {
+        "score": 40,
+        "status": "unknown",
+        "evidence": [],
+        "notes": "Foreigner acceptance has not been verified."
+      },
+      "initial_cost": {
+        "estimated_total": null,
+        "estimate_only": true,
+        "source": "suumo"
+      },
+      "_incoming_file": "/home/coder/project/data/incoming/suumo_000110376345.json",
+      "property_key": "None_None",
+      "bus_minutes": null,
+      "surroundings": {
+        "supermarket": {
+          "name": "イオン",
+          "straight_line_distance_m": 456,
+          "latitude": 35.5023792,
+          "longitude": 139.4571393,
+          "walking_distance_m": 497,
+          "walking_minutes": 6,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "convenience_store": {
+          "name": "ローソン",
+          "straight_line_distance_m": 572,
+          "latitude": 35.5013449,
+          "longitude": 139.4535563,
+          "walking_distance_m": 690,
+          "walking_minutes": 9,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "daycare": {
+          "name": "Unnamed",
+          "straight_line_distance_m": 54,
+          "latitude": 35.4989906,
+          "longitude": 139.4587001,
+          "walking_distance_m": 42,
+          "walking_minutes": 1,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "elementary_school": {
+          "name": "大和市立林間小学校",
+          "straight_line_distance_m": 869,
+          "latitude": 35.4966016,
+          "longitude": 139.4495267,
+          "walking_distance_m": 981,
+          "walking_minutes": 12,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "clinic": {
+          "name": "つきみ野おなかと内科のクリニック",
+          "straight_line_distance_m": 496,
+          "latitude": 35.5026406,
+          "longitude": 139.4567424,
+          "walking_distance_m": 510,
+          "walking_minutes": 6,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "pediatric_clinic": {
+          "name": "なかむら小児科アレルギー科",
+          "straight_line_distance_m": 1030,
+          "latitude": 35.4905087,
+          "longitude": 139.4531305,
+          "walking_distance_m": 1246,
+          "walking_minutes": 15,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "hospital": {
+          "name": "大和市地域医療センター",
+          "straight_line_distance_m": 1013,
+          "latitude": 35.4898079,
+          "longitude": 139.4555539,
+          "walking_distance_m": 1195,
+          "walking_minutes": 14,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "park": {
+          "name": "坂上公園",
+          "straight_line_distance_m": 231,
+          "latitude": 35.500404,
+          "longitude": 139.4577576,
+          "walking_distance_m": 236,
+          "walking_minutes": 3,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "pharmacy": {
+          "name": "そうごう薬局",
+          "straight_line_distance_m": 505,
+          "latitude": 35.5026258,
+          "longitude": 139.4564586,
+          "walking_distance_m": 510,
+          "walking_minutes": 6,
+          "routing_source": "Valhalla/OpenStreetMap"
+        }
+      },
+      "storage": {},
+      "coordinates": {
+        "latitude": 35.4985197,
+        "longitude": 139.4588337,
+        "geocoded_name": "下鶴間, 大和市, 神奈川県, 242-0001, 日本"
+      },
+      "surroundings_source": "OpenStreetMap",
+      "surroundings_distance_type": "straight_line",
+      "train_commute_minutes": null,
+      "transfers": null,
+      "direct_train": null,
+      "total_commute_minutes": null,
+      "commute_source": null,
+      "score_breakdown": {
+        "budget": 20,
+        "commute": 45,
+        "space": 100,
+        "layout": 100,
+        "floor": 100,
+        "building_age": 35,
+        "structure": 95,
+        "facilities": 50,
+        "orientation": 100,
+        "elevator": 50,
+        "bike_parking": 50,
+        "gas": 50,
+        "surroundings": 83.7,
+        "initial_cost": 50,
+        "foreigner_friendly": 40
+      },
+      "score": 58.4,
+      "listing_fingerprint": "f3210a4d0777195fac89"
+    },
+    {
+      "source": "suumo",
+      "source_listing_id": "000105617277",
+      "source_url": "https://suumo.jp/chintai/jnc_000105617277/",
+      "property": "ブランハイツ長津田",
+      "rent": 89000,
+      "management_fee": 4000,
+      "monthly_total": 93000,
+      "layout": "3DK",
+      "area_m2": 56.06,
+      "floor": "5階",
+      "address": "神奈川県横浜市緑区長津田６",
+      "primary_station": null,
+      "station_walk_minutes": null,
+      "building_age_estimate_years": 41,
+      "structure": "プレコン",
+      "orientation": "southwest",
+      "floor_number": 5,
+      "access_type": null,
+      "train_line": null,
+      "shisya": null,
+      "danchi": null,
+      "shikibetu": null,
+      "area_code": null,
+      "facilities": {},
+      "foreigner_friendly": {
+        "score": 40,
+        "status": "unknown",
+        "evidence": [],
+        "notes": "Foreigner acceptance has not been verified."
+      },
+      "initial_cost": {
+        "estimated_total": null,
+        "estimate_only": true,
+        "source": "suumo"
+      },
+      "_incoming_file": "/home/coder/project/data/incoming/suumo_000105617277.json",
+      "property_key": "None_None",
+      "bus_minutes": null,
+      "surroundings": {
+        "supermarket": {
+          "name": "イオン",
+          "straight_line_distance_m": 456,
+          "latitude": 35.5023792,
+          "longitude": 139.4571393,
+          "walking_distance_m": 497,
+          "walking_minutes": 6,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "convenience_store": {
+          "name": "ローソン",
+          "straight_line_distance_m": 572,
+          "latitude": 35.5013449,
+          "longitude": 139.4535563,
+          "walking_distance_m": 690,
+          "walking_minutes": 9,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "daycare": {
+          "name": "Unnamed",
+          "straight_line_distance_m": 54,
+          "latitude": 35.4989906,
+          "longitude": 139.4587001,
+          "walking_distance_m": 42,
+          "walking_minutes": 1,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "elementary_school": {
+          "name": "大和市立林間小学校",
+          "straight_line_distance_m": 869,
+          "latitude": 35.4966016,
+          "longitude": 139.4495267,
+          "walking_distance_m": 981,
+          "walking_minutes": 12,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "clinic": {
+          "name": "つきみ野おなかと内科のクリニック",
+          "straight_line_distance_m": 496,
+          "latitude": 35.5026406,
+          "longitude": 139.4567424,
+          "walking_distance_m": 510,
+          "walking_minutes": 6,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "pediatric_clinic": {
+          "name": "なかむら小児科アレルギー科",
+          "straight_line_distance_m": 1030,
+          "latitude": 35.4905087,
+          "longitude": 139.4531305,
+          "walking_distance_m": 1246,
+          "walking_minutes": 15,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "hospital": {
+          "name": "大和市地域医療センター",
+          "straight_line_distance_m": 1013,
+          "latitude": 35.4898079,
+          "longitude": 139.4555539,
+          "walking_distance_m": 1195,
+          "walking_minutes": 14,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "park": {
+          "name": "坂上公園",
+          "straight_line_distance_m": 231,
+          "latitude": 35.500404,
+          "longitude": 139.4577576,
+          "walking_distance_m": 236,
+          "walking_minutes": 3,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "pharmacy": {
+          "name": "そうごう薬局",
+          "straight_line_distance_m": 505,
+          "latitude": 35.5026258,
+          "longitude": 139.4564586,
+          "walking_distance_m": 510,
+          "walking_minutes": 6,
+          "routing_source": "Valhalla/OpenStreetMap"
+        }
+      },
+      "storage": {},
+      "coordinates": {
+        "latitude": 35.4985197,
+        "longitude": 139.4588337,
+        "geocoded_name": "下鶴間, 大和市, 神奈川県, 242-0001, 日本"
+      },
+      "surroundings_source": "OpenStreetMap",
+      "surroundings_distance_type": "straight_line",
+      "train_commute_minutes": null,
+      "transfers": null,
+      "direct_train": null,
+      "total_commute_minutes": null,
+      "commute_source": null,
+      "score_breakdown": {
+        "budget": 82.0,
+        "commute": 45,
+        "space": 91.6,
+        "layout": 90,
+        "floor": 45,
+        "building_age": 20,
+        "structure": 50,
+        "facilities": 50,
+        "orientation": 50,
+        "elevator": 50,
+        "bike_parking": 50,
+        "gas": 50,
+        "surroundings": 83.7,
+        "initial_cost": 50,
+        "foreigner_friendly": 40
+      },
+      "score": 58.1,
+      "listing_fingerprint": "83c7155d3b2344c3f1fd"
+    },
+    {
+      "source": "suumo",
+      "source_listing_id": "000110367923",
+      "source_url": "https://suumo.jp/chintai/jnc_000110367923/",
+      "property": "恵ハイツ",
+      "rent": 59000,
+      "management_fee": 3000,
+      "monthly_total": 62000,
+      "layout": "2DK",
+      "area_m2": 35.28,
+      "floor": "1階",
+      "address": "神奈川県大和市中央林間西１",
+      "primary_station": null,
+      "station_walk_minutes": null,
+      "building_age_estimate_years": 41,
+      "structure": "WOOD",
+      "orientation": "northeast",
+      "floor_number": 1,
+      "access_type": null,
+      "train_line": null,
+      "shisya": null,
+      "danchi": null,
+      "shikibetu": null,
+      "area_code": null,
+      "facilities": {},
+      "foreigner_friendly": {
+        "score": 40,
+        "status": "unknown",
+        "evidence": [],
+        "notes": "Foreigner acceptance has not been verified."
+      },
+      "initial_cost": {
+        "estimated_total": null,
+        "estimate_only": true,
+        "source": "suumo"
+      },
+      "_incoming_file": "/home/coder/project/data/incoming/suumo_000110367923.json",
+      "property_key": "None_None",
+      "bus_minutes": null,
+      "surroundings": {
+        "supermarket": {
+          "name": "イオン",
+          "straight_line_distance_m": 456,
+          "latitude": 35.5023792,
+          "longitude": 139.4571393,
+          "walking_distance_m": 497,
+          "walking_minutes": 6,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "convenience_store": {
+          "name": "ローソン",
+          "straight_line_distance_m": 572,
+          "latitude": 35.5013449,
+          "longitude": 139.4535563,
+          "walking_distance_m": 690,
+          "walking_minutes": 9,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "daycare": {
+          "name": "Unnamed",
+          "straight_line_distance_m": 54,
+          "latitude": 35.4989906,
+          "longitude": 139.4587001,
+          "walking_distance_m": 42,
+          "walking_minutes": 1,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "elementary_school": {
+          "name": "大和市立林間小学校",
+          "straight_line_distance_m": 869,
+          "latitude": 35.4966016,
+          "longitude": 139.4495267,
+          "walking_distance_m": 981,
+          "walking_minutes": 12,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "clinic": {
+          "name": "つきみ野おなかと内科のクリニック",
+          "straight_line_distance_m": 496,
+          "latitude": 35.5026406,
+          "longitude": 139.4567424,
+          "walking_distance_m": 510,
+          "walking_minutes": 6,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "pediatric_clinic": {
+          "name": "なかむら小児科アレルギー科",
+          "straight_line_distance_m": 1030,
+          "latitude": 35.4905087,
+          "longitude": 139.4531305,
+          "walking_distance_m": 1246,
+          "walking_minutes": 15,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "hospital": {
+          "name": "大和市地域医療センター",
+          "straight_line_distance_m": 1013,
+          "latitude": 35.4898079,
+          "longitude": 139.4555539,
+          "walking_distance_m": 1195,
+          "walking_minutes": 14,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "park": {
+          "name": "坂上公園",
+          "straight_line_distance_m": 231,
+          "latitude": 35.500404,
+          "longitude": 139.4577576,
+          "walking_distance_m": 236,
+          "walking_minutes": 3,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "pharmacy": {
+          "name": "そうごう薬局",
+          "straight_line_distance_m": 505,
+          "latitude": 35.5026258,
+          "longitude": 139.4564586,
+          "walking_distance_m": 510,
+          "walking_minutes": 6,
+          "routing_source": "Valhalla/OpenStreetMap"
+        }
+      },
+      "storage": {},
+      "coordinates": {
+        "latitude": 35.4985197,
+        "longitude": 139.4588337,
+        "geocoded_name": "下鶴間, 大和市, 神奈川県, 242-0001, 日本"
+      },
+      "surroundings_source": "OpenStreetMap",
+      "surroundings_distance_type": "straight_line",
+      "train_commute_minutes": null,
+      "transfers": null,
+      "direct_train": null,
+      "total_commute_minutes": null,
+      "commute_source": null,
+      "score_breakdown": {
+        "budget": 100,
+        "commute": 45,
+        "space": 60.4,
+        "layout": 70,
+        "floor": 70,
+        "building_age": 20,
+        "structure": 25,
+        "facilities": 50,
+        "orientation": 50,
+        "elevator": 50,
+        "bike_parking": 50,
+        "gas": 50,
+        "surroundings": 83.7,
+        "initial_cost": 50,
+        "foreigner_friendly": 40
+      },
+      "score": 57.6,
+      "listing_fingerprint": "00278fb30645f1d1b626"
+    },
+    {
+      "source": "suumo",
+      "source_listing_id": "000107670559",
+      "source_url": "https://suumo.jp/chintai/jnc_000107670559/",
+      "property": "ヴェル・ドミール",
+      "rent": 109000,
+      "management_fee": 5000,
+      "monthly_total": 114000,
+      "layout": "2DK",
+      "area_m2": 51.03,
+      "floor": "4階",
+      "address": "神奈川県大和市中央林間６",
+      "primary_station": null,
+      "station_walk_minutes": null,
+      "building_age_estimate_years": 28,
+      "structure": "RC",
+      "orientation": "south",
+      "floor_number": 4,
+      "access_type": null,
+      "train_line": null,
+      "shisya": null,
+      "danchi": null,
+      "shikibetu": null,
+      "area_code": null,
+      "facilities": {},
+      "foreigner_friendly": {
+        "score": 40,
+        "status": "unknown",
+        "evidence": [],
+        "notes": "Foreigner acceptance has not been verified."
+      },
+      "initial_cost": {
+        "estimated_total": null,
+        "estimate_only": true,
+        "source": "suumo"
+      },
+      "_incoming_file": "/home/coder/project/data/incoming/suumo_000107670559.json",
+      "property_key": "None_None",
+      "bus_minutes": null,
+      "surroundings": {
+        "supermarket": {
+          "name": "イオン",
+          "straight_line_distance_m": 456,
+          "latitude": 35.5023792,
+          "longitude": 139.4571393,
+          "walking_distance_m": 497,
+          "walking_minutes": 6,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "convenience_store": {
+          "name": "ローソン",
+          "straight_line_distance_m": 572,
+          "latitude": 35.5013449,
+          "longitude": 139.4535563,
+          "walking_distance_m": 690,
+          "walking_minutes": 9,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "daycare": {
+          "name": "Unnamed",
+          "straight_line_distance_m": 54,
+          "latitude": 35.4989906,
+          "longitude": 139.4587001,
+          "walking_distance_m": 42,
+          "walking_minutes": 1,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "elementary_school": {
+          "name": "大和市立林間小学校",
+          "straight_line_distance_m": 869,
+          "latitude": 35.4966016,
+          "longitude": 139.4495267,
+          "walking_distance_m": 981,
+          "walking_minutes": 12,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "clinic": {
+          "name": "つきみ野おなかと内科のクリニック",
+          "straight_line_distance_m": 496,
+          "latitude": 35.5026406,
+          "longitude": 139.4567424,
+          "walking_distance_m": 510,
+          "walking_minutes": 6,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "pediatric_clinic": {
+          "name": "なかむら小児科アレルギー科",
+          "straight_line_distance_m": 1030,
+          "latitude": 35.4905087,
+          "longitude": 139.4531305,
+          "walking_distance_m": 1246,
+          "walking_minutes": 15,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "hospital": {
+          "name": "大和市地域医療センター",
+          "straight_line_distance_m": 1013,
+          "latitude": 35.4898079,
+          "longitude": 139.4555539,
+          "walking_distance_m": 1195,
+          "walking_minutes": 14,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "park": {
+          "name": "坂上公園",
+          "straight_line_distance_m": 231,
+          "latitude": 35.500404,
+          "longitude": 139.4577576,
+          "walking_distance_m": 236,
+          "walking_minutes": 3,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "pharmacy": {
+          "name": "そうごう薬局",
+          "straight_line_distance_m": 505,
+          "latitude": 35.5026258,
+          "longitude": 139.4564586,
+          "walking_distance_m": 510,
+          "walking_minutes": 6,
+          "routing_source": "Valhalla/OpenStreetMap"
+        }
+      },
+      "storage": {},
+      "coordinates": {
+        "latitude": 35.4985197,
+        "longitude": 139.4588337,
+        "geocoded_name": "下鶴間, 大和市, 神奈川県, 242-0001, 日本"
+      },
+      "surroundings_source": "OpenStreetMap",
+      "surroundings_distance_type": "straight_line",
+      "train_commute_minutes": null,
+      "transfers": null,
+      "direct_train": null,
+      "total_commute_minutes": null,
+      "commute_source": null,
+      "score_breakdown": {
+        "budget": 36.5,
+        "commute": 45,
+        "space": 84.0,
+        "layout": 70,
+        "floor": 55,
+        "building_age": 55,
+        "structure": 95,
+        "facilities": 50,
+        "orientation": 100,
+        "elevator": 50,
+        "bike_parking": 50,
+        "gas": 50,
+        "surroundings": 83.7,
+        "initial_cost": 50,
+        "foreigner_friendly": 40
+      },
+      "score": 57.0,
+      "listing_fingerprint": "b27898be5c22b5a58252"
     },
     {
       "source": "ur",
@@ -2694,7 +4646,205 @@
         "initial_cost": 80,
         "foreigner_friendly": 100
       },
-      "score": 56.9
+      "score": 56.9,
+      "listing_fingerprint": "49e7392a3df94eb44648"
+    },
+    {
+      "source": "ur",
+      "source_url": "https://www.ur-net.go.jp/chintai/sp/kanto/kanagawa/40_2980_room.html",
+      "property": "プラザシティ相模大野",
+      "room": "9号棟 905号室",
+      "rent": 112600,
+      "management_fee": 4090,
+      "monthly_total": 116690,
+      "layout": "2DK",
+      "area_m2": 47.0,
+      "floor": "9階",
+      "shisya": "40",
+      "danchi": "298",
+      "shikibetu": "0",
+      "orientation": null,
+      "elevator": null,
+      "balcony": null,
+      "storage": {
+        "available": null,
+        "walk_in_closet": null,
+        "shoe_box": null,
+        "shoe_walk_in_closet": null,
+        "trunk_room": null,
+        "oshiire": null
+      },
+      "bath_toilet_separate": null,
+      "washing_machine_inside": null,
+      "bidet": null,
+      "air_conditioner": null,
+      "bike_parking": null,
+      "bathroom_dryer": null,
+      "reheating_bath": null,
+      "independent_washbasin": null,
+      "monitor_intercom": null,
+      "delivery_box": null,
+      "gas_type": null,
+      "internet_type": null,
+      "internet_available": null,
+      "ftth": null,
+      "facility_detection": {
+        "source": "ur_api",
+        "confidence": "explicit_only"
+      },
+      "area_code": "153",
+      "property_key": "40_298",
+      "primary_station": null,
+      "access_type": null,
+      "bus_minutes": null,
+      "station_walk_minutes": null,
+      "train_line": null,
+      "surroundings": {
+        "supermarket": {
+          "name": "おおつぽや",
+          "straight_line_distance_m": 440,
+          "latitude": 35.5295061,
+          "longitude": 139.4276846,
+          "walking_distance_m": 669,
+          "walking_minutes": 8,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "convenience_store": {
+          "name": "ローソン・スリーエフ",
+          "straight_line_distance_m": 145,
+          "latitude": 35.5284503,
+          "longitude": 139.4306798,
+          "walking_distance_m": 312,
+          "walking_minutes": 4,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "daycare": {
+          "name": "ドラキッズ",
+          "straight_line_distance_m": 374,
+          "latitude": 35.5305291,
+          "longitude": 139.4345773,
+          "walking_distance_m": 482,
+          "walking_minutes": 6,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "elementary_school": {
+          "name": "相模原市立鶴の台小学校",
+          "straight_line_distance_m": 584,
+          "latitude": 35.5232584,
+          "longitude": 139.4289427,
+          "walking_distance_m": 762,
+          "walking_minutes": 9,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "clinic": {
+          "name": "サイト　レディース　クリニック",
+          "straight_line_distance_m": 167,
+          "latitude": 35.5266467,
+          "longitude": 139.4309816,
+          "walking_distance_m": 240,
+          "walking_minutes": 3,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "pediatric_clinic": {
+          "name": "おださが小児アレルギー科",
+          "straight_line_distance_m": 1639,
+          "latitude": 35.5158476,
+          "longitude": 139.4215702,
+          "walking_distance_m": 1907,
+          "walking_minutes": 23,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "hospital": {
+          "name": "さがみ生協病院",
+          "straight_line_distance_m": 250,
+          "latitude": 35.528135,
+          "longitude": 139.429356,
+          "walking_distance_m": 411,
+          "walking_minutes": 5,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "park": {
+          "name": "プラザシティ相模大野公園",
+          "straight_line_distance_m": 98,
+          "latitude": 35.5285964,
+          "longitude": 139.4315542,
+          "walking_distance_m": 291,
+          "walking_minutes": 4,
+          "routing_source": "Valhalla/OpenStreetMap"
+        },
+        "pharmacy": {
+          "name": "すばる薬局",
+          "straight_line_distance_m": 166,
+          "latitude": 35.5292667,
+          "longitude": 139.4326475,
+          "walking_distance_m": 437,
+          "walking_minutes": 5,
+          "routing_source": "Valhalla/OpenStreetMap"
+        }
+      },
+      "floor_number": 9,
+      "structure": "・駐車場などを見る",
+      "structure_raw": "・駐車場などを見る",
+      "building_age_min_years": 23,
+      "building_age_max_years": 33,
+      "building_age_estimate_years": 28,
+      "management_age_raw": "23年～33年",
+      "address": "相模原市南区相模大野6-23",
+      "property_url": "https://www.ur-net.go.jp/chintai/kanto/kanagawa/40_2980.html",
+      "coordinates": {
+        "latitude": 35.5278387,
+        "longitude": 139.4320986,
+        "geocoded_name": "プラザシティ相模大野, 南区, 相模原市, 神奈川県, 日本"
+      },
+      "surroundings_source": "OpenStreetMap",
+      "surroundings_distance_type": "straight_line",
+      "train_commute_minutes": null,
+      "transfers": null,
+      "direct_train": null,
+      "total_commute_minutes": null,
+      "commute_source": null,
+      "initial_cost": {
+        "deposit": 225200,
+        "deposit_months": 2,
+        "key_money": 0,
+        "agency_fee": 0,
+        "guarantor_fee": 0,
+        "estimated_prorated_rent_and_fee": 58345,
+        "estimated_total": 283545,
+        "estimated_min": 229090,
+        "estimated_max": 341890,
+        "currency": "JPY",
+        "estimate_only": true
+      },
+      "foreigner_friendly": {
+        "score": 100,
+        "status": "high",
+        "evidence": [
+          "foreign_nationals_explicitly_accepted",
+          "no_guarantor_required",
+          "english_guidance_available"
+        ],
+        "notes": "Applicant still needs to satisfy applicable UR residence-status and income requirements."
+      },
+      "score_breakdown": {
+        "budget": 29.1,
+        "commute": 45,
+        "space": 78.0,
+        "layout": 70,
+        "floor": 40,
+        "building_age": 55,
+        "structure": 50,
+        "facilities": 50,
+        "orientation": 50,
+        "elevator": 50,
+        "bike_parking": 50,
+        "gas": 50,
+        "surroundings": 77.3,
+        "initial_cost": 80,
+        "foreigner_friendly": 100
+      },
+      "score": 54.6,
+      "listing_fingerprint": "bada9003c9572c309911"
     }
   ],
   "pending_notifications": []

@@ -1,0 +1,18 @@
+{
+  "source": "suumo",
+  "source_listing_id": "000105617277",
+  "source_url": "https://suumo.jp/chintai/jnc_000105617277/",
+  "property": "ブランハイツ長津田",
+  "rent": 89000,
+  "management_fee": 4000,
+  "monthly_total": 93000,
+  "layout": "3DK",
+  "area_m2": 56.06,
+  "floor": 5,
+  "address": "神奈川県横浜市緑区長津田６",
+  "primary_station": "長津田",
+  "station_walk_minutes": 9,
+  "building_age_estimate_years": 41,
+  "structure": "プレコン",
+  "orientation": "southwest"
+}

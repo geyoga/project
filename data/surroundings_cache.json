@@ -988,5 +988,95 @@
         "routing_source": "Valhalla/OpenStreetMap"
       }
     }
+  },
+  "None_None": {
+    "coordinates": {
+      "latitude": 35.4985197,
+      "longitude": 139.4588337,
+      "geocoded_name": "下鶴間, 大和市, 神奈川県, 242-0001, 日本"
+    },
+    "surroundings": {
+      "supermarket": {
+        "name": "イオン",
+        "straight_line_distance_m": 456,
+        "latitude": 35.5023792,
+        "longitude": 139.4571393,
+        "walking_distance_m": 497,
+        "walking_minutes": 6,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "convenience_store": {
+        "name": "ローソン",
+        "straight_line_distance_m": 572,
+        "latitude": 35.5013449,
+        "longitude": 139.4535563,
+        "walking_distance_m": 690,
+        "walking_minutes": 9,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "daycare": {
+        "name": "Unnamed",
+        "straight_line_distance_m": 54,
+        "latitude": 35.4989906,
+        "longitude": 139.4587001,
+        "walking_distance_m": 42,
+        "walking_minutes": 1,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "elementary_school": {
+        "name": "大和市立林間小学校",
+        "straight_line_distance_m": 869,
+        "latitude": 35.4966016,
+        "longitude": 139.4495267,
+        "walking_distance_m": 981,
+        "walking_minutes": 12,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "clinic": {
+        "name": "つきみ野おなかと内科のクリニック",
+        "straight_line_distance_m": 496,
+        "latitude": 35.5026406,
+        "longitude": 139.4567424,
+        "walking_distance_m": 510,
+        "walking_minutes": 6,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "pediatric_clinic": {
+        "name": "なかむら小児科アレルギー科",
+        "straight_line_distance_m": 1030,
+        "latitude": 35.4905087,
+        "longitude": 139.4531305,
+        "walking_distance_m": 1246,
+        "walking_minutes": 15,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "hospital": {
+        "name": "大和市地域医療センター",
+        "straight_line_distance_m": 1013,
+        "latitude": 35.4898079,
+        "longitude": 139.4555539,
+        "walking_distance_m": 1195,
+        "walking_minutes": 14,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "park": {
+        "name": "坂上公園",
+        "straight_line_distance_m": 231,
+        "latitude": 35.500404,
+        "longitude": 139.4577576,
+        "walking_distance_m": 236,
+        "walking_minutes": 3,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "pharmacy": {
+        "name": "そうごう薬局",
+        "straight_line_distance_m": 505,
+        "latitude": 35.5026258,
+        "longitude": 139.4564586,
+        "walking_distance_m": 510,
+        "walking_minutes": 6,
+        "routing_source": "Valhalla/OpenStreetMap"
+      }
+    }
   }
 }

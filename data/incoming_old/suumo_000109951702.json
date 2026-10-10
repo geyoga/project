@@ -1,0 +1,18 @@
+{
+  "source": "suumo",
+  "source_listing_id": "000109951702",
+  "source_url": "https://suumo.jp/chintai/jnc_000109951702/",
+  "property": "東京メトロ有楽町線 辰巳駅 地下1地上13階建 築19年",
+  "rent": 231000,
+  "management_fee": 12000,
+  "monthly_total": 243000,
+  "layout": "2LDK",
+  "area_m2": 58.55,
+  "floor": 12,
+  "address": "東京都江東区辰巳２",
+  "primary_station": "辰巳",
+  "station_walk_minutes": 6,
+  "building_age_estimate_years": 19,
+  "structure": "RC",
+  "orientation": "east"
+}

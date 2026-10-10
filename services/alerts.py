@@ -1,4 +1,6 @@
-from services.storage import make_listing_id
+from services.storage import (
+    make_listing_id,
+)
 
 
 DEFAULT_MIN_SCORE = 70
@@ -8,30 +10,22 @@ def format_yen(value):
     if value is None:
         return "Unknown"
 
-    return f"¥{value:,}"
-
-
-def find_room(
-    listing_id,
-    rooms,
-):
-    for room in rooms:
-        if (
-            make_listing_id(room)
-            == listing_id
-        ):
-            return room
-
-    return None
+    return (
+        f"¥{value:,}"
+    )
 
 
 def build_new_alert(room):
-    score = room.get(
-        "score"
+    score = (
+        room.get(
+            "score"
+        )
     )
 
     initial_cost = (
-        room.get("initial_cost")
+        room.get(
+            "initial_cost"
+        )
         or {}
     )
 
@@ -46,14 +40,14 @@ def build_new_alert(room):
         "🏠 NEW APARTMENT",
         "",
         (
-            f'{room.get("property")} '
-            f'{room.get("room")}'
-        ),
+            f'{room.get("property") or "Unknown property"} '
+            f'{room.get("room") or ""}'
+        ).strip(),
         "",
         (
-            f'{room.get("layout")} · '
-            f'{room.get("area_m2")}m² · '
-            f'{room.get("floor")}'
+            f'{room.get("layout") or "?"} · '
+            f'{room.get("area_m2") or "?"}m² · '
+            f'{room.get("floor") or "?"}'
         ),
         (
             "Monthly: "
@@ -63,36 +57,78 @@ def build_new_alert(room):
                 )
             )
         ),
-        (
-            "Initial cost est.: "
-            + format_yen(
-                initial_cost.get(
-                    "estimated_total"
-                )
-            )
-        ),
-        (
-            "Commute: "
-            f'{room.get("total_commute_minutes")} min'
-        ),
-        (
-            "Building age: "
-            f'{room.get("building_age_estimate_years")} years'
-        ),
-        (
-            "Structure: "
-            f'{room.get("structure")}'
-        ),
-        (
-            "Foreigner friendly: "
-            f'{foreigner.get("status", "unknown")}'
-        ),
-        "",
-        f"Score: {score}/100",
     ]
 
-    source_url = room.get(
-        "source_url"
+    estimated_initial = (
+        initial_cost.get(
+            "estimated_total"
+        )
+    )
+
+    if estimated_initial is not None:
+        lines.append(
+            "Initial cost est.: "
+            + format_yen(
+                estimated_initial
+            )
+        )
+
+    commute = (
+        room.get(
+            "total_commute_minutes"
+        )
+    )
+
+    if commute is not None:
+        lines.append(
+            f"Commute: {commute} min"
+        )
+
+    building_age = (
+        room.get(
+            "building_age_estimate_years"
+        )
+    )
+
+    if building_age is not None:
+        lines.append(
+            f"Building age: {building_age} years"
+        )
+
+    structure = (
+        room.get(
+            "structure"
+        )
+    )
+
+    if structure:
+        lines.append(
+            f"Structure: {structure}"
+        )
+
+    foreigner_status = (
+        foreigner.get(
+            "status"
+        )
+    )
+
+    if foreigner_status:
+        lines.append(
+            "Foreigner friendly: "
+            f"{foreigner_status}"
+        )
+
+    lines.extend(
+        [
+            "",
+            f"Score: {score}/100",
+        ]
+    )
+
+    source_url = (
+        room.get(
+            "source_url"
+        )
     )
 
     if source_url:
@@ -103,19 +139,25 @@ def build_new_alert(room):
             ]
         )
 
-    return "\n".join(lines)
+    return "\n".join(
+        lines
+    )
 
 
 def build_price_alert(
     room,
     change,
 ):
-    old_price = change.get(
-        "previous_monthly_total"
+    old_price = (
+        change.get(
+            "previous_monthly_total"
+        )
     )
 
-    new_price = change.get(
-        "monthly_total"
+    new_price = (
+        change.get(
+            "monthly_total"
+        )
     )
 
     difference = None
@@ -133,9 +175,9 @@ def build_price_alert(
         "💴 PRICE CHANGE",
         "",
         (
-            f'{room.get("property")} '
-            f'{room.get("room")}'
-        ),
+            f'{room.get("property") or "Unknown property"} '
+            f'{room.get("room") or ""}'
+        ).strip(),
         "",
         (
             f"{format_yen(old_price)} "
@@ -149,7 +191,9 @@ def build_price_alert(
             lines.append(
                 "Price drop: "
                 + format_yen(
-                    abs(difference)
+                    abs(
+                        difference
+                    )
                 )
             )
 
@@ -161,51 +205,67 @@ def build_price_alert(
                 )
             )
 
-    lines.extend(
-        [
-            f'Score: {room.get("score")}/100',
-            "",
-            room.get(
-                "source_url"
-            )
-            or "",
-        ]
+    lines.append(
+        f'Score: {room.get("score")}/100'
     )
 
+    source_url = (
+        room.get(
+            "source_url"
+        )
+    )
+
+    if source_url:
+        lines.extend(
+            [
+                "",
+                source_url,
+            ]
+        )
+
     return "\n".join(
-        line
-        for line in lines
-        if line is not None
+        lines
     )
 
 
 def build_returned_alert(room):
-    return "\n".join(
-        [
-            "🔄 APARTMENT RETURNED",
-            "",
-            (
-                f'{room.get("property")} '
-                f'{room.get("room")}'
-            ),
-            (
-                "Monthly: "
-                + format_yen(
-                    room.get(
-                        "monthly_total"
-                    )
+    lines = [
+        "🔄 APARTMENT RETURNED",
+        "",
+        (
+            f'{room.get("property") or "Unknown property"} '
+            f'{room.get("room") or ""}'
+        ).strip(),
+        (
+            "Monthly: "
+            + format_yen(
+                room.get(
+                    "monthly_total"
                 )
-            ),
-            (
-                f'Score: '
-                f'{room.get("score")}/100'
-            ),
-            "",
-            room.get(
-                "source_url"
             )
-            or "",
-        ]
+        ),
+        (
+            f'Score: '
+            f'{room.get("score")}/100'
+        ),
+    ]
+
+    source_url = (
+        room.get(
+            "source_url"
+        )
+    )
+
+    if source_url:
+        lines.extend(
+            [
+                "",
+                source_url,
+            ]
+        )
+
+    return "\n".join(
+        lines
     )
 
 
@@ -216,36 +276,99 @@ def build_notifications(
 ):
     notifications = []
 
+    # --------------------------------------------------------
+    # Build room lookup
+    # --------------------------------------------------------
+
+    sorted_rooms = sorted(
+        observed_rooms,
+        key=lambda room: (
+            -(
+                room.get(
+                    "score"
+                )
+                or 0
+            )
+        ),
+    )
+
+    rooms_by_id = {
+        make_listing_id(
+            room
+        ): room
+
+        for room in sorted_rooms
+    }
+
+    # Keep only one "new listing" notification per probable
+    # physical apartment.
+    seen_new_fingerprints = set()
+
+    # --------------------------------------------------------
+    # Process changes
+    # --------------------------------------------------------
+
     for change in changes:
-        change_type = change.get(
-            "type"
+        change_type = (
+            change.get(
+                "type"
+            )
         )
 
-        listing_id = change.get(
-            "listing_id"
+        listing_id = (
+            change.get(
+                "listing_id"
+            )
         )
 
-        room = find_room(
-            listing_id,
-            observed_rooms,
-        )
-
-        # Removed listings are not present
-        # in today's observed_rooms.
+        # Removed listings are not currently part of the
+        # observed room set.
         if change_type == "removed":
             continue
+
+        room = (
+            rooms_by_id.get(
+                listing_id
+            )
+        )
 
         if room is None:
             continue
 
         score = (
-            room.get("score")
+            room.get(
+                "score"
+            )
             or 0
         )
+
+        fingerprint = (
+            change.get(
+                "listing_fingerprint"
+            )
+            or room.get(
+                "listing_fingerprint"
+            )
+        )
+
+        # ----------------------------------------------------
+        # New
+        # ----------------------------------------------------
 
         if change_type == "new":
             if score < min_score:
                 continue
+
+            if fingerprint:
+                if (
+                    fingerprint
+                    in seen_new_fingerprints
+                ):
+                    continue
+
+                seen_new_fingerprints.add(
+                    fingerprint
+                )
 
             notifications.append(
                 {
@@ -254,6 +377,9 @@ def build_notifications(
 
                     "listing_id":
                         listing_id,
+
+                    "listing_fingerprint":
+                        fingerprint,
 
                     "score":
                         score,
@@ -265,18 +391,26 @@ def build_notifications(
                 }
             )
 
-        elif change_type == "price_changed":
-            old_price = change.get(
-                "previous_monthly_total"
+        # ----------------------------------------------------
+        # Price change
+        # ----------------------------------------------------
+
+        elif (
+            change_type
+            == "price_changed"
+        ):
+            old_price = (
+                change.get(
+                    "previous_monthly_total"
+                )
             )
 
-            new_price = change.get(
-                "monthly_total"
+            new_price = (
+                change.get(
+                    "monthly_total"
+                )
             )
 
-            # Notify price decreases.
-            # For increases, only notify
-            # strong candidates.
             is_drop = (
                 old_price is not None
                 and new_price is not None
@@ -285,8 +419,7 @@ def build_notifications(
 
             if (
                 not is_drop
-                and score
-                < min_score
+                and score < min_score
             ):
                 continue
 
@@ -297,6 +430,9 @@ def build_notifications(
 
                     "listing_id":
                         listing_id,
+
+                    "listing_fingerprint":
+                        fingerprint,
 
                     "score":
                         score,
@@ -309,7 +445,14 @@ def build_notifications(
                 }
             )
 
-        elif change_type == "returned":
+        # ----------------------------------------------------
+        # Returned
+        # ----------------------------------------------------
+
+        elif (
+            change_type
+            == "returned"
+        ):
             if score < min_score:
                 continue
 
@@ -320,6 +463,9 @@ def build_notifications(
 
                     "listing_id":
                         listing_id,
+
+                    "listing_fingerprint":
+                        fingerprint,
 
                     "score":
                         score,

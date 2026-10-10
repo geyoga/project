@@ -1,8 +1,13 @@
+import hashlib
 import json
 import sqlite3
-from datetime import datetime, timezone
+
+from datetime import (
+    datetime,
+    timezone,
+)
+
 from pathlib import Path
-import hashlib
 
 
 BASE_DIR = (
@@ -19,9 +24,15 @@ DB_PATH = (
 )
 
 
+# ============================================================
+# Utilities
+# ============================================================
+
 def utc_now():
     return (
-        datetime.now(timezone.utc)
+        datetime.now(
+            timezone.utc
+        )
         .isoformat()
     )
 
@@ -51,6 +62,29 @@ def connect():
     return connection
 
 
+# ============================================================
+# Schema helpers
+# ============================================================
+
+def column_exists(
+    conn,
+    table_name,
+    column_name,
+):
+    rows = conn.execute(
+        f"PRAGMA table_info({table_name})"
+    ).fetchall()
+
+    return any(
+        row["name"] == column_name
+        for row in rows
+    )
+
+
+# ============================================================
+# Database initialization
+# ============================================================
+
 def initialize_database():
     with connect() as conn:
         conn.executescript(
@@ -73,6 +107,8 @@ def initialize_database():
 
             CREATE TABLE IF NOT EXISTS listings (
                 listing_id TEXT PRIMARY KEY,
+
+                listing_fingerprint TEXT,
 
                 source TEXT NOT NULL,
 
@@ -132,6 +168,7 @@ def initialize_database():
                     REFERENCES crawl_runs(id)
             );
 
+
             CREATE TABLE IF NOT EXISTS notification_events (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
 
@@ -154,17 +191,16 @@ def initialize_database():
                     REFERENCES crawl_runs(id)
             );
 
-            CREATE INDEX IF NOT EXISTS
-                idx_notification_pending
-            ON notification_events(delivered_at);
 
             CREATE INDEX IF NOT EXISTS
                 idx_listings_active
             ON listings(active);
 
+
             CREATE INDEX IF NOT EXISTS
                 idx_listings_score
             ON listings(score);
+
 
             CREATE INDEX IF NOT EXISTS
                 idx_snapshots_listing
@@ -172,9 +208,43 @@ def initialize_database():
                 listing_id,
                 captured_at
             );
+
+
+            CREATE INDEX IF NOT EXISTS
+                idx_notification_pending
+            ON notification_events(
+                delivered_at
+            );
             """
         )
 
+        # Migration for an older database.
+        if not column_exists(
+            conn,
+            "listings",
+            "listing_fingerprint",
+        ):
+            conn.execute(
+                """
+                ALTER TABLE listings
+                ADD COLUMN listing_fingerprint TEXT
+                """
+            )
+
+        conn.execute(
+            """
+            CREATE INDEX IF NOT EXISTS
+                idx_listings_fingerprint
+            ON listings(
+                listing_fingerprint
+            )
+            """
+        )
+
+
+# ============================================================
+# Listing identity
+# ============================================================
 
 def make_listing_id(room):
     source = (
@@ -188,12 +258,14 @@ def make_listing_id(room):
         )
     )
 
+    # Private portals such as SUUMO.
     if source_listing_id:
         return (
             f"{source}:"
             f"{source_listing_id}"
         )
 
+    # UR identity.
     shisya = (
         room.get("shisya")
         or ""
@@ -223,11 +295,194 @@ def make_listing_id(room):
     )
 
 
+def make_listing_fingerprint(room):
+    """
+    Generate probable physical-unit identity.
+
+    UR already has reliable building / room IDs, so UR units
+    must never be merged purely because their attributes match.
+
+    Private portals can advertise the same unit multiple times,
+    so their fingerprint uses physical/listing attributes.
+    """
+
+    source = (
+        str(
+            room.get("source")
+            or "unknown"
+        )
+        .strip()
+        .lower()
+    )
+
+    # --------------------------------------------------------
+    # UR
+    # --------------------------------------------------------
+
+    if source == "ur":
+        property_key = (
+            room.get(
+                "property_key"
+            )
+        )
+
+        if not property_key:
+            property_key = (
+                f"{room.get('shisya') or ''}_"
+                f"{room.get('danchi') or ''}_"
+                f"{room.get('shikibetu') or ''}"
+            )
+
+        room_name = (
+            str(
+                room.get("room")
+                or ""
+            )
+            .strip()
+            .lower()
+        )
+
+        raw = (
+            f"ur|"
+            f"{property_key}|"
+            f"{room_name}"
+        )
+
+        return hashlib.sha256(
+            raw.encode(
+                "utf-8"
+            )
+        ).hexdigest()[:20]
+
+    # --------------------------------------------------------
+    # Private sources
+    # --------------------------------------------------------
+
+    station = (
+        str(
+            room.get(
+                "primary_station"
+            )
+            or ""
+        )
+        .strip()
+        .lower()
+        .replace("駅", "")
+    )
+
+    address = (
+        str(
+            room.get(
+                "address"
+            )
+            or ""
+        )
+        .strip()
+        .lower()
+        .replace(" ", "")
+        .replace("　", "")
+    )
+
+    layout = (
+        str(
+            room.get(
+                "layout"
+            )
+            or ""
+        )
+        .strip()
+        .upper()
+    )
+
+    area = (
+        room.get(
+            "area_m2"
+        )
+    )
+
+    if isinstance(
+        area,
+        (int, float),
+    ):
+        area = round(
+            float(area),
+            2,
+        )
+
+    floor_number = (
+        room.get(
+            "floor_number"
+        )
+    )
+
+    # Incoming Hermes listings may only have floor.
+    if floor_number is None:
+        floor_value = (
+            room.get("floor")
+        )
+
+        if isinstance(
+            floor_value,
+            int,
+        ):
+            floor_number = floor_value
+
+    parts = [
+        address,
+        station,
+
+        str(
+            room.get(
+                "station_walk_minutes"
+            )
+            or ""
+        ),
+
+        str(
+            room.get(
+                "rent"
+            )
+            or ""
+        ),
+
+        str(
+            room.get(
+                "management_fee"
+            )
+            or ""
+        ),
+
+        layout,
+
+        str(
+            area
+            or ""
+        ),
+
+        str(
+            floor_number
+            or ""
+        ),
+    ]
+
+    raw = "|".join(
+        parts
+    )
+
+    return hashlib.sha256(
+        raw.encode(
+            "utf-8"
+        )
+    ).hexdigest()[:20]
+
+
+# ============================================================
+# Crawl runs
+# ============================================================
+
 def start_crawl_run(
     areas_requested,
 ):
-    started_at = utc_now()
-
     with connect() as conn:
         cursor = conn.execute(
             """
@@ -235,10 +490,11 @@ def start_crawl_run(
                 started_at,
                 areas_requested
             )
+
             VALUES (?, ?)
             """,
             (
-                started_at,
+                utc_now(),
                 areas_requested,
             ),
         )
@@ -269,26 +525,46 @@ def finish_crawl_run(
             """,
             (
                 utc_now(),
+
                 areas_failed,
                 rooms_found,
                 rooms_matching,
+
                 json.dumps(
                     crawl_errors,
                     ensure_ascii=False,
                 ),
+
                 run_id,
             ),
         )
 
+
+# ============================================================
+# Listing persistence
+# ============================================================
 
 def save_listing(
     conn,
     run_id,
     room,
 ):
-    listing_id = make_listing_id(
-        room
+    listing_id = (
+        make_listing_id(
+            room
+        )
     )
+
+    listing_fingerprint = (
+        make_listing_fingerprint(
+            room
+        )
+    )
+
+    # Attach it to the in-memory room so alerts can use it.
+    room[
+        "listing_fingerprint"
+    ] = listing_fingerprint
 
     now = utc_now()
 
@@ -305,16 +581,27 @@ def save_listing(
 
     change = None
 
+    # --------------------------------------------------------
+    # New listing
+    # --------------------------------------------------------
+
     if existing is None:
         change = {
-            "type": "new",
-            "listing_id": listing_id,
+            "type":
+                "new",
+
+            "listing_id":
+                listing_id,
+
+            "listing_fingerprint":
+                listing_fingerprint,
         }
 
         conn.execute(
             """
             INSERT INTO listings (
                 listing_id,
+                listing_fingerprint,
 
                 source,
                 property_name,
@@ -346,43 +633,84 @@ def save_listing(
             )
 
             VALUES (
-                ?, ?, ?, ?, ?,
-                ?, ?, ?, ?, ?,
-                ?, 1,
-                ?, ?, ?, ?, ?,
-                ?, ?, ?
+                ?, ?,
+                ?, ?, ?,
+                ?,
+                ?, ?, ?, ?,
+                ?, ?,
+                1,
+                ?, ?, ?,
+                ?, ?, ?,
+                ?,
+                ?
             )
             """,
             (
                 listing_id,
+                listing_fingerprint,
 
-                room.get("source"),
-                room.get("property"),
-                room.get("room"),
+                room.get(
+                    "source"
+                ),
 
-                room.get("source_url"),
+                room.get(
+                    "property"
+                ),
 
-                room.get("shisya"),
-                room.get("danchi"),
-                room.get("shikibetu"),
-                room.get("area_code"),
+                room.get(
+                    "room"
+                ),
+
+                room.get(
+                    "source_url"
+                ),
+
+                room.get(
+                    "shisya"
+                ),
+
+                room.get(
+                    "danchi"
+                ),
+
+                room.get(
+                    "shikibetu"
+                ),
+
+                room.get(
+                    "area_code"
+                ),
 
                 now,
                 now,
 
-                room.get("rent"),
+                room.get(
+                    "rent"
+                ),
+
                 room.get(
                     "management_fee"
                 ),
+
                 room.get(
                     "monthly_total"
                 ),
 
-                room.get("layout"),
-                room.get("area_m2"),
-                room.get("floor"),
+                room.get(
+                    "layout"
+                ),
 
-                room.get("score"),
+                room.get(
+                    "area_m2"
+                ),
+
+                room.get(
+                    "floor"
+                ),
+
+                room.get(
+                    "score"
+                ),
 
                 json.dumps(
                     room,
@@ -391,6 +719,10 @@ def save_listing(
             ),
         )
 
+    # --------------------------------------------------------
+    # Existing listing
+    # --------------------------------------------------------
+
     else:
         previous_total = (
             existing[
@@ -398,8 +730,10 @@ def save_listing(
             ]
         )
 
-        current_total = room.get(
-            "monthly_total"
+        current_total = (
+            room.get(
+                "monthly_total"
+            )
         )
 
         if (
@@ -413,6 +747,9 @@ def save_listing(
                 "listing_id":
                     listing_id,
 
+                "listing_fingerprint":
+                    listing_fingerprint,
+
                 "previous_monthly_total":
                     previous_total,
 
@@ -420,10 +757,18 @@ def save_listing(
                     current_total,
             }
 
-        elif not existing["active"]:
+        elif not existing[
+            "active"
+        ]:
             change = {
-                "type": "returned",
-                "listing_id": listing_id,
+                "type":
+                    "returned",
+
+                "listing_id":
+                    listing_id,
+
+                "listing_fingerprint":
+                    listing_fingerprint,
             }
 
         conn.execute(
@@ -431,6 +776,8 @@ def save_listing(
             UPDATE listings
 
             SET
+                listing_fingerprint = ?,
+
                 property_name = ?,
                 room_name = ?,
                 source_url = ?,
@@ -453,27 +800,49 @@ def save_listing(
             WHERE listing_id = ?
             """,
             (
-                room.get("property"),
-                room.get("room"),
+                listing_fingerprint,
+
+                room.get(
+                    "property"
+                ),
+
+                room.get(
+                    "room"
+                ),
+
                 room.get(
                     "source_url"
                 ),
 
                 now,
 
-                room.get("rent"),
+                room.get(
+                    "rent"
+                ),
+
                 room.get(
                     "management_fee"
                 ),
+
                 room.get(
                     "monthly_total"
                 ),
 
-                room.get("layout"),
-                room.get("area_m2"),
-                room.get("floor"),
+                room.get(
+                    "layout"
+                ),
 
-                room.get("score"),
+                room.get(
+                    "area_m2"
+                ),
+
+                room.get(
+                    "floor"
+                ),
+
+                room.get(
+                    "score"
+                ),
 
                 json.dumps(
                     room,
@@ -483,6 +852,10 @@ def save_listing(
                 listing_id,
             ),
         )
+
+    # --------------------------------------------------------
+    # Snapshot
+    # --------------------------------------------------------
 
     conn.execute(
         """
@@ -516,19 +889,33 @@ def save_listing(
             run_id,
             now,
 
-            room.get("rent"),
+            room.get(
+                "rent"
+            ),
+
             room.get(
                 "management_fee"
             ),
+
             room.get(
                 "monthly_total"
             ),
 
-            room.get("layout"),
-            room.get("area_m2"),
-            room.get("floor"),
+            room.get(
+                "layout"
+            ),
 
-            room.get("score"),
+            room.get(
+                "area_m2"
+            ),
+
+            room.get(
+                "floor"
+            ),
+
+            room.get(
+                "score"
+            ),
 
             json.dumps(
                 room,
@@ -537,6 +924,8 @@ def save_listing(
         ),
     )
 
+    # IMPORTANT:
+    # save_observed_listings expects EXACTLY TWO values.
     return (
         listing_id,
         change,
@@ -574,7 +963,8 @@ def save_observed_listings(
         if mark_missing_inactive:
             active_rows = conn.execute(
                 """
-                SELECT listing_id
+                SELECT
+                    listing_id
 
                 FROM listings
 
@@ -583,9 +973,11 @@ def save_observed_listings(
             ).fetchall()
 
             for row in active_rows:
-                listing_id = row[
-                    "listing_id"
-                ]
+                listing_id = (
+                    row[
+                        "listing_id"
+                    ]
+                )
 
                 if (
                     listing_id
@@ -618,33 +1010,45 @@ def save_observed_listings(
 
     return changes
 
+
+# ============================================================
+# Notification queue
+# ============================================================
+
 def make_notification_event_key(
     notification,
     run_id,
 ):
-    event_type = notification.get(
-        "type"
+    event_type = (
+        notification.get(
+            "type"
+        )
     )
 
-    listing_id = notification.get(
-        "listing_id"
+    listing_id = (
+        notification.get(
+            "listing_id"
+        )
     )
 
-    # A listing should only ever be "new" once.
     if event_type == "new":
         return (
-            f"new:{listing_id}"
+            f"new:"
+            f"{listing_id}"
         )
 
-    # Price changes can happen multiple times.
     if event_type == "price_changed":
-        message = notification.get(
-            "message",
-            "",
+        message = (
+            notification.get(
+                "message",
+                "",
+            )
         )
 
         digest = hashlib.sha256(
-            message.encode("utf-8")
+            message.encode(
+                "utf-8"
+            )
         ).hexdigest()[:16]
 
         return (
@@ -653,8 +1057,6 @@ def make_notification_event_key(
             f"{digest}"
         )
 
-    # A listing may disappear and return
-    # multiple times in its lifetime.
     if event_type == "returned":
         return (
             f"returned:"
@@ -695,18 +1097,24 @@ def enqueue_notifications(
                     created_at,
                     message
                 )
+
                 VALUES (?, ?, ?, ?, ?, ?)
                 """,
                 (
                     event_key,
+
                     notification.get(
                         "listing_id"
                     ),
+
                     run_id,
+
                     notification.get(
                         "type"
                     ),
+
                     utc_now(),
+
                     notification.get(
                         "message"
                     ),
