@@ -1,0 +1,18 @@
+{
+  "source": "suumo",
+  "source_listing_id": "000109335018",
+  "source_url": "https://suumo.jp/chintai/jnc_000109335018/",
+  "property": "パークサイド佐藤 403号室",
+  "rent": 85000,
+  "management_fee": 6000,
+  "monthly_total": 91000,
+  "layout": "2DK",
+  "area_m2": 44.82,
+  "floor": 2,
+  "address": "神奈川県横浜市青葉区つつじが丘",
+  "primary_station": "青葉台",
+  "station_walk_minutes": 9,
+  "building_age_estimate_years": 0,
+  "structure": "RC",
+  "orientation": "southeast"
+}

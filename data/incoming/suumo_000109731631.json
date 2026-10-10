@@ -1,0 +1,18 @@
+{
+  "source": "suumo",
+  "source_listing_id": "000109731631",
+  "source_url": "https://suumo.jp/chintai/jnc_000109731631/",
+  "property": "石原第５ビル",
+  "rent": 77000,
+  "management_fee": 15000,
+  "monthly_total": 92000,
+  "layout": "3DK",
+  "area_m2": 50.0,
+  "floor": 2,
+  "address": "神奈川県横浜市青葉区柿の木台",
+  "primary_station": "藤が丘",
+  "station_walk_minutes": 7,
+  "building_age_estimate_years": 0,
+  "structure": "RC",
+  "orientation": "south"
+}

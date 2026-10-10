@@ -1,0 +1,18 @@
+{
+  "source": "suumo",
+  "source_listing_id": "000110065585",
+  "source_url": "https://suumo.jp/chintai/jnc_000110065585/",
+  "property": "東急田園都市線 青葉台駅 2階建 築30年",
+  "rent": 90000,
+  "management_fee": 5000,
+  "monthly_total": 95000,
+  "layout": "2DK",
+  "area_m2": 40.0,
+  "floor": 1,
+  "address": "神奈川県横浜市青葉区もえぎ野",
+  "primary_station": "青葉台",
+  "station_walk_minutes": 7,
+  "building_age_estimate_years": 0,
+  "structure": "STEEL",
+  "orientation": "east"
+}
