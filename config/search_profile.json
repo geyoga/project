@@ -26,5 +26,7 @@
 
   "initial_cost": {
     "ur_move_in_proration_ratio": 0.5
-  }
+  },
+
+  "suumo_watch_urls": []
 }

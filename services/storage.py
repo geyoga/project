@@ -182,6 +182,18 @@ def make_listing_id(room):
         or "unknown"
     )
 
+    source_listing_id = (
+        room.get(
+            "source_listing_id"
+        )
+    )
+
+    if source_listing_id:
+        return (
+            f"{source}:"
+            f"{source_listing_id}"
+        )
+
     shisya = (
         room.get("shisya")
         or ""
