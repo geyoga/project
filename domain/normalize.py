@@ -15,7 +15,7 @@ def validate_listing(listing):
     missing = [key for key in REQUIRED_CANONICAL_FIELDS if key not in listing]
     if missing:
         raise ValueError("Missing canonical fields: " + ", ".join(missing))
-    if listing.get("source") not in {"ur", "suumo", "chintai"}:
+    if listing.get("source") != "ur":
         raise ValueError(f"Unsupported source: {listing.get('source')}")
     return True
 

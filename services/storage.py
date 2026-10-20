@@ -244,7 +244,6 @@ def make_listing_id(room):
         )
     )
 
-    # Private portals such as SUUMO.
     if source_listing_id:
         return (
             f"{source}:"
@@ -401,7 +400,7 @@ def make_listing_fingerprint(room):
         )
     )
 
-    # Incoming Hermes listings may only have floor.
+    # Listings may only have floor information.
     if floor_number is None:
         floor_value = (
             room.get("floor")

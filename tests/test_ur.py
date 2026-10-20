@@ -108,7 +108,6 @@ class UrPropertyTests(unittest.TestCase):
         self.assertEqual(first["structure"], "RC")
         self.assertEqual(second["address"], "神奈川県横浜市")
         fetch.assert_called_once()
-        self.assertEqual(ur_property.enrich_ur_property({"source": "suumo"}), {"source": "suumo"})
 
     def test_enrichment_records_network_errors(self):
         room = {"source": "ur", "shisya": "40", "danchi": "145", "shikibetu": "0"}

@@ -1,8 +1,9 @@
 import json
-import sys
 import argparse
 
-from config import CONFIG_DIR, DATA_DIR, PROJECT_DIR
+from config import CONFIG_DIR, DATA_DIR
+from crawlers.ur import crawl_areas
+from services.pipeline import enrich_and_rank
 
 from services.alerts import (
     build_notifications,
@@ -18,12 +19,6 @@ from services.storage import (
     mark_notifications_delivered,
 )
 
-from services.incoming import (
-    load_incoming_listings,
-)
-
-BASE_DIR = PROJECT_DIR
-
 CONFIG_PATH = (
     CONFIG_DIR / "search_profile.json"
 )
@@ -33,13 +28,6 @@ PROPERTY_METADATA_PATH = (
 )
 
 
-sys.path.insert(
-    0,
-    str(BASE_DIR),
-)
-
-
-from crawlers.ur import crawl_areas
 # ============================================================
 # LOADERS
 # ============================================================
@@ -73,8 +61,6 @@ def load_property_metadata():
 # PIPELINE
 # ============================================================
 
-
-from services.pipeline import enrich_and_rank
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -127,9 +113,7 @@ def main():
         [],
     )
 
-    run_id = start_crawl_run(
-    len(area_codes)
-    )
+    run_id = start_crawl_run(len(area_codes))
 
     if not area_codes:
         pending_notifications = get_pending_notifications()
@@ -175,31 +159,7 @@ def main():
         return
 
 
-    all_rooms, crawl_errors = crawl_areas(
-        area_codes
-    )
-
-    incoming_rooms, incoming_errors = (
-        load_incoming_listings()
-    )
-
-    all_rooms.extend(
-        incoming_rooms
-    )
-
-    for error in incoming_errors:
-        crawl_errors.append(
-            {
-                "source":
-                    "incoming",
-
-                "file":
-                    error.get("file"),
-
-                "error":
-                    error.get("error"),
-            }
-        )
+    all_rooms, crawl_errors = crawl_areas(area_codes)
 
     observed_rooms, matches = enrich_and_rank(
         all_rooms,
