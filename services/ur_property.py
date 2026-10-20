@@ -309,7 +309,8 @@ def parse_property_detail(
 def fetch_property_detail(room):
     property_key = (
         f'{room.get("shisya")}_'
-        f'{room.get("danchi")}'
+        f'{room.get("danchi")}_'
+        f'{room.get("shikibetu") or "0"}'
     )
 
     if property_key in CACHE:

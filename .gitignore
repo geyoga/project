@@ -1,1 +1,7 @@
 .venv/
+__pycache__/
+*.py[cod]
+data/*.db
+data/*_cache.json
+data/debug_*.json
+data/incoming/*.json

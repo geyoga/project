@@ -80,6 +80,10 @@ def build_source_url(property_data):
     )
 
 
+def _as_dict(value):
+    return value if isinstance(value, dict) else {}
+
+
 def fetch_area(
     area_code,
     prefecture_code="14",
@@ -223,6 +227,8 @@ def normalize_room(
     property_data,
     room,
 ):
+    property_data = _as_dict(property_data)
+    room = _as_dict(room)
     rent = parse_yen(
         room.get("rent")
         or room.get(
@@ -447,6 +453,9 @@ def crawl_area(area_code):
     rooms = []
 
     for property_data in properties:
+        if not isinstance(property_data, dict):
+            continue
+
         property_rooms = (
             property_data.get(
                 "room"
@@ -461,6 +470,9 @@ def crawl_area(area_code):
             continue
 
         for room in property_rooms:
+            if not isinstance(room, dict):
+                continue
+
             normalized = normalize_room(
                 property_data,
                 room,
@@ -477,3 +489,19 @@ def crawl_area(area_code):
             )
 
     return rooms
+
+
+def crawl_areas(area_codes):
+    rooms = []
+    errors = []
+
+    for area_code in area_codes:
+        try:
+            rooms.extend(crawl_area(area_code))
+        except Exception as error:
+            errors.append({
+                "area_code": area_code,
+                "error": str(error),
+            })
+
+    return rooms, errors

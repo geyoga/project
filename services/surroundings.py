@@ -1,26 +1,16 @@
 import json
 import math
 import os
+import tempfile
 import time
 import urllib.parse
 import urllib.request
-from pathlib import Path
+from config import DATA_DIR
 from services.walking import (
     walking_route,
 )
 
-BASE_DIR = (
-    Path(__file__)
-    .resolve()
-    .parent
-    .parent
-)
-
-CACHE_PATH = (
-    BASE_DIR
-    / "data"
-    / "surroundings_cache.json"
-)
+CACHE_PATH = DATA_DIR / "surroundings_cache.json"
 
 NOMINATIM_URL = (
     "https://nominatim.openstreetmap.org/search"
@@ -70,17 +60,23 @@ def save_cache(cache):
         exist_ok=True,
     )
 
-    with open(
-        CACHE_PATH,
-        "w",
-        encoding="utf-8",
-    ) as f:
-        json.dump(
-            cache,
-            f,
-            ensure_ascii=False,
-            indent=2,
-        )
+    fd, temporary = tempfile.mkstemp(
+        dir=CACHE_PATH.parent,
+        prefix=".surroundings_cache.",
+        suffix=".tmp",
+    )
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as f:
+            json.dump(
+                cache,
+                f,
+                ensure_ascii=False,
+                indent=2,
+            )
+        os.replace(temporary, CACHE_PATH)
+    except Exception:
+        os.unlink(temporary)
+        raise
 
 
 # ============================================================

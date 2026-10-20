@@ -1,22 +1,12 @@
 import json
 import os
+import tempfile
 import urllib.parse
 import urllib.request
-from pathlib import Path
+from config import DATA_DIR
 
 
-BASE_DIR = (
-    Path(__file__)
-    .resolve()
-    .parent
-    .parent
-)
-
-CACHE_PATH = (
-    BASE_DIR
-    / "data"
-    / "transit_cache.json"
-)
+CACHE_PATH = DATA_DIR / "transit_cache.json"
 
 
 EKISPERT_URL = (
@@ -94,17 +84,23 @@ def save_cache():
         exist_ok=True,
     )
 
-    with open(
-        CACHE_PATH,
-        "w",
-        encoding="utf-8",
-    ) as f:
-        json.dump(
-            MEMORY_CACHE,
-            f,
-            ensure_ascii=False,
-            indent=2,
-        )
+    fd, temporary = tempfile.mkstemp(
+        dir=CACHE_PATH.parent,
+        prefix=".transit_cache.",
+        suffix=".tmp",
+    )
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as f:
+            json.dump(
+                MEMORY_CACHE,
+                f,
+                ensure_ascii=False,
+                indent=2,
+            )
+        os.replace(temporary, CACHE_PATH)
+    except Exception:
+        os.unlink(temporary)
+        raise
 
 
 def normalize_destination(

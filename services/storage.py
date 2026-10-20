@@ -7,21 +7,7 @@ from datetime import (
     timezone,
 )
 
-from pathlib import Path
-
-
-BASE_DIR = (
-    Path(__file__)
-    .resolve()
-    .parent
-    .parent
-)
-
-DB_PATH = (
-    BASE_DIR
-    / "data"
-    / "apartments.db"
-)
+from config import DB_PATH
 
 
 # ============================================================
