@@ -32,3 +32,17 @@ migrations or cleanup.
 
 `listings` contains availability history. Query the `current_listings` SQLite
 view when you need only rooms verified available by the latest successful crawl.
+
+## Watchlist
+
+Generate the mobile-friendly static watchlist from current listings:
+
+```bash
+python3 scripts/generate_watchlist.py
+python3 -m http.server 1221 --directory watchlist
+```
+
+Then open `http://localhost:1221`. The scheduled watch script regenerates the
+page after each successful crawl. The expected interval defaults to six hours;
+override it with `WATCHLIST_UPDATE_INTERVAL_MINUTES` when the Hermes schedule
+uses another interval.

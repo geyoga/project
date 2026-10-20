@@ -10,6 +10,8 @@ OUTPUT="$(
     python3 run.py --alerts-only
 )"
 
+python3 scripts/generate_watchlist.py
+
 if [ "$OUTPUT" = "NO_ALERTS" ]; then
     exit 0
 fi

@@ -1014,6 +1014,22 @@ def get_current_listings():
         return [dict(row) for row in rows]
 
 
+def get_latest_crawl_run():
+    """Return the latest finished crawl run without failed areas, or None."""
+    with connect() as conn:
+        row = conn.execute(
+            """
+            SELECT id, started_at, finished_at, areas_failed
+            FROM crawl_runs
+            WHERE finished_at IS NOT NULL
+              AND areas_failed = 0
+            ORDER BY finished_at DESC
+            LIMIT 1
+            """
+        ).fetchone()
+        return dict(row) if row else None
+
+
 # ============================================================
 # Notification queue
 # ============================================================
