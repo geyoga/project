@@ -29,3 +29,6 @@ The locations can be overridden with `APARTMENT_AGENT_DATA_DIR`,
 
 `data/apartments.db` and cache files are runtime data. Back them up before
 migrations or cleanup.
+
+`listings` contains availability history. Query the `current_listings` SQLite
+view when you need only rooms verified available by the latest successful crawl.

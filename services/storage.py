@@ -201,6 +201,11 @@ def initialize_database():
             ON notification_events(
                 delivered_at
             );
+
+            CREATE VIEW IF NOT EXISTS current_listings AS
+            SELECT *
+            FROM listings
+            WHERE active = 1;
             """
         )
 
@@ -994,6 +999,19 @@ def save_observed_listings(
                 )
 
     return changes
+
+
+def get_current_listings():
+    """Return only rooms verified available by the latest successful crawl."""
+    with connect() as conn:
+        rows = conn.execute(
+            """
+            SELECT *
+            FROM current_listings
+            ORDER BY score DESC, monthly_total ASC, area_m2 DESC
+            """
+        ).fetchall()
+        return [dict(row) for row in rows]
 
 
 # ============================================================

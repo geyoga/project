@@ -30,10 +30,16 @@ class StorageTests(unittest.TestCase):
                 }
                 changes = storage.save_observed_listings(run_id, [room])
                 self.assertEqual(changes[0]["type"], "new")
+                self.assertEqual(len(storage.get_current_listings()), 1)
                 self.assertEqual(len(storage.get_pending_notifications()), 0)
 
                 removed = storage.save_observed_listings(run_id, [], True)
                 self.assertEqual(removed[0]["type"], "removed")
+                self.assertEqual(storage.get_current_listings(), [])
+
+                returned = storage.save_observed_listings(run_id, [room])
+                self.assertEqual(returned[0]["type"], "returned")
+                self.assertEqual(len(storage.get_current_listings()), 1)
 
 
 if __name__ == "__main__":
