@@ -1,0 +1,13 @@
+[Unit]
+Description=Apartment watchlist static server
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/apartment-agent
+ExecStart=/usr/bin/python3 -m http.server 1221 --bind 0.0.0.0 --directory watchlist
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

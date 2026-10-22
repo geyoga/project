@@ -1,0 +1,9 @@
+services:
+  apartment-watchlist:
+    image: nginx:alpine
+    container_name: apartment-watchlist
+    restart: unless-stopped
+    ports:
+      - "1221:80"
+    volumes:
+      - ./watchlist:/usr/share/nginx/html:ro

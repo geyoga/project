@@ -1,0 +1,10 @@
+[Unit]
+Description=Refresh UR apartment listings and watchlist
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/apartment-agent
+EnvironmentFile=-%h/.config/apartment-agent/telegram.env
+ExecStart=%h/apartment-agent/scripts/run_apartment_watch.sh

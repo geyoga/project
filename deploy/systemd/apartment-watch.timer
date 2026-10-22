@@ -1,0 +1,10 @@
+[Unit]
+Description=Refresh apartment watchlist every three hours
+
+[Timer]
+OnCalendar=*-*-* 00/3:00:00
+Persistent=true
+Unit=apartment-watch.service
+
+[Install]
+WantedBy=timers.target
