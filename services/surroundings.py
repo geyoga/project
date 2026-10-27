@@ -812,12 +812,15 @@ def enrich_surroundings(room):
         property_key
     )
 
-    if cached:
+    if cached and not room.get("ur_coordinates"):
         room[
             "coordinates"
         ] = cached.get(
             "coordinates"
         )
+
+        if room.get("ur_coordinates"):
+            room["coordinates"] = room["ur_coordinates"]
 
         room[
             "surroundings"
@@ -829,7 +832,7 @@ def enrich_surroundings(room):
         room[
             "surroundings_source"
         ] = (
-            "OpenStreetMap"
+            "UR map" if room.get("ur_coordinates") else "OpenStreetMap"
         )
 
         room[
@@ -840,7 +843,7 @@ def enrich_surroundings(room):
 
         return room
 
-    geocode = geocode_room(
+    geocode = room.get("ur_coordinates") or geocode_room(
         room
     )
 
@@ -919,9 +922,7 @@ def enrich_surroundings(room):
 
     room[
         "surroundings_source"
-    ] = (
-        "OpenStreetMap"
-    )
+    ] = "UR map" if room.get("ur_coordinates") else "OpenStreetMap"
 
     room[
         "surroundings_attribution"

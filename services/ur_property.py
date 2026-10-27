@@ -110,6 +110,13 @@ def html_to_text(raw_html):
     )
 
     text = re.sub(
+        r"<li[^>]*>",
+        "\n",
+        text,
+        flags=re.I,
+    )
+
+    text = re.sub(
         r"<[^>]+>",
         "",
         text,
@@ -165,6 +172,44 @@ def find_value_after_label(
                 return value
 
     return None
+
+
+def parse_access(value):
+    """Extract station access choices from UR property text."""
+    if not value:
+        return []
+    return [
+        {
+            "station": match.group("station"),
+            "line": match.group("line"),
+            "walk_minutes": int(match.group("walk_min")) if match.group("walk_min") else None,
+            "walk_minutes_max": int(match.group("walk_max") or match.group("walk_min") or 0) if match.group("walk_min") else None,
+            "bus_minutes": int(match.group("bus_min")) if match.group("bus_min") else None,
+            "bus_minutes_max": int(match.group("bus_max") or match.group("bus_min") or 0) if match.group("bus_min") else None,
+            "text": match.group(0).strip(),
+        }
+        for match in re.finditer(
+            r"(?P<line>[^「\n]+?線)?「(?P<station>[^」]+)」駅(?P<bus>バス\s*(?P<bus_min>\d+)(?:[～〜-](?P<bus_max>\d+))?分)?\s*(?P<walk>徒歩\s*(?P<walk_min>\d+)(?:[～〜-](?P<walk_max>\d+))?分)?",
+            value,
+        )
+    ]
+
+
+def renovation_start(value):
+    text = " ".join(str(value or "").split())
+    if not re.search(r"リノベ|リフォーム|改修|改装", text, re.I):
+        return None
+    match = re.search(r"(20\d{2})[年./-](\d{1,2})?月?", text)
+    return f"{match.group(1)}-{int(match.group(2)):02d}" if match and match.group(2) else match.group(1) if match else None
+
+
+def parse_map_coordinates(raw_html):
+    values = {}
+    for key in ("lat", "lng"):
+        match = re.search(rf'class="js-{key}-data"[^>]*value="([0-9.-]+)"', raw_html)
+        if match:
+            values["latitude" if key == "lat" else "longitude"] = float(match.group(1))
+    return values if len(values) == 2 else None
 
 
 def parse_age_range(value):
@@ -276,6 +321,13 @@ def parse_property_detail(
         )
     )
 
+    access_match = re.search(
+        r"<th[^>]*>\s*交通\s*</th>\s*<td[^>]*>(.*?)</td>", raw_html,
+        re.I | re.S,
+    )
+    access = html_to_text(access_match.group(1)) if access_match else find_value_after_label(text, "交通")
+    renovation = renovation_start(text)
+
     ages = parse_age_range(
         age_raw
     )
@@ -303,6 +355,10 @@ def parse_property_detail(
 
         "address":
             address,
+
+        "access_raw": access,
+        "access_options": parse_access(access),
+        "renovation_start": renovation,
     }
 
 
@@ -333,6 +389,15 @@ def fetch_property_detail(room):
         raw_html
     )
 
+    map_url = url.replace(".html", "_room_map.html")
+    try:
+        coordinates = parse_map_coordinates(fetch_html(map_url))
+    except Exception:
+        coordinates = None
+    if coordinates:
+        detail["coordinates"] = coordinates
+        detail["ur_coordinates"] = coordinates
+
     detail[
         "property_url"
     ] = url
@@ -351,22 +416,12 @@ def enrich_ur_property(room):
         return room
 
     try:
-        detail = (
-            fetch_property_detail(
-                room
-            )
-        )
-
+        detail = fetch_property_detail(room)
     except Exception as e:
-        room[
-            "property_enrichment_error"
-        ] = str(e)
-
+        room["property_enrichment_error"] = str(e)
         return room
 
-    for key, value in (
-        detail.items()
-    ):
+    for key, value in detail.items():
         if value is not None:
             room[key] = value
 

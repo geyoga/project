@@ -10,6 +10,7 @@ from crawlers.ur import (
     parse_yen,
 )
 from services import ur_property
+from services.commute import enrich_commute
 
 
 PROPERTY = {
@@ -99,6 +100,33 @@ class UrPropertyTests(unittest.TestCase):
         self.assertEqual(detail["building_age_estimate_years"], 15)
         self.assertEqual(detail["address"], "神奈川県横浜市")
 
+    def test_parses_ur_map_coordinates(self):
+        self.assertEqual(
+            ur_property.parse_map_coordinates(
+                '<input class="js-lat-data" value="35.4365812" />'
+                '<input class="js-lng-data" value="139.4712707" />'
+            ),
+            {"latitude": 35.4365812, "longitude": 139.4712707},
+        )
+
+    def test_parses_ur_access_options(self):
+        detail = ur_property.parse_property_detail("""
+        <table><tr><th>交通</th><td>相鉄本線「大和」駅バス15～20分 徒歩1～5分<br>小田急江ノ島線「高座渋谷」駅 徒歩13～20分</td></tr></table>
+        """)
+        self.assertEqual(detail["access_options"][0]["station"], "大和")
+        self.assertEqual(detail["access_options"][0]["bus_minutes"], 15)
+        self.assertEqual(detail["access_options"][1]["walk_minutes_max"], 20)
+
+    def test_local_commute_uses_best_ur_access_option(self):
+        room = enrich_commute({"access_options": [
+            {"station": "大和", "bus_minutes": 15, "walk_minutes": 1},
+            {"station": "高座渋谷", "walk_minutes": 13},
+        ]}, "Futako-Tamagawa")
+        self.assertEqual(room["primary_station"], "大和")
+        self.assertEqual(room["total_commute_minutes"], 69)
+        self.assertEqual(room["commute_destination"], "Rakuten Crimson House")
+        self.assertEqual(room["commute_source"], "local_station_table")
+
     def test_enrichment_uses_cache_and_preserves_non_ur(self):
         room = {"source": "ur", "shisya": "40", "danchi": "145", "shikibetu": "0"}
         with mock.patch("services.ur_property.fetch_html", return_value=self.HTML) as fetch:
@@ -107,7 +135,7 @@ class UrPropertyTests(unittest.TestCase):
 
         self.assertEqual(first["structure"], "RC")
         self.assertEqual(second["address"], "神奈川県横浜市")
-        fetch.assert_called_once()
+        self.assertEqual(fetch.call_count, 2)
 
     def test_enrichment_records_network_errors(self):
         room = {"source": "ur", "shisya": "40", "danchi": "145", "shikibetu": "0"}

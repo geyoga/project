@@ -51,6 +51,26 @@ STATIC_COMMUTES = {
     },
 }
 
+# Conservative, manually reviewed estimates in minutes from station platforms
+# to Futako-Tamagawa. UR access time is added separately.
+LOCAL_COMMUTES = {
+    "青葉台": (23, 0, True),
+    "鴨居": (43, 1, False),
+    "大和": (48, 1, False),
+    "高座渋谷": (52, 1, False),
+    "いずみ中央": (54, 1, False),
+    "片倉町": (40, 2, False), "横浜": (39, 1, False),
+    "鶴川": (41, 1, False), "玉川学園前": (46, 1, False), "柿生": (45, 1, False), "こどもの国": (35, 1, False),
+    "小田急相模原": (49, 1, False), "古淵": (51, 2, False), "日吉": (27, 1, False), "日吉本町": (30, 1, False), "綱島": (33, 1, False),
+    "二俣川": (48, 2, False), "東戸塚": (54, 2, False), "鶴ヶ峰": (51, 2, False), "生田": (34, 1, False), "溝の口": (4, 0, True),
+    "たまプラーザ": (9, 0, True), "あざみ野": (12, 0, True), "新百合ヶ丘": (38, 1, False), "百合ヶ丘": (38, 1, False),
+    "厚木": (58, 1, False), "海老名": (58, 1, False), "本厚木": (62, 1, False), "さがみ野": (59, 2, False), "南林間": (55, 1, False), "座間": (57, 1, False),
+    "天王町": (47, 2, False), "保土ケ谷": (49, 2, False), "西横浜": (49, 2, False), "都筑ふれあいの丘": (25, 1, False), "江田": (15, 0, True), "センター南": (22, 1, False),
+    "橋本": (60, 2, False), "多摩境": (66, 2, False), "相模大野": (43, 1, False), "中央林間": (35, 0, True), "戸塚": (58, 2, False), "舞岡": (53, 2, False), "下永谷": (55, 2, False),
+    "大口": (47, 2, False), "鶴見": (50, 2, False), "妙蓮寺": (37, 1, False), "十日市場": (36, 1, False), "中山": (35, 1, False), "仲町台": (27, 1, False), "東林間": (45, 1, False), "町田": (46, 1, False),
+    "元町・中華街": (47, 1, False), "桜木町": (45, 2, False), "根岸": (55, 2, False), "山手": (53, 2, False),
+}
+
 
 MEMORY_CACHE = {}
 
@@ -326,3 +346,16 @@ def get_transit_route(
         save_cache()
 
     return result
+
+
+def get_local_route(station, destination):
+    route = LOCAL_COMMUTES.get(station)
+    if not route or destination != "Futako-Tamagawa":
+        return None
+    train_minutes, transfers, direct = route
+    return {
+        "train_minutes": train_minutes,
+        "transfers": transfers,
+        "direct": direct,
+        "source": "local_station_table",
+    }
