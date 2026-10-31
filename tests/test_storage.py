@@ -36,6 +36,7 @@ class StorageTests(unittest.TestCase):
                 removed = storage.save_observed_listings(run_id, [], True)
                 self.assertEqual(removed[0]["type"], "removed")
                 self.assertEqual(storage.get_current_listings(), [])
+                storage.save_observed_listings(run_id, [], True)
 
                 returned = storage.save_observed_listings(run_id, [room])
                 self.assertEqual(returned[0]["type"], "returned")

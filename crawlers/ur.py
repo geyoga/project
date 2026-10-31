@@ -4,6 +4,7 @@ import re
 import time
 import urllib.parse
 import urllib.request
+from concurrent.futures import ThreadPoolExecutor
 from services.facilities import (
     extract_facilities,
 )
@@ -14,6 +15,7 @@ API_URL = (
     "chintai/api/bukken/result/"
     "bukken_result/"
 )
+ROOM_DETAIL_URL = "https://chintai.r6.ur-net.go.jp/chintai/api/bukken/detail/detail_room/"
 
 
 def parse_yen(value):
@@ -53,7 +55,12 @@ def parse_area(value):
     )
 
 
-def build_source_url(property_data):
+def build_source_url(property_data, room=None):
+    room = _as_dict(room)
+    room_link = room.get("roomLinkSp") or room.get("roomLinkPc")
+    if room_link:
+        return urllib.parse.urljoin("https://www.ur-net.go.jp", room_link)
+
     shisya = property_data.get(
         "shisya"
     )
@@ -223,6 +230,27 @@ def extract_properties(response):
     return []
 
 
+def room_is_available(room):
+    room_id = room.get("ur_room_id")
+    if not room_id:
+        return True
+    body = urllib.parse.urlencode({
+        "id": room_id,
+        "shisya": room.get("shisya"),
+        "danchi": room.get("danchi"),
+        "shikibetu": room.get("shikibetu") or "0",
+        "sp": "",
+    }).encode()
+    request = urllib.request.Request(
+        ROOM_DETAIL_URL,
+        data=body,
+        headers={"User-Agent": "Mozilla/5.0", "X-Requested-With": "XMLHttpRequest"},
+    )
+    with urllib.request.urlopen(request, timeout=30) as response:
+        details = json.load(response)
+    return bool(details) and str(details[0].get("id")) == str(room_id)
+
+
 def normalize_room(
     property_data,
     room,
@@ -274,14 +302,22 @@ def normalize_room(
         room,
     )
 
+    design = room.get("design") or []
+    renovation = any(
+        item.get("デザイン_HTML") == "renovation"
+        for item in design
+        if isinstance(item, dict)
+    )
+
     return {
         "source":
             "ur",
 
         "source_url":
-            build_source_url(
-                property_data
-            ),
+        build_source_url(
+            property_data,
+            room,
+        ),
 
         "property":
             property_data.get(
@@ -316,6 +352,10 @@ def normalize_room(
             room.get(
                 "floor"
             ),
+
+        "renovation_status": "renovated" if renovation else "not_marked_by_ur",
+        "renovation_start": None,
+        "ur_room_id": room.get("id"),
 
         "shisya":
             property_data.get(
@@ -503,5 +543,15 @@ def crawl_areas(area_codes):
                 "area_code": area_code,
                 "error": str(error),
             })
+
+    if errors:
+        return rooms, errors
+
+    try:
+        with ThreadPoolExecutor(max_workers=8) as executor:
+            availability = executor.map(room_is_available, rooms)
+            rooms = [room for room, available in zip(rooms, availability) if available]
+    except Exception as error:
+        errors.append({"area_code": "room_detail", "error": str(error)})
 
     return rooms, errors

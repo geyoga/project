@@ -112,6 +112,8 @@ def initialize_database():
                 last_seen_at TEXT NOT NULL,
 
                 active INTEGER NOT NULL DEFAULT 1,
+                availability_state TEXT NOT NULL DEFAULT 'available',
+                missing_checks INTEGER NOT NULL DEFAULT 0,
 
                 rent INTEGER,
                 management_fee INTEGER,
@@ -208,6 +210,12 @@ def initialize_database():
             WHERE active = 1;
             """
         )
+        if not column_exists(conn, "listings", "availability_state"):
+            conn.execute("ALTER TABLE listings ADD COLUMN availability_state TEXT NOT NULL DEFAULT 'available'")
+        if not column_exists(conn, "listings", "missing_checks"):
+            conn.execute("ALTER TABLE listings ADD COLUMN missing_checks INTEGER NOT NULL DEFAULT 0")
+        conn.execute("DROP VIEW IF EXISTS current_listings")
+        conn.execute("CREATE VIEW current_listings AS SELECT * FROM listings WHERE active = 1 AND availability_state = 'available'")
 
         # Migration for an older database.
         if not column_exists(
@@ -747,9 +755,7 @@ def save_listing(
                     current_total,
             }
 
-        elif not existing[
-            "active"
-        ]:
+        elif not existing["active"] or existing["availability_state"] != "available":
             change = {
                 "type":
                     "returned",
@@ -773,7 +779,9 @@ def save_listing(
                 source_url = ?,
 
                 last_seen_at = ?,
-                active = 1,
+            active = 1,
+            availability_state = 'available',
+            missing_checks = 0,
 
                 rent = ?,
                 management_fee = ?,
@@ -975,18 +983,13 @@ def save_observed_listings(
                 ):
                     continue
 
-                conn.execute(
-                    """
-                    UPDATE listings
-
-                    SET active = 0
-
+                conn.execute("""
+                    UPDATE listings SET
+                        missing_checks = missing_checks + 1,
+                        availability_state = CASE WHEN missing_checks + 1 >= 2 THEN 'unavailable' ELSE 'verification_pending' END,
+                        active = CASE WHEN missing_checks + 1 >= 2 THEN 0 ELSE active END
                     WHERE listing_id = ?
-                    """,
-                    (
-                        listing_id,
-                    ),
-                )
+                """, (listing_id,))
 
                 changes.append(
                     {

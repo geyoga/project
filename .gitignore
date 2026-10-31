@@ -4,3 +4,5 @@ __pycache__/
 data/*.db
 data/*_cache.json
 data/debug_*.json
+data/watchlist_preferences.json
+test-results/

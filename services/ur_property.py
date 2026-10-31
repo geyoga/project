@@ -1,10 +1,13 @@
 import html
+import json
 import re
 import time
+import urllib.parse
 import urllib.request
 
 
 CACHE = {}
+ROOM_DETAIL_URL = "https://chintai.r6.ur-net.go.jp/chintai/api/bukken/detail/detail_room/"
 
 
 def build_property_url(room):
@@ -174,6 +177,15 @@ def find_value_after_label(
     return None
 
 
+def find_table_value(raw_html, label):
+    match = re.search(
+        rf"<th[^>]*>\s*(?:<[^>]+>\s*)*{re.escape(label)}\s*(?:</[^>]+>\s*)*</th>\s*<td[^>]*>(.*?)</td>",
+        raw_html,
+        re.I | re.S,
+    )
+    return html_to_text(match.group(1)) if match else None
+
+
 def parse_access(value):
     """Extract station access choices from UR property text."""
     if not value:
@@ -199,8 +211,30 @@ def renovation_start(value):
     text = " ".join(str(value or "").split())
     if not re.search(r"リノベ|リフォーム|改修|改装", text, re.I):
         return None
-    match = re.search(r"(20\d{2})[年./-](\d{1,2})?月?", text)
+    match = re.search(
+        r"(20\d{2})\s*(?:年|[./-])\s*(\d{1,2})?\s*月?",
+        text,
+    )
     return f"{match.group(1)}-{int(match.group(2)):02d}" if match and match.group(2) else match.group(1) if match else None
+
+
+def fetch_room_renovation(room):
+    body = urllib.parse.urlencode({
+        "id": room["ur_room_id"],
+        "shisya": room["shisya"],
+        "danchi": room["danchi"],
+        "shikibetu": room.get("shikibetu") or "0",
+        "sp": "",
+    }).encode()
+    request = urllib.request.Request(
+        ROOM_DETAIL_URL,
+        data=body,
+        headers={"User-Agent": "Mozilla/5.0", "X-Requested-With": "XMLHttpRequest"},
+    )
+    with urllib.request.urlopen(request, timeout=30) as response:
+        details = json.load(response)
+    remarks = details[0].get("biko", "") if details else ""
+    return renovation_start(html_to_text(remarks))
 
 
 def parse_map_coordinates(raw_html):
@@ -300,32 +334,13 @@ def parse_property_detail(
         raw_html
     )
 
-    structure_raw = (
-        find_value_after_label(
-            text,
-            "構造",
-        )
-    )
+    structure_raw = find_table_value(raw_html, "構造") or find_value_after_label(text, "構造")
 
-    age_raw = (
-        find_value_after_label(
-            text,
-            "管理年数",
-        )
-    )
+    age_raw = find_table_value(raw_html, "管理年数") or find_value_after_label(text, "管理年数")
 
-    address = (
-        find_value_after_label(
-            text,
-            "住所",
-        )
-    )
+    address = find_table_value(raw_html, "住所") or find_value_after_label(text, "住所")
 
-    access_match = re.search(
-        r"<th[^>]*>\s*交通\s*</th>\s*<td[^>]*>(.*?)</td>", raw_html,
-        re.I | re.S,
-    )
-    access = html_to_text(access_match.group(1)) if access_match else find_value_after_label(text, "交通")
+    access = find_table_value(raw_html, "交通") or find_value_after_label(text, "交通")
     renovation = renovation_start(text)
 
     ages = parse_age_range(
@@ -424,5 +439,11 @@ def enrich_ur_property(room):
     for key, value in detail.items():
         if value is not None:
             room[key] = value
+
+    if room.get("renovation_status") == "renovated" and room.get("ur_room_id"):
+        try:
+            room["renovation_start"] = fetch_room_renovation(room)
+        except Exception as e:
+            room["room_enrichment_error"] = str(e)
 
     return room

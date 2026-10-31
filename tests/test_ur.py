@@ -8,6 +8,7 @@ from crawlers.ur import (
     normalize_room,
     parse_area,
     parse_yen,
+    room_is_available,
 )
 from services import ur_property
 from services.commute import enrich_commute
@@ -48,6 +49,14 @@ class UrCrawlerTests(unittest.TestCase):
         self.assertEqual(room["room"], "5-6号棟 502号室")
         self.assertEqual(room["monthly_total"], 83900)
         self.assertEqual(room["area_m2"], 53.0)
+        self.assertEqual(room["renovation_status"], "not_marked_by_ur")
+
+    def test_detects_ur_renovation_design(self):
+        room = normalize_room(PROPERTY, dict(ROOM, id="002050502", roomLinkSp="/room?JKSS=002050502", design=[{"デザイン_HTML": "renovation"}]))
+        self.assertEqual(room["renovation_status"], "renovated")
+        self.assertIsNone(room["renovation_start"])
+        self.assertEqual(room["ur_room_id"], "002050502")
+        self.assertEqual(room["source_url"], "https://www.ur-net.go.jp/room?JKSS=002050502")
 
     def test_handles_malformed_api_values(self):
         self.assertEqual(extract_properties({"result": [PROPERTY]}), [PROPERTY])
@@ -72,6 +81,23 @@ class UrCrawlerTests(unittest.TestCase):
 
         self.assertEqual(rooms, [{"area_code": "102"}])
         self.assertEqual(errors, [{"area_code": "113", "error": "unavailable"}])
+
+    def test_filters_rooms_missing_from_ur_detail_api(self):
+        with mock.patch("crawlers.ur.crawl_area", return_value=[{"ur_room_id": "1"}, {"ur_room_id": "2"}]), mock.patch(
+            "crawlers.ur.room_is_available", side_effect=[True, False]
+        ):
+            rooms, errors = crawl_areas(["102"])
+        self.assertEqual(rooms, [{"ur_room_id": "1"}])
+        self.assertEqual(errors, [])
+
+    @mock.patch("crawlers.ur.urllib.request.urlopen")
+    def test_rejects_empty_or_wrong_room_detail(self, urlopen):
+        room = {"ur_room_id": "1", "shisya": "40", "danchi": "1"}
+        response = urlopen.return_value.__enter__.return_value
+        response.read.return_value = b"[]"
+        self.assertFalse(room_is_available(room))
+        response.read.return_value = b'[{"id":"2"}]'
+        self.assertFalse(room_is_available(room))
 
 
 class UrPropertyTests(unittest.TestCase):
@@ -99,6 +125,27 @@ class UrPropertyTests(unittest.TestCase):
         self.assertEqual(detail["building_age_max_years"], 20)
         self.assertEqual(detail["building_age_estimate_years"], 15)
         self.assertEqual(detail["address"], "神奈川県横浜市")
+
+    def test_property_rows_do_not_leak_neighbouring_values(self):
+        detail = ur_property.parse_property_detail("""
+        <table><tr><th><p>構造</p></th><td>鉄筋コンクリート造</td></tr>
+        <tr><th>管理年数</th><td>築10年</td></tr><tr><th>住所</th><td>横浜市</td></tr>
+        <tr><th>駐車場</th><td>・駐車場などを見る</td></tr></table>
+        """)
+        self.assertEqual(detail["structure"], "RC")
+        self.assertEqual(detail["management_age_raw"], "築10年")
+
+    def test_parses_renovation_date_formats(self):
+        self.assertEqual(ur_property.renovation_start("リノベーション実施：2022年3月"), "2022-03")
+        self.assertEqual(ur_property.renovation_start("リフォーム（2021/11）"), "2021-11")
+
+    @mock.patch("services.ur_property.fetch_room_renovation", return_value="2026-07")
+    @mock.patch("services.ur_property.fetch_property_detail", return_value={})
+    def test_enriches_renovated_room_date(self, _property, _room):
+        room = ur_property.enrich_ur_property({
+            "source": "ur", "renovation_status": "renovated", "ur_room_id": "1"
+        })
+        self.assertEqual(room["renovation_start"], "2026-07")
 
     def test_parses_ur_map_coordinates(self):
         self.assertEqual(

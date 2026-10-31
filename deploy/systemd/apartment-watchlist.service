@@ -4,8 +4,8 @@ After=network.target
 
 [Service]
 Type=simple
-WorkingDirectory=%h/apartment-agent
-ExecStart=/usr/bin/python3 -m http.server 1221 --bind 0.0.0.0 --directory watchlist
+WorkingDirectory=/DATA/Projects/apartment-agent
+ExecStart=/usr/bin/python3 scripts/watchlist_server.py
 Restart=always
 RestartSec=5
 
