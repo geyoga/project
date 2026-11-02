@@ -176,6 +176,13 @@ class UrPropertyTests(unittest.TestCase):
         self.assertEqual(room["commute_destination"], "Rakuten Crimson House")
         self.assertEqual(room["commute_source"], "local_station_table")
 
+    def test_bus_access_does_not_route_walk_to_station(self):
+        room = enrich_commute({"coordinates": {"latitude": 1, "longitude": 1}, "access_options": [
+            {"station": "青葉台", "bus_minutes": 10, "walk_minutes": 3}
+        ]})
+        self.assertEqual(room["station_walk_minutes"], 3)
+        self.assertEqual(room["typical_commute_minutes"], 40)
+
     def test_enrichment_uses_cache_and_preserves_non_ur(self):
         room = {"source": "ur", "shisya": "40", "danchi": "145", "shikibetu": "0"}
         with mock.patch("services.ur_property.fetch_html", return_value=self.HTML) as fetch:

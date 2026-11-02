@@ -31,7 +31,9 @@ def office_walk_minutes(destination):
     return destination["station_walk_minutes"], "official_access_estimate"
 
 
-def routed_station_walk(room, station, listing_walk):
+def routed_station_walk(room, station, listing_walk, bus_minutes=None):
+    if bus_minutes:
+        return listing_walk or 0, None, "listing"
     origin = room.get("coordinates")
     if not origin:
         return listing_walk or 0, None, "listing"
@@ -60,7 +62,9 @@ def enrich_commute(
         if route:
             route = dict(route)
             route["station"] = option["station"]
-            walk, distance, source = routed_station_walk(room, option["station"], option.get("walk_minutes"))
+            walk, distance, source = routed_station_walk(
+                room, option["station"], option.get("walk_minutes"), option.get("bus_minutes")
+            )
             route["listing_station_walk_minutes"] = option.get("walk_minutes")
             route["station_walk_minutes"] = walk
             route["station_walk_distance_m"] = distance
@@ -145,6 +149,7 @@ def enrich_commute(
     )
     room["primary_station"] = commute.get("station", station)
     room["listing_station_walk_minutes"] = commute.get("listing_station_walk_minutes", room.get("station_walk_minutes"))
+    room["station_walk_minutes"] = walk_minutes
     room["station_walk_distance_m"] = commute.get("station_walk_distance_m")
     room["station_walk_source"] = commute.get("station_walk_source", "listing")
     room["destination_walk_minutes"] = office_walk

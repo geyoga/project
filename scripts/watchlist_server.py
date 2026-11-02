@@ -1,5 +1,7 @@
 import json
 import os
+import subprocess
+import sys
 import tempfile
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -10,7 +12,7 @@ PREFERENCES = ROOT / "data" / "watchlist_preferences.json"
 DEFAULT_PREFERENCES = ROOT / "data" / "watchlist_defaults.json"
 DEFAULTS = {
     "version": 1,
-    "targets": {"monthly_total": 100000, "area_m2": 35, "station_walk_minutes": 15, "total_commute_minutes": 60, "building_age_estimate_years": 20},
+    "targets": {"monthly_total": 100000, "area_m2": 35, "station_walk_minutes": 15, "total_commute_minutes": 90, "building_age_estimate_years": 20},
     "weights": {"budget": 15, "commute": 18, "space": 7, "layout": 6, "floor": 6, "building_age": 9, "structure": 5, "facilities": 8, "orientation": 3, "elevator": 3, "bike_parking": 2, "gas": 2, "surroundings": 7, "initial_cost": 4, "foreigner_friendly": 5, "renovation": 0},
 }
 
@@ -54,6 +56,7 @@ class Handler(SimpleHTTPRequestHandler):
             with tempfile.NamedTemporaryFile("w", dir=path.parent, delete=False) as output:
                 json.dump(data, output, indent=2); output.write("\n")
             Path(output.name).replace(path)
+            subprocess.run([sys.executable, str(ROOT / "scripts" / "generate_watchlist.py")], check=True)
             self.send_response(204); self.end_headers()
         except (ValueError, json.JSONDecodeError):
             self.send_error(400, "Invalid preferences")

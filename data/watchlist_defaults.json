@@ -4,11 +4,11 @@
     "monthly_total": 100000,
     "area_m2": 35,
     "station_walk_minutes": 15,
-    "total_commute_minutes": 60,
+    "total_commute_minutes": 120,
     "building_age_estimate_years": 20
   },
   "weights": {
-    "budget": 25,
+    "budget": 30,
     "commute": 30,
     "space": 22,
     "layout": 15,

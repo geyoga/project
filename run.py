@@ -108,10 +108,7 @@ def main():
         load_property_metadata()
     )
 
-    area_codes = profile.get(
-        "ur_area_codes",
-        [],
-    )
+    area_codes = profile.get("ur_area_codes", []) + profile.get("ur_areas", [])
 
     run_id = start_crawl_run(len(area_codes))
 

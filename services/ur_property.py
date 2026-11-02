@@ -31,7 +31,7 @@ def build_property_url(room):
 
     return (
         "https://www.ur-net.go.jp/"
-        "chintai/kanto/kanagawa/"
+        f'chintai/kanto/{"tokyo" if room.get("prefecture_code") == "13" else "kanagawa"}/'
         f"{shisya}_{danchi}{shikibetu}.html"
     )
 

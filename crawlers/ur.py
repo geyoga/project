@@ -481,9 +481,9 @@ def normalize_room(
     }
 
 
-def crawl_area(area_code):
+def crawl_area(area_code, prefecture_code="14"):
     response = fetch_area(
-        area_code
+        area_code, prefecture_code
     )
 
     properties = extract_properties(
@@ -523,6 +523,7 @@ def crawl_area(area_code):
             ] = str(
                 area_code
             )
+            normalized["prefecture_code"] = str(prefecture_code)
 
             rooms.append(
                 normalized
@@ -531,13 +532,15 @@ def crawl_area(area_code):
     return rooms
 
 
-def crawl_areas(area_codes):
+def crawl_areas(areas):
     rooms = []
     errors = []
 
-    for area_code in area_codes:
+    for area in areas:
+        area_code = area.get("area_code") if isinstance(area, dict) else area
+        prefecture_code = area.get("prefecture_code", "14") if isinstance(area, dict) else "14"
         try:
-            rooms.extend(crawl_area(area_code))
+            rooms.extend(crawl_area(area_code, prefecture_code))
         except Exception as error:
             errors.append({
                 "area_code": area_code,
