@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "targets": {
+    "monthly_total": 100000,
+    "area_m2": 35,
+    "station_walk_minutes": 15,
+    "total_commute_minutes": 60,
+    "building_age_estimate_years": 20
+  },
+  "weights": {
+    "budget": 25,
+    "commute": 30,
+    "space": 22,
+    "layout": 15,
+    "floor": 18,
+    "building_age": 9,
+    "structure": 5,
+    "facilities": 8,
+    "orientation": 3,
+    "elevator": 3,
+    "bike_parking": 2,
+    "gas": 2,
+    "surroundings": 7,
+    "initial_cost": 4,
+    "foreigner_friendly": 5,
+    "renovation": 0
+  }
+}

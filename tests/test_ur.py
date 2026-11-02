@@ -170,7 +170,9 @@ class UrPropertyTests(unittest.TestCase):
             {"station": "高座渋谷", "walk_minutes": 13},
         ]}, "Futako-Tamagawa")
         self.assertEqual(room["primary_station"], "大和")
-        self.assertEqual(room["total_commute_minutes"], 69)
+        self.assertEqual(room["typical_commute_minutes"], 68)
+        self.assertEqual(room["planning_commute_minutes"], 84)
+        self.assertEqual(room["total_commute_minutes"], 84)
         self.assertEqual(room["commute_destination"], "Rakuten Crimson House")
         self.assertEqual(room["commute_source"], "local_station_table")
 

@@ -501,9 +501,7 @@ def passes_hard_filters(
         "station_walk_minutes"
     )
 
-    commute = room.get(
-        "total_commute_minutes"
-    )
+    commute = room.get("planning_commute_minutes", room.get("total_commute_minutes"))
 
     # Budget
 
@@ -673,9 +671,7 @@ def score_budget(
 
 
 def score_commute(room):
-    commute = room.get(
-        "total_commute_minutes"
-    )
+    commute = room.get("planning_commute_minutes", room.get("total_commute_minutes"))
 
     if commute is None:
         return 45

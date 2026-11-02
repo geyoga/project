@@ -1,5 +1,11 @@
 {
-  "destination": "Futako-Tamagawa",
+  "destination": {
+    "name": "Rakuten Crimson House",
+    "address": "楽天クリムゾンハウス, 東京都世田谷区玉川1-14-1",
+    "station": "Futako-Tamagawa",
+    "station_walk_minutes": 4,
+    "arrival_buffer_minutes": 3
+  },
 
   "preferred_monthly_max": 100000,
   "absolute_monthly_max": 120000,

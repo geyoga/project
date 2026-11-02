@@ -7,6 +7,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 WATCHLIST = ROOT / "watchlist"
 PREFERENCES = ROOT / "data" / "watchlist_preferences.json"
+DEFAULT_PREFERENCES = ROOT / "data" / "watchlist_defaults.json"
 DEFAULTS = {
     "version": 1,
     "targets": {"monthly_total": 100000, "area_m2": 35, "station_walk_minutes": 15, "total_commute_minutes": 60, "building_age_estimate_years": 20},
@@ -30,9 +31,10 @@ def validate_preferences(data):
 
 class Handler(SimpleHTTPRequestHandler):
     def do_GET(self):
-        if self.path == "/preferences.json":
-            if PREFERENCES.exists():
-                data = json.loads(PREFERENCES.read_text())
+        if self.path in ("/preferences.json", "/defaults.json"):
+            path = PREFERENCES if self.path == "/preferences.json" else DEFAULT_PREFERENCES
+            if path.exists():
+                data = json.loads(path.read_text())
             else:
                 data = DEFAULTS
             body = json.dumps(data).encode()
@@ -40,17 +42,18 @@ class Handler(SimpleHTTPRequestHandler):
         super().do_GET()
 
     def do_POST(self):
-        if self.path != "/preferences.json":
+        if self.path not in ("/preferences.json", "/defaults.json"):
             self.send_error(404); return
         try:
             length = int(self.headers.get("Content-Length", 0))
             if length > 10_000:
                 raise ValueError()
             data = validate_preferences(json.loads(self.rfile.read(length)))
-            PREFERENCES.parent.mkdir(exist_ok=True)
-            with tempfile.NamedTemporaryFile("w", dir=PREFERENCES.parent, delete=False) as output:
+            path = PREFERENCES if self.path == "/preferences.json" else DEFAULT_PREFERENCES
+            path.parent.mkdir(exist_ok=True)
+            with tempfile.NamedTemporaryFile("w", dir=path.parent, delete=False) as output:
                 json.dump(data, output, indent=2); output.write("\n")
-            Path(output.name).replace(PREFERENCES)
+            Path(output.name).replace(path)
             self.send_response(204); self.end_headers()
         except (ValueError, json.JSONDecodeError):
             self.send_error(400, "Invalid preferences")

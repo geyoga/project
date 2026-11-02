@@ -3,6 +3,7 @@ import os
 import tempfile
 import urllib.parse
 import urllib.request
+from datetime import datetime
 from config import DATA_DIR
 
 
@@ -241,6 +242,7 @@ def parse_course_response(data):
 def query_ekispert(
     origin,
     destination,
+    departure_time=None,
 ):
     api_key = os.getenv(
         "EKISPERT_API_KEY"
@@ -249,6 +251,7 @@ def query_ekispert(
     if not api_key:
         return None
 
+    departure = departure_time or datetime.now().replace(hour=8, minute=0)
     params = {
         "key":
             api_key,
@@ -260,6 +263,9 @@ def query_ekispert(
             normalize_destination(
                 destination
             ),
+        "date": departure.strftime("%Y%m%d"),
+        "time": departure.strftime("%H%M"),
+        "searchType": "departure",
     }
 
     url = (
@@ -306,16 +312,16 @@ def query_ekispert(
 def get_transit_route(
     origin,
     destination,
+    departure_time=None,
 ):
     if not origin:
         return None
 
     cache = load_cache()
 
-    key = (
-        f"{origin}:"
-        f"{destination}"
-    )
+    departure = departure_time or datetime.now().replace(hour=8, minute=0)
+    day_type = "weekend" if departure.weekday() >= 5 else "weekday"
+    key = f"{origin}:{destination}:{day_type}:{departure.hour:02d}:{departure.minute // 15 * 15:02d}"
 
     if key in cache:
         return cache[key]
@@ -324,6 +330,7 @@ def get_transit_route(
     result = query_ekispert(
         origin,
         destination,
+        departure,
     )
 
     # Safe fallback while no API key
