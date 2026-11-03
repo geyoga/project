@@ -32,19 +32,43 @@
     }
     .map-tools select { appearance:none; padding-right:34px; background:var(--control) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%23a1a1aa' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'%3E%3Cpath d='m4 6 4 4 4-4'/%3E%3C/svg%3E") no-repeat right 11px center; }
     .map-tools input { width: 13rem; cursor: text; }
+    .map-tools #property { width:10rem; text-overflow:ellipsis; }
     .map-tools input::placeholder { color: var(--muted); }
     .map-tools input:focus, .map-tools select:focus, .map-tools button:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; }
-    .map-tools button:hover { background: var(--bg); }
+    .map-tools button:not(.switch):hover { background: var(--bg); }
     .map-tools .separator { width: 1px; height: 24px; background: var(--border); }
     .theme { display:flex; align-items:center; gap:8px; color:#f4f4f5; font-size:.88rem; font-weight:500; white-space:nowrap; }
     .map-tools .switch { width:36px; height:20px; padding:2px; border:0; border-radius:999px; background:#fafafa; }
+    .map-tools .switch:hover { background:#fafafa; }
     .thumb { display:block; width:16px; height:16px; border-radius:50%; background:#18181b; transform:translateX(16px); transition:transform .15s; }
     .switch[aria-checked="false"] { background:#a1a1aa; }
+    .switch[aria-checked="false"]:hover { background:#a1a1aa; }
     .switch[aria-checked="false"] .thumb { background:#fff; transform:none; }
     @media (max-width: 600px) { .map-tools { left: 8px; right: 8px; max-width: none; transform: none; } }
     body.light { color:#18181b; --bg:#fafafa; --border:#e4e4e7; --muted:#71717a; --card:#fff; --control:#fff; }
     body.light .theme { color:#18181b; }
     body.light .map-tools select { background-color:var(--control); }
+    .listing-panel {
+      position:absolute; z-index:1000; top:104px; bottom:16px; left:16px; width:360px;
+      padding:16px; overflow:auto; background:color-mix(in srgb,var(--card) 96%,transparent);
+      border:1px solid var(--border); border-radius:12px; box-shadow:0 8px 28px #0005;
+      transition:transform .2s ease;
+    }
+    .listing-panel.collapsed { transform:translateX(calc(-100% - 16px)); }
+    .panel-head { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .panel-head h2 { margin:0; font-size:1rem; }
+    .panel-toggle { width:32px; height:32px; padding:0; border:1px solid var(--border); border-radius:8px; color:inherit; background:var(--control); cursor:pointer; }
+    .panel-toggle:hover { background:var(--bg); }
+    .panel-toggle-floating { position:absolute; z-index:1000; top:104px; left:16px; display:none; }
+    .listing-panel.collapsed + .panel-toggle-floating { display:block; }
+    .listing-card { margin-top:12px; padding:14px; border:1px solid var(--border); border-radius:8px; background:color-mix(in srgb,var(--bg) 70%,var(--card)); }
+    .listing-card h3 { margin:0 0 4px; font-size:.95rem; }
+    .listing-card p { margin:4px 0; color:var(--muted); font-size:.82rem; }
+    .listing-card .score { float:right; padding:4px 9px; color:#86efac; background:#14532d; border-radius:999px; font-size:.9rem; font-weight:600; line-height:1; }
+    body.light .listing-card .score { color:#15803d; background:#dcfce7; }
+    .listing-card .filter-warning { float:right; padding:4px 9px; color:#fbbf24; background:#713f12; border-radius:999px; font-size:.78rem; font-weight:600; line-height:1; }
+    body.light .listing-card .filter-warning { color:#92400e; background:#fef3c7; }
+    @media (max-width: 600px) { .listing-panel { top:104px; width:calc(100% - 32px); } }
   </style>
 </head>
 <body>
@@ -60,6 +84,14 @@
     <button type="button" id="preferences">Score preferences</button>
     <label class="theme">Dark mode <button class="switch" id="theme" type="button" role="switch" aria-checked="true" aria-label="Toggle dark mode"><span class="thumb"></span></button></label>
   </nav>
+  <aside class="listing-panel" id="listingPanel" aria-label="Apartment listings">
+    <div class="panel-head">
+      <h2>Apartments</h2>
+      <button class="panel-toggle" id="collapsePanel" type="button" aria-label="Collapse apartment list" aria-expanded="true">‹</button>
+    </div>
+    <div id="listingCards"></div>
+  </aside>
+  <button class="panel-toggle panel-toggle-floating" id="expandPanel" type="button" aria-label="Expand apartment list">›</button>
   <div id="map" aria-label="Apartment map"></div>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
@@ -69,6 +101,38 @@
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
     map.whenReady(() => map.invalidateSize());
+
+    const yen = value => value == null ? 'Not available' : '¥' + Number(value).toLocaleString();
+    fetch('apartments.json').then(response => response.json()).then(({apartments, preferences}) => {
+      const ids = ['search','layout','property','locality','matchFilter','sort','familyFilter'];
+      const options = (id, key, label = value => value) => [...new Set(apartments.map(x => x[key]).filter(Boolean))].sort().forEach(value => document.getElementById(id).insertAdjacentHTML('beforeend', `<option value="${value}">${label(value)}</option>`));
+      options('layout','layout');
+      options('property','property',value => apartments.find(x => x.property === value).property_romaji || value);
+      options('locality','locality',value => apartments.find(x => x.locality === value).locality_romaji || value);
+      const saved = JSON.parse(localStorage.getItem('watchlist-filters') || '{}');
+      ids.forEach(id => { if (saved[id] != null) document.getElementById(id).value = saved[id]; });
+      const renderListings = () => {
+      const q = document.getElementById('search').value.toLowerCase();
+      const weights = preferences.weights || {};
+      const targets = preferences.targets || {};
+      const targetScore = (x, key) => { const target = targets[key], value = x[key]; if (value == null) return 50; if (key === 'area_m2') return Math.min(100, 60 + Math.max(0, value - target) * 1.5); return value <= target ? 100 : Math.max(20, 100 - (value - target) / (key === 'monthly_total' ? 1000 : 1) * 5); };
+      const score = x => { const values = {...x.score_breakdown, budget:targetScore(x,'monthly_total'), commute:targetScore(x,'total_commute_minutes'), space:targetScore(x,'area_m2'), building_age:targetScore(x,'building_age_estimate_years'), renovation:x.renovation_start ? 100 : 50}; const total = Object.entries(weights).reduce((sum, [key, weight]) => sum + (values[key] ?? 50) * weight, 0) / (Object.values(weights).reduce((a,b) => a+b, 0) || 1); return Math.round(total * 10) / 10; };
+      const family = document.getElementById('familyFilter').value;
+      let list = apartments.filter(x => (!q || [x.property,x.property_romaji,x.room,x.primary_station,x.train_line,x.layout].join(' ').toLowerCase().includes(q)) && (!document.getElementById('layout').value || x.layout === document.getElementById('layout').value) && (!document.getElementById('property').value || x.property === document.getElementById('property').value) && (!document.getElementById('locality').value || x.locality === document.getElementById('locality').value) && (document.getElementById('matchFilter').value === 'all' || (document.getElementById('matchFilter').value === 'matches' ? x.matches_hard_filters : !x.matches_hard_filters)) && (!family || (family === 'renovated' && x.renovation_start) || (family === 'bath' && x.bath_toilet_separate) || (family === 'daycare' && x.surroundings?.daycare?.walking_minutes <= 10) || (family === 'supermarket' && x.surroundings?.supermarket?.walking_minutes <= 10)));
+      list.sort((a,b) => document.getElementById('sort').value === 'price' ? (a.monthly_total||Infinity)-(b.monthly_total||Infinity) : document.getElementById('sort').value === 'area' ? (b.area_m2||0)-(a.area_m2||0) : document.getElementById('sort').value === 'commute' ? (a.total_commute_minutes||Infinity)-(b.total_commute_minutes||Infinity) : score(b)-score(a));
+      if (document.getElementById('matchFilter').value === 'all') list.sort((a,b) => Number(b.matches_hard_filters)-Number(a.matches_hard_filters));
+      document.getElementById('listingCards').innerHTML = list.map(apartment => `
+      <article class="listing-card">
+        ${apartment.matches_hard_filters ? `<span class="score">${score(apartment)}</span>` : `<span class="filter-warning">${(apartment.filter_reasons || ['Does not match preferences']).join(' · ')}</span>`}
+        <h3>${apartment.property_romaji || apartment.property || 'Apartment'}</h3>
+        <p>${apartment.room || ''}</p>
+        <p>${yen(apartment.monthly_total)} / month · ${apartment.layout || 'Layout unavailable'} · ${apartment.area_m2 ?? '—'} m²</p>
+        <p>${apartment.building_age_estimate_years ?? '—'} years old · Commute to Rakuten: ${apartment.total_commute_minutes ?? '—'} min</p>
+      </article>`).join('');
+      };
+      ids.forEach(id => document.getElementById(id).addEventListener('input', () => { localStorage.setItem('watchlist-filters', JSON.stringify(Object.fromEntries(ids.map(key => [key, document.getElementById(key).value])))); renderListings(); }));
+      renderListings();
+    });
 
     document.getElementById('preferences').addEventListener('click', () => {
       window.opener ? window.opener.document.getElementById('openPreferences')?.click() : alert('Score preferences will be available here soon.');
@@ -82,6 +146,13 @@
     setTheme(localStorage.getItem('watchlist-theme') === '' ? 'light' : 'dark');
     themeButton.addEventListener('click', () => {
       setTheme(document.body.classList.contains('light') ? 'dark' : 'light');
+    });
+    const listingPanel = document.getElementById('listingPanel');
+    document.getElementById('collapsePanel').addEventListener('click', () => {
+      listingPanel.classList.add('collapsed');
+    });
+    document.getElementById('expandPanel').addEventListener('click', () => {
+      listingPanel.classList.remove('collapsed');
     });
   </script>
 </body>
