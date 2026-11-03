@@ -57,19 +57,20 @@
       transition:transform .2s ease;
     }
     .listing-panel.collapsed { transform:translateX(calc(-100% - 16px)); }
-    .panel-head { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .panel-head { position:sticky; top:-16px; z-index:1; display:flex; align-items:center; justify-content:space-between; gap:12px; margin:0 -16px; padding:16px; background:var(--card); border-bottom:1px solid var(--border); }
     .panel-head h2 { margin:0; font-size:1rem; }
     .panel-toggle { width:32px; height:32px; padding:0; border:1px solid var(--border); border-radius:8px; color:inherit; background:var(--control); cursor:pointer; }
     .panel-toggle:hover { background:var(--bg); }
     .panel-toggle-floating { position:absolute; z-index:1000; top:104px; left:16px; display:none; }
     .listing-panel.collapsed + .panel-toggle-floating { display:block; }
     .listing-card { margin-top:12px; padding:14px; border:1px solid var(--border); border-radius:8px; background:color-mix(in srgb,var(--bg) 70%,var(--card)); }
+    .listing-card-head { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
     .listing-card.selected { border-color:#2563eb; box-shadow:0 0 0 2px #2563eb66; }
     .listing-card h3 { margin:0 0 4px; font-size:.95rem; }
     .listing-card p { margin:4px 0; color:var(--muted); font-size:.82rem; }
     .listing-card .score { float:right; padding:4px 9px; color:#86efac; background:#14532d; border-radius:999px; font-size:.9rem; font-weight:600; line-height:1; }
     body.light .listing-card .score { color:#15803d; background:#dcfce7; }
-    .listing-card .filter-warning { float:right; padding:4px 9px; color:#fbbf24; background:#713f12; border-radius:999px; font-size:.78rem; font-weight:600; line-height:1; }
+    .listing-card .filter-warning { flex:0 1 auto; max-width:45%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding:4px 9px; color:#fbbf24; background:#713f12; border-radius:999px; font-size:.78rem; font-weight:600; line-height:1; }
     body.light .listing-card .filter-warning { color:#92400e; background:#fef3c7; }
     .apartment-pin { display:grid; place-items:center; width:38px; height:38px; border:3px solid #fff; border-radius:50% 50% 50% 0; color:#fff; font-size:.72rem; font-weight:700; box-shadow:0 2px 6px #0006; transform:rotate(-45deg); }
     .apartment-pin span { transform:rotate(45deg); }
@@ -105,7 +106,8 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
   <script>
-    const map = L.map('map').setView([35.626, 139.646], 13);
+    const map = L.map('map', {zoomControl:false}).setView([35.626, 139.646], 13);
+    L.control.zoom({position:'bottomright'}).addTo(map);
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -135,25 +137,33 @@
       list.sort((a,b) => document.getElementById('sort').value === 'price' ? (a.monthly_total||Infinity)-(b.monthly_total||Infinity) : document.getElementById('sort').value === 'area' ? (b.area_m2||0)-(a.area_m2||0) : document.getElementById('sort').value === 'commute' ? (a.total_commute_minutes||Infinity)-(b.total_commute_minutes||Infinity) : score(b)-score(a));
       if (document.getElementById('matchFilter').value === 'all') list.sort((a,b) => Number(b.matches_hard_filters)-Number(a.matches_hard_filters));
       markers.clearLayers();
+      const listingMarkers = new Map();
       list.filter(x => x.coordinates?.latitude != null && x.coordinates?.longitude != null).forEach(apartment => {
         const qualified = apartment.matches_hard_filters;
         const icon = L.divIcon({className:'', html:`<div class="apartment-pin ${qualified ? 'match' : 'other'}"><span>${score(apartment)}</span></div>`, iconSize:[38,38], iconAnchor:[19,38], popupAnchor:[0,-38]});
         const marker = L.marker([apartment.coordinates.latitude, apartment.coordinates.longitude], {icon}).bindPopup(`<strong>${apartment.property_romaji || apartment.property}</strong><br>${apartment.room || ''}<br>${yen(apartment.monthly_total)} / month<br>Score: ${score(apartment)}${qualified ? '' : `<br>${(apartment.filter_reasons || []).join(' · ')}`}`).addTo(markers);
+        listingMarkers.set(apartment.listing_id, marker);
         marker.on('click', () => {
           document.querySelectorAll('.listing-card.selected').forEach(card => card.classList.remove('selected'));
           const card = document.querySelector(`[data-listing-id="${CSS.escape(apartment.listing_id)}"]`);
           card?.classList.add('selected');
-          card?.scrollIntoView({behavior:'smooth', block:'nearest'});
+          card?.scrollIntoView({behavior:'smooth', block:'center'});
         });
       });
       document.getElementById('listingCards').innerHTML = list.map(apartment => `
       <article class="listing-card" data-listing-id="${apartment.listing_id}">
-        ${apartment.matches_hard_filters ? `<span class="score">${score(apartment)}</span>` : `<span class="filter-warning">${(apartment.filter_reasons || ['Does not match preferences']).join(' · ')}</span>`}
-        <h3>${apartment.property_romaji || apartment.property || 'Apartment'}</h3>
+        <div class="listing-card-head"><h3>${apartment.property_romaji || apartment.property || 'Apartment'}</h3>${apartment.matches_hard_filters ? `<span class="score">${score(apartment)}</span>` : `<span class="filter-warning">${(apartment.filter_reasons || ['Does not match preferences']).join(' · ')}</span>`}</div>
         <p>${apartment.room || ''}</p>
         <p>${yen(apartment.monthly_total)} / month · ${apartment.layout || 'Layout unavailable'} · ${apartment.area_m2 ?? '—'} m²</p>
         <p>${apartment.building_age_estimate_years ?? '—'} years old · Commute to Rakuten: ${apartment.total_commute_minutes ?? '—'} min</p>
       </article>`).join('');
+      document.querySelectorAll('.listing-card').forEach(card => card.addEventListener('click', () => {
+        document.querySelectorAll('.listing-card.selected').forEach(item => item.classList.remove('selected'));
+        card.classList.add('selected');
+        const marker = listingMarkers.get(card.dataset.listingId);
+        if (!marker) return;
+        markers.zoomToShowLayer(marker, () => { map.setView(marker.getLatLng(), Math.max(map.getZoom(), 15), {animate:true}); marker.openPopup(); });
+      }));
       };
       ids.forEach(id => document.getElementById(id).addEventListener('input', () => { localStorage.setItem('watchlist-filters', JSON.stringify(Object.fromEntries(ids.map(key => [key, document.getElementById(key).value])))); renderListings(); }));
       renderListings();
