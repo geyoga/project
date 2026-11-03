@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Map View</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <style>
+    :root { color-scheme: dark; font-family: Inter,ui-sans-serif,system-ui,sans-serif; --bg:#18181b; --border:#3f3f46; --muted:#a1a1aa; --card:#27272a; --control:#27272a; }
+    * { box-sizing: border-box; }
+    html, body, #map { height: 100%; margin: 0; }
+    .map-tools {
+      position: absolute;
+      z-index: 1000;
+      top: 16px;
+      left: 50%;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      max-width: calc(100% - 32px);
+      padding: 8px;
+      overflow-x: auto;
+      transform: translateX(-50%);
+      background: color-mix(in srgb,var(--card) 94%,transparent);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: 0 8px 28px #0005;
+    }
+    .map-tools input, .map-tools select, .map-tools button {
+      height: 40px; padding: 0 11px; color: inherit; font: inherit; white-space: nowrap;
+      border: 1px solid var(--border); border-radius: 8px; background: var(--control); cursor: pointer;
+    }
+    .map-tools select { appearance:none; padding-right:34px; background:var(--control) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%23a1a1aa' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'%3E%3Cpath d='m4 6 4 4 4-4'/%3E%3C/svg%3E") no-repeat right 11px center; }
+    .map-tools input { width: 13rem; cursor: text; }
+    .map-tools input::placeholder { color: var(--muted); }
+    .map-tools input:focus, .map-tools select:focus, .map-tools button:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; }
+    .map-tools button:hover { background: var(--bg); }
+    .map-tools .separator { width: 1px; height: 24px; background: var(--border); }
+    .theme { display:flex; align-items:center; gap:8px; color:#f4f4f5; font-size:.88rem; font-weight:500; white-space:nowrap; }
+    .map-tools .switch { width:36px; height:20px; padding:2px; border:0; border-radius:999px; background:#fafafa; }
+    .thumb { display:block; width:16px; height:16px; border-radius:50%; background:#18181b; transform:translateX(16px); transition:transform .15s; }
+    .switch[aria-checked="false"] { background:#a1a1aa; }
+    .switch[aria-checked="false"] .thumb { background:#fff; transform:none; }
+    @media (max-width: 600px) { .map-tools { left: 8px; right: 8px; max-width: none; transform: none; } }
+    body.light { color:#18181b; --bg:#fafafa; --border:#e4e4e7; --muted:#71717a; --card:#fff; --control:#fff; }
+    body.light .theme { color:#18181b; }
+    body.light .map-tools select { background-color:var(--control); }
+  </style>
+</head>
+<body>
+  <nav class="map-tools" aria-label="Map filters">
+    <input id="search" placeholder="Search property, room, station..." aria-label="Search">
+    <select id="layout" aria-label="Layout"><option value="">All layouts</option></select>
+    <select id="property" aria-label="Property"><option value="">All properties</option></select>
+    <select id="locality" aria-label="Location"><option value="">All locations</option></select>
+    <select id="matchFilter" aria-label="Match status"><option value="all">Show all</option><option value="matches">Matches only</option><option value="other">Other only</option></select>
+    <select id="sort" aria-label="Sort"><option value="score">Highest score</option><option value="price">Lowest cost</option><option value="area">Largest area</option><option value="commute">Shortest commute</option></select>
+    <select id="familyFilter" aria-label="Family-friendly options"><option value="">Family-friendly options</option><option value="renovated">Renovated rooms</option><option value="bath">Separate bath toilet</option><option value="daycare">Daycare nearby</option><option value="supermarket">Supermarket nearby</option></select>
+    <span class="separator" aria-hidden="true"></span>
+    <button type="button" id="preferences">Score preferences</button>
+    <label class="theme">Dark mode <button class="switch" id="theme" type="button" role="switch" aria-checked="true" aria-label="Toggle dark mode"><span class="thumb"></span></button></label>
+  </nav>
+  <div id="map" aria-label="Apartment map"></div>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    const map = L.map('map').setView([35.626, 139.646], 13);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+    map.whenReady(() => map.invalidateSize());
+
+    document.getElementById('preferences').addEventListener('click', () => {
+      window.opener ? window.opener.document.getElementById('openPreferences')?.click() : alert('Score preferences will be available here soon.');
+    });
+    const themeButton = document.getElementById('theme');
+    const setTheme = (theme) => {
+      document.body.classList.toggle('light', theme === 'light');
+      themeButton.setAttribute('aria-checked', theme === 'dark');
+      localStorage.setItem('watchlist-theme', theme === 'light' ? '' : 'dark');
+    };
+    setTheme(localStorage.getItem('watchlist-theme') === '' ? 'light' : 'dark');
+    themeButton.addEventListener('click', () => {
+      setTheme(document.body.classList.contains('light') ? 'dark' : 'light');
+    });
+  </script>
+</body>
+</html>
