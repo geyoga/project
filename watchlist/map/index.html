@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Map View</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css">
   <style>
     :root { color-scheme: dark; font-family: Inter,ui-sans-serif,system-ui,sans-serif; --bg:#18181b; --border:#3f3f46; --muted:#a1a1aa; --card:#27272a; --control:#27272a; }
     * { box-sizing: border-box; }
@@ -62,12 +64,20 @@
     .panel-toggle-floating { position:absolute; z-index:1000; top:104px; left:16px; display:none; }
     .listing-panel.collapsed + .panel-toggle-floating { display:block; }
     .listing-card { margin-top:12px; padding:14px; border:1px solid var(--border); border-radius:8px; background:color-mix(in srgb,var(--bg) 70%,var(--card)); }
+    .listing-card.selected { border-color:#2563eb; box-shadow:0 0 0 2px #2563eb66; }
     .listing-card h3 { margin:0 0 4px; font-size:.95rem; }
     .listing-card p { margin:4px 0; color:var(--muted); font-size:.82rem; }
     .listing-card .score { float:right; padding:4px 9px; color:#86efac; background:#14532d; border-radius:999px; font-size:.9rem; font-weight:600; line-height:1; }
     body.light .listing-card .score { color:#15803d; background:#dcfce7; }
     .listing-card .filter-warning { float:right; padding:4px 9px; color:#fbbf24; background:#713f12; border-radius:999px; font-size:.78rem; font-weight:600; line-height:1; }
     body.light .listing-card .filter-warning { color:#92400e; background:#fef3c7; }
+    .apartment-pin { display:grid; place-items:center; width:38px; height:38px; border:3px solid #fff; border-radius:50% 50% 50% 0; color:#fff; font-size:.72rem; font-weight:700; box-shadow:0 2px 6px #0006; transform:rotate(-45deg); }
+    .apartment-pin span { transform:rotate(45deg); }
+    .apartment-pin.match { background:#15803d; }
+    .apartment-pin.other { background:#d97706; }
+    .destination-pin { display:grid; place-items:center; width:34px; height:34px; border:3px solid #fff; border-radius:8px; background:#2563eb; color:#fff; font-size:1.1rem; box-shadow:0 2px 6px #0006; }
+    .marker-cluster { background:#2563eb99; }
+    .marker-cluster div { background:#2563eb; color:#fff; }
     @media (max-width: 600px) { .listing-panel { top:104px; width:calc(100% - 32px); } }
   </style>
 </head>
@@ -81,7 +91,6 @@
     <select id="sort" aria-label="Sort"><option value="score">Highest score</option><option value="price">Lowest cost</option><option value="area">Largest area</option><option value="commute">Shortest commute</option></select>
     <select id="familyFilter" aria-label="Family-friendly options"><option value="">Family-friendly options</option><option value="renovated">Renovated rooms</option><option value="bath">Separate bath toilet</option><option value="daycare">Daycare nearby</option><option value="supermarket">Supermarket nearby</option></select>
     <span class="separator" aria-hidden="true"></span>
-    <button type="button" id="preferences">Score preferences</button>
     <label class="theme">Dark mode <button class="switch" id="theme" type="button" role="switch" aria-checked="true" aria-label="Toggle dark mode"><span class="thumb"></span></button></label>
   </nav>
   <aside class="listing-panel" id="listingPanel" aria-label="Apartment listings">
@@ -94,12 +103,16 @@
   <button class="panel-toggle panel-toggle-floating" id="expandPanel" type="button" aria-label="Expand apartment list">›</button>
   <div id="map" aria-label="Apartment map"></div>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
   <script>
     const map = L.map('map').setView([35.626, 139.646], 13);
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
+    const markers = L.markerClusterGroup();
+    map.addLayer(markers);
+    L.marker([35.6119, 139.6279], {icon:L.divIcon({className:'', html:'<div class="destination-pin" title="Rakuten Crimson House">★</div>', iconSize:[34,34], iconAnchor:[17,17]})}).bindPopup('<strong>Rakuten Crimson House</strong><br>1-14-1 Tamagawa, Setagaya').addTo(map);
     map.whenReady(() => map.invalidateSize());
 
     const yen = value => value == null ? 'Not available' : '¥' + Number(value).toLocaleString();
@@ -121,8 +134,20 @@
       let list = apartments.filter(x => (!q || [x.property,x.property_romaji,x.room,x.primary_station,x.train_line,x.layout].join(' ').toLowerCase().includes(q)) && (!document.getElementById('layout').value || x.layout === document.getElementById('layout').value) && (!document.getElementById('property').value || x.property === document.getElementById('property').value) && (!document.getElementById('locality').value || x.locality === document.getElementById('locality').value) && (document.getElementById('matchFilter').value === 'all' || (document.getElementById('matchFilter').value === 'matches' ? x.matches_hard_filters : !x.matches_hard_filters)) && (!family || (family === 'renovated' && x.renovation_start) || (family === 'bath' && x.bath_toilet_separate) || (family === 'daycare' && x.surroundings?.daycare?.walking_minutes <= 10) || (family === 'supermarket' && x.surroundings?.supermarket?.walking_minutes <= 10)));
       list.sort((a,b) => document.getElementById('sort').value === 'price' ? (a.monthly_total||Infinity)-(b.monthly_total||Infinity) : document.getElementById('sort').value === 'area' ? (b.area_m2||0)-(a.area_m2||0) : document.getElementById('sort').value === 'commute' ? (a.total_commute_minutes||Infinity)-(b.total_commute_minutes||Infinity) : score(b)-score(a));
       if (document.getElementById('matchFilter').value === 'all') list.sort((a,b) => Number(b.matches_hard_filters)-Number(a.matches_hard_filters));
+      markers.clearLayers();
+      list.filter(x => x.coordinates?.latitude != null && x.coordinates?.longitude != null).forEach(apartment => {
+        const qualified = apartment.matches_hard_filters;
+        const icon = L.divIcon({className:'', html:`<div class="apartment-pin ${qualified ? 'match' : 'other'}"><span>${score(apartment)}</span></div>`, iconSize:[38,38], iconAnchor:[19,38], popupAnchor:[0,-38]});
+        const marker = L.marker([apartment.coordinates.latitude, apartment.coordinates.longitude], {icon}).bindPopup(`<strong>${apartment.property_romaji || apartment.property}</strong><br>${apartment.room || ''}<br>${yen(apartment.monthly_total)} / month<br>Score: ${score(apartment)}${qualified ? '' : `<br>${(apartment.filter_reasons || []).join(' · ')}`}`).addTo(markers);
+        marker.on('click', () => {
+          document.querySelectorAll('.listing-card.selected').forEach(card => card.classList.remove('selected'));
+          const card = document.querySelector(`[data-listing-id="${CSS.escape(apartment.listing_id)}"]`);
+          card?.classList.add('selected');
+          card?.scrollIntoView({behavior:'smooth', block:'nearest'});
+        });
+      });
       document.getElementById('listingCards').innerHTML = list.map(apartment => `
-      <article class="listing-card">
+      <article class="listing-card" data-listing-id="${apartment.listing_id}">
         ${apartment.matches_hard_filters ? `<span class="score">${score(apartment)}</span>` : `<span class="filter-warning">${(apartment.filter_reasons || ['Does not match preferences']).join(' · ')}</span>`}
         <h3>${apartment.property_romaji || apartment.property || 'Apartment'}</h3>
         <p>${apartment.room || ''}</p>
@@ -134,9 +159,6 @@
       renderListings();
     });
 
-    document.getElementById('preferences').addEventListener('click', () => {
-      window.opener ? window.opener.document.getElementById('openPreferences')?.click() : alert('Score preferences will be available here soon.');
-    });
     const themeButton = document.getElementById('theme');
     const setTheme = (theme) => {
       document.body.classList.toggle('light', theme === 'light');
