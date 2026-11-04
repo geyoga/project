@@ -189,6 +189,10 @@
         map.stop();
         map.setView(map.unproject(markerPoint.add(L.point(offset)), zoom), zoom, {animate:false});
       };
+      const revealSelectedMarker = marker => markers.zoomToShowLayer(marker, () => {
+        centerSelectedMarker(marker);
+        requestAnimationFrame(() => requestAnimationFrame(() => marker.openPopup()));
+      });
       const selectListing = (id, scroll = false) => {
         selectedId = id;
         setSheetHeight('30');
@@ -235,7 +239,7 @@
         marker.on('click', () => {
            selectListing(apartment.listing_id, true);
            showStations(apartment);
-           markers.zoomToShowLayer(marker, () => { centerSelectedMarker(marker); marker.openPopup(); });
+           revealSelectedMarker(marker);
          });
         marker.on('popupclose', () => { if (selectedId === apartment.listing_id && marker._map?._popup !== marker.getPopup()) clearSelection(); });
       });
@@ -255,7 +259,7 @@
         showStations(list.find(apartment => apartment.listing_id === card.dataset.listingId));
         const marker = listingMarkers.get(card.dataset.listingId);
         if (!marker) return;
-        markers.zoomToShowLayer(marker, () => { centerSelectedMarker(marker); marker.openPopup(); selectListing(card.dataset.listingId); });
+         revealSelectedMarker(marker);
       }));
       };
       ids.forEach(id => document.getElementById(id).addEventListener('input', () => { localStorage.setItem('watchlist-filters', JSON.stringify(Object.fromEntries(ids.map(key => [key, document.getElementById(key).value])))); renderListings(); }));
