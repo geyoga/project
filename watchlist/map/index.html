@@ -84,6 +84,7 @@
     .apartment-pin.selected { animation:pin-pulse 1.2s ease-in-out infinite; outline:4px solid #2563ebaa; outline-offset:3px; }
     @keyframes pin-pulse { 50% { filter:brightness(1.2); box-shadow:0 2px 6px #0006,0 0 0 10px #2563eb22; } }
     .destination-pin { display:grid; place-items:center; width:34px; height:34px; border:3px solid #fff; border-radius:8px; background:#2563eb; color:#fff; font-size:1.1rem; box-shadow:0 2px 6px #0006; }
+    .station-pin { display:grid; place-items:center; width:28px; height:28px; border:3px solid #fff; border-radius:50%; background:#7c3aed; color:#fff; font-size:.8rem; font-weight:700; box-shadow:0 2px 6px #0006; }
     .marker-cluster { background:#2563eb99; }
     .marker-cluster div { background:#2563eb; color:#fff; }
     .location-source { color:#71717a; font-size:.82rem; }
@@ -122,6 +123,7 @@
     }).addTo(map);
     const markers = L.markerClusterGroup({maxClusterRadius:55, disableClusteringAtZoom:12, zoomToBoundsOnClick:true, spiderfyOnMaxZoom:true, maxZoom:11});
     map.addLayer(markers);
+    const stationMarkers = L.layerGroup().addTo(map);
     L.marker([35.6119, 139.6279], {icon:L.divIcon({className:'', html:'<div class="destination-pin" title="Rakuten Crimson House">★</div>', iconSize:[34,34], iconAnchor:[17,17]})}).bindPopup('<strong>Rakuten Crimson House</strong><br>1-14-1 Tamagawa, Setagaya').addTo(map);
     map.whenReady(() => map.invalidateSize());
 
@@ -129,15 +131,21 @@
     fetch('apartments.json').then(response => response.json()).then(({apartments, preferences}) => {
       let selectedId = null;
       let listingMarkers = new Map();
+      let listingCards = new Map();
       const clearSelection = () => {
         selectedId = null;
         document.querySelectorAll('.listing-card.selected,.apartment-pin.selected').forEach(item => item.classList.remove('selected'));
         map.closePopup();
+        stationMarkers.clearLayers();
+      };
+      const showStations = apartment => {
+        stationMarkers.clearLayers();
+        (apartment.access_options || []).filter(option => option.coordinates).forEach(option => L.marker([option.coordinates.latitude, option.coordinates.longitude], {icon:L.divIcon({className:'', html:'<div class="station-pin">駅</div>', iconSize:[28,28], iconAnchor:[14,14]})}).bindPopup(`<strong>${option.station_romaji || option.station}</strong><br>${option.line || 'Train station'}${option.walk_minutes != null ? `<br>${option.walk_minutes} min walk` : ''}${option.bus_minutes != null ? `<br>${option.bus_minutes} min bus` : ''}`).addTo(stationMarkers));
       };
       const selectListing = (id, scroll = false) => {
         selectedId = id;
         document.querySelectorAll('.listing-card.selected,.apartment-pin.selected').forEach(item => item.classList.remove('selected'));
-        const card = document.querySelector(`[data-listing-id="${CSS.escape(id)}"]`);
+        const card = listingCards.get(id);
         card?.classList.add('selected');
         listingMarkers.get(id)?._icon?.querySelector('.apartment-pin')?.classList.add('selected');
         if (scroll) card?.scrollIntoView({behavior:'smooth', block:'center'});
@@ -169,8 +177,9 @@
         listingMarkers.set(apartment.listing_id, marker);
         marker.on('click', () => {
           selectListing(apartment.listing_id, true);
+          showStations(apartment);
         });
-        marker.on('popupclose', () => { if (selectedId === apartment.listing_id) clearSelection(); });
+        marker.on('popupclose', () => { if (selectedId === apartment.listing_id && marker._map?._popup !== marker.getPopup()) clearSelection(); });
       });
       document.getElementById('listingCards').innerHTML = list.map(apartment => `
       <article class="listing-card" data-listing-id="${apartment.listing_id}">
@@ -180,10 +189,12 @@
         <p>${apartment.building_age_estimate_years ?? '—'} years old · Commute to Rakuten: ${apartment.total_commute_minutes ?? '—'} min</p>
         <div class="listing-actions"><a href="${apartment.source_url || '#'}" target="_blank" rel="noopener">Open UR listing ↗</a><a href="https://www.google.com/maps/dir/?api=1&destination=Rakuten%20Crimson%20House%2C%201-14-1%20Tamagawa%2C%20Setagaya-ku%2C%20Tokyo&origin=${encodeURIComponent(apartment.address || '')}" target="_blank" rel="noopener">Directions to Rakuten ↗</a></div>
       </article>`).join('');
+      listingCards = new Map([...document.querySelectorAll('.listing-card')].map(card => [card.dataset.listingId, card]));
       if (selectedId && list.some(apartment => apartment.listing_id === selectedId)) selectListing(selectedId);
       else selectedId = null;
       document.querySelectorAll('.listing-card').forEach(card => card.addEventListener('click', () => {
         selectListing(card.dataset.listingId);
+        showStations(list.find(apartment => apartment.listing_id === card.dataset.listingId));
         const marker = listingMarkers.get(card.dataset.listingId);
         if (!marker) return;
         markers.zoomToShowLayer(marker, () => { map.setView(marker.getLatLng(), Math.max(map.getZoom(), 11), {animate:true}); marker.openPopup(); selectListing(card.dataset.listingId); });

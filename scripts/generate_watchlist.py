@@ -16,6 +16,7 @@ from services.storage import (  # noqa: E402
     get_current_listings,
     get_latest_crawl_run,
 )
+from services.surroundings import geocode_query  # noqa: E402
 from domain.listings import passes_hard_filters  # noqa: E402
 
 OUTPUT = Path(os.getenv("APARTMENT_AGENT_WATCHLIST", ROOT / "watchlist" / "index.html"))
@@ -143,6 +144,15 @@ def main():
     generated = generated.replace("__CRAWL_STATUS__", html.escape(f'{crawl.get("rooms_found", 0)} search results · {len(rows)} verified available · {crawl.get("areas_requested", 0) - crawl.get("areas_failed", 0)}/{crawl.get("areas_requested", 0)} areas succeeded' if crawl else "No completed crawl"))
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT.write_text(generated, encoding="utf-8")
+    station_cache_path = DATA_DIR / "station_coordinates.json"
+    station_cache = json.loads(station_cache_path.read_text(encoding="utf-8")) if station_cache_path.exists() else {}
+    for row in rows:
+        for option in row.get("access_options") or []:
+            station = option.get("station")
+            if station and station not in station_cache:
+                station_cache[station] = geocode_query(f"{station}駅 日本")
+            option["coordinates"] = station_cache.get(station)
+    station_cache_path.write_text(json.dumps(station_cache, ensure_ascii=False, indent=2), encoding="utf-8")
     map_output = OUTPUT.parent / "map" / "apartments.json"
     map_output.parent.mkdir(parents=True, exist_ok=True)
     map_output.write_text(json.dumps({"apartments": rows, "preferences": json.loads(preferences)}, ensure_ascii=False), encoding="utf-8")
