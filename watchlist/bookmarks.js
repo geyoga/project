@@ -16,11 +16,13 @@
     window.dispatchEvent(new CustomEvent('bookmarks-changed')); window.render?.();
     try { await save(); } catch (error) { bookmarks.has(key) ? bookmarks.delete(key) : bookmarks.add(key); window.dispatchEvent(new CustomEvent('bookmarks-changed')); window.render?.(); alert(error.message); }
   });
-  fetch('/bookmarks.json', {cache:'no-store'}).then(response => response.json()).then(data => {
-    const available = new Set((window.apartments || []).map(id));
+  const load = () => fetch('/bookmarks.json', {cache:'no-store'}).then(response => response.json()).then(data => {
+    const available = new Set((window.apartments || apartments).map(id));
     bookmarks = new Set((data.bookmarks || []).filter(key => available.has(key)));
     if (bookmarks.size !== (data.bookmarks || []).length) save();
     ready = true;
     window.dispatchEvent(new CustomEvent('bookmarks-ready')); window.render?.();
   });
+  if (window.apartments || typeof apartments !== 'undefined') load();
+  else window.addEventListener('apartments-ready', load, {once:true});
 })();
