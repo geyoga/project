@@ -227,7 +227,7 @@
         <p>${apartment.room || ''}</p>
         <p>${yen(apartment.monthly_total)} / month · ${apartment.layout || 'Layout unavailable'} · ${apartment.area_m2 ?? '—'} m²</p>
         <p>${apartment.building_age_estimate_years ?? '—'} years old · Commute to Rakuten: ${apartment.total_commute_minutes ?? '—'} min</p>
-        <div class="listing-actions"><a href="${apartment.source_url || '#'}" target="_blank" rel="noopener">Open UR listing ↗</a><a href="https://www.google.com/maps/dir/?api=1&destination=Rakuten%20Crimson%20House%2C%201-14-1%20Tamagawa%2C%20Setagaya-ku%2C%20Tokyo&origin=${encodeURIComponent(apartment.address || '')}" target="_blank" rel="noopener">Direction ↗</a></div>
+        <div class="listing-actions"><a href="${apartment.source_url || '#'}" target="_blank" rel="noopener">Open UR listing ↗</a><a href="https://www.google.com/maps/dir/?api=1&destination=Rakuten%20Crimson%20House%2C%201-14-1%20Tamagawa%2C%20Setagaya-ku%2C%20Tokyo&origin=${encodeURIComponent(apartment.address || '')}&travelmode=transit" target="_blank" rel="noopener">Direction ↗</a></div>
       </article>`).join('');
       listingCards = new Map([...document.querySelectorAll('.listing-card')].map(card => [card.dataset.listingId, card]));
       if (selectedId && list.some(apartment => apartment.listing_id === selectedId)) selectListing(selectedId);
