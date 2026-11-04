@@ -65,9 +65,9 @@
     .panel-toggle-floating { position:absolute; z-index:1000; top:104px; left:16px; display:none; }
     .listing-panel.collapsed + .panel-toggle-floating { display:block; }
     .listing-card { margin-top:12px; padding:14px; border:1px solid var(--border); border-radius:8px; background:color-mix(in srgb,var(--bg) 70%,var(--card)); cursor:pointer; }
-    .listing-card-head { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:start; gap:10px; }
+    .listing-card-head { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; gap:10px; }
     .listing-card.selected { border-color:#2563eb; box-shadow:0 0 0 2px #2563eb66; }
-    .listing-card h3 { min-width:0; margin:0 0 4px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:.95rem; }
+    .listing-card h3 { min-width:0; margin:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:.95rem; }
     .listing-card p { margin:4px 0; color:var(--muted); font-size:.82rem; }
     .listing-actions { display:grid; grid-template-columns:1fr 1fr; gap:8px; max-height:0; margin-top:0; overflow:hidden; opacity:0; transform:translateY(-4px); transition:max-height .25s ease, margin-top .25s ease, opacity .2s ease, transform .25s ease; }
     .listing-card.selected .listing-actions { max-height:64px; margin-top:12px; opacity:1; transform:none; }
@@ -86,7 +86,7 @@
     .card-badges { justify-self:end; display:flex; align-items:center; justify-content:flex-end; gap:8px; height:28px; min-width:0; white-space:nowrap; }
     .card-badges .score { float:none; flex:none; white-space:nowrap; }
     .card-badges .filter-warning { float:none; min-width:0; max-width:140px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-    .bookmark-button { flex:none; border:0; background:transparent; color:var(--muted); line-height:1; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; height:34px; width:34px; padding:0; }
+    .bookmark-button { flex:none; border:0; background:transparent; color:var(--muted); line-height:1; cursor:pointer; display:inline-flex; align-items:center; justify-content:flex-end; height:34px; width:24px; padding:0; }
     .bookmark-button svg { width:24px; height:24px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linejoin:round; }
     .bookmark-button.active { color:#7c3aed; }
     .bookmark-button.active svg { fill:currentColor; stroke:currentColor; }
