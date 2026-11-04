@@ -17,7 +17,7 @@
     try { await save(); } catch (error) { bookmarks.has(key) ? bookmarks.delete(key) : bookmarks.add(key); window.dispatchEvent(new CustomEvent('bookmarks-changed')); window.render?.(); alert(error.message); }
   });
   fetch('/bookmarks.json', {cache:'no-store'}).then(response => response.json()).then(data => {
-    const available = new Set(apartments.map(id));
+    const available = new Set((window.apartments || []).map(id));
     bookmarks = new Set((data.bookmarks || []).filter(key => available.has(key)));
     if (bookmarks.size !== (data.bookmarks || []).length) save();
     ready = true;

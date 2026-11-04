@@ -152,6 +152,7 @@
 
     const yen = value => value == null ? 'Not available' : '¥' + Number(value).toLocaleString();
     fetch('apartments.json').then(response => response.json()).then(({apartments, preferences}) => {
+      window.apartments = apartments;
       let selectedId = null;
       let listingMarkers = new Map();
       let listingCards = new Map();
