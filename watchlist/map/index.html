@@ -64,7 +64,7 @@
     .panel-toggle:hover { background:var(--bg); }
     .panel-toggle-floating { position:absolute; z-index:1000; top:104px; left:16px; display:none; }
     .listing-panel.collapsed + .panel-toggle-floating { display:block; }
-    .listing-card { margin-top:12px; padding:14px; border:1px solid var(--border); border-radius:8px; background:color-mix(in srgb,var(--bg) 70%,var(--card)); }
+    .listing-card { margin-top:12px; padding:14px; border:1px solid var(--border); border-radius:8px; background:color-mix(in srgb,var(--bg) 70%,var(--card)); cursor:pointer; }
     .listing-card-head { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
     .listing-card.selected { border-color:#2563eb; box-shadow:0 0 0 2px #2563eb66; }
     .listing-card h3 { margin:0 0 4px; font-size:.95rem; }
@@ -81,9 +81,12 @@
     .apartment-pin span { transform:rotate(45deg); }
     .apartment-pin.match { background:#15803d; }
     .apartment-pin.other { background:#d97706; }
+    .apartment-pin.selected { animation:pin-pulse 1.2s ease-in-out infinite; outline:4px solid #2563ebaa; outline-offset:3px; }
+    @keyframes pin-pulse { 50% { filter:brightness(1.2); box-shadow:0 2px 6px #0006,0 0 0 10px #2563eb22; } }
     .destination-pin { display:grid; place-items:center; width:34px; height:34px; border:3px solid #fff; border-radius:8px; background:#2563eb; color:#fff; font-size:1.1rem; box-shadow:0 2px 6px #0006; }
     .marker-cluster { background:#2563eb99; }
     .marker-cluster div { background:#2563eb; color:#fff; }
+    .location-source { color:#71717a; font-size:.82rem; }
     @media (max-width: 600px) { .listing-panel { top:104px; width:calc(100% - 32px); } }
   </style>
 </head>
@@ -117,13 +120,28 @@
       maxZoom: 19,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
-    const markers = L.markerClusterGroup();
+    const markers = L.markerClusterGroup({maxClusterRadius:55, disableClusteringAtZoom:12, zoomToBoundsOnClick:true, spiderfyOnMaxZoom:true, maxZoom:11});
     map.addLayer(markers);
     L.marker([35.6119, 139.6279], {icon:L.divIcon({className:'', html:'<div class="destination-pin" title="Rakuten Crimson House">★</div>', iconSize:[34,34], iconAnchor:[17,17]})}).bindPopup('<strong>Rakuten Crimson House</strong><br>1-14-1 Tamagawa, Setagaya').addTo(map);
     map.whenReady(() => map.invalidateSize());
 
     const yen = value => value == null ? 'Not available' : '¥' + Number(value).toLocaleString();
     fetch('apartments.json').then(response => response.json()).then(({apartments, preferences}) => {
+      let selectedId = null;
+      let listingMarkers = new Map();
+      const clearSelection = () => {
+        selectedId = null;
+        document.querySelectorAll('.listing-card.selected,.apartment-pin.selected').forEach(item => item.classList.remove('selected'));
+        map.closePopup();
+      };
+      const selectListing = (id, scroll = false) => {
+        selectedId = id;
+        document.querySelectorAll('.listing-card.selected,.apartment-pin.selected').forEach(item => item.classList.remove('selected'));
+        const card = document.querySelector(`[data-listing-id="${CSS.escape(id)}"]`);
+        card?.classList.add('selected');
+        listingMarkers.get(id)?._icon?.querySelector('.apartment-pin')?.classList.add('selected');
+        if (scroll) card?.scrollIntoView({behavior:'smooth', block:'center'});
+      };
       const ids = ['search','layout','property','locality','matchFilter','sort','familyFilter'];
       const options = (id, key, label = value => value) => [...new Set(apartments.map(x => x[key]).filter(Boolean))].sort().forEach(value => document.getElementById(id).insertAdjacentHTML('beforeend', `<option value="${value}">${label(value)}</option>`));
       options('layout','layout');
@@ -142,18 +160,17 @@
       list.sort((a,b) => document.getElementById('sort').value === 'price' ? (a.monthly_total||Infinity)-(b.monthly_total||Infinity) : document.getElementById('sort').value === 'area' ? (b.area_m2||0)-(a.area_m2||0) : document.getElementById('sort').value === 'commute' ? (a.total_commute_minutes||Infinity)-(b.total_commute_minutes||Infinity) : score(b)-score(a));
       if (document.getElementById('matchFilter').value === 'all') list.sort((a,b) => Number(b.matches_hard_filters)-Number(a.matches_hard_filters));
       markers.clearLayers();
-      const listingMarkers = new Map();
+      listingMarkers = new Map();
       list.filter(x => x.coordinates?.latitude != null && x.coordinates?.longitude != null).forEach(apartment => {
         const qualified = apartment.matches_hard_filters;
         const icon = L.divIcon({className:'', html:`<div class="apartment-pin ${qualified ? 'match' : 'other'}"><span>${score(apartment)}</span></div>`, iconSize:[38,38], iconAnchor:[19,38], popupAnchor:[0,-38]});
-        const marker = L.marker([apartment.coordinates.latitude, apartment.coordinates.longitude], {icon}).bindPopup(`<strong>${apartment.property_romaji || apartment.property}</strong><br>${apartment.room || ''}<br>${yen(apartment.monthly_total)} / month<br>Score: ${score(apartment)}${qualified ? '' : `<br>${(apartment.filter_reasons || []).join(' · ')}`}`).addTo(markers);
+        const locationSource = apartment.ur_coordinates ? 'UR property map' : 'OpenStreetMap geocoding';
+        const marker = L.marker([apartment.coordinates.latitude, apartment.coordinates.longitude], {icon}).bindPopup(`<strong>${apartment.property_romaji || apartment.property}</strong><br>${apartment.room || ''}<br>${apartment.layout || 'Layout unavailable'} · ${apartment.area_m2 ?? '—'} m²<br>${yen(apartment.monthly_total)} / month<br><span class="location-source">Location: ${locationSource}</span>${qualified ? '' : `<br>${(apartment.filter_reasons || []).join(' · ')}`}`).addTo(markers);
         listingMarkers.set(apartment.listing_id, marker);
         marker.on('click', () => {
-          document.querySelectorAll('.listing-card.selected').forEach(card => card.classList.remove('selected'));
-          const card = document.querySelector(`[data-listing-id="${CSS.escape(apartment.listing_id)}"]`);
-          card?.classList.add('selected');
-          card?.scrollIntoView({behavior:'smooth', block:'center'});
+          selectListing(apartment.listing_id, true);
         });
+        marker.on('popupclose', () => { if (selectedId === apartment.listing_id) clearSelection(); });
       });
       document.getElementById('listingCards').innerHTML = list.map(apartment => `
       <article class="listing-card" data-listing-id="${apartment.listing_id}">
@@ -163,16 +180,18 @@
         <p>${apartment.building_age_estimate_years ?? '—'} years old · Commute to Rakuten: ${apartment.total_commute_minutes ?? '—'} min</p>
         <div class="listing-actions"><a href="${apartment.source_url || '#'}" target="_blank" rel="noopener">Open UR listing ↗</a><a href="https://www.google.com/maps/dir/?api=1&destination=Rakuten%20Crimson%20House%2C%201-14-1%20Tamagawa%2C%20Setagaya-ku%2C%20Tokyo&origin=${encodeURIComponent(apartment.address || '')}" target="_blank" rel="noopener">Directions to Rakuten ↗</a></div>
       </article>`).join('');
+      if (selectedId && list.some(apartment => apartment.listing_id === selectedId)) selectListing(selectedId);
+      else selectedId = null;
       document.querySelectorAll('.listing-card').forEach(card => card.addEventListener('click', () => {
-        document.querySelectorAll('.listing-card.selected').forEach(item => item.classList.remove('selected'));
-        card.classList.add('selected');
+        selectListing(card.dataset.listingId);
         const marker = listingMarkers.get(card.dataset.listingId);
         if (!marker) return;
-        markers.zoomToShowLayer(marker, () => { map.setView(marker.getLatLng(), Math.max(map.getZoom(), 15), {animate:true}); marker.openPopup(); });
+        markers.zoomToShowLayer(marker, () => { map.setView(marker.getLatLng(), Math.max(map.getZoom(), 11), {animate:true}); marker.openPopup(); selectListing(card.dataset.listingId); });
       }));
       };
       ids.forEach(id => document.getElementById(id).addEventListener('input', () => { localStorage.setItem('watchlist-filters', JSON.stringify(Object.fromEntries(ids.map(key => [key, document.getElementById(key).value])))); renderListings(); }));
       renderListings();
+      document.addEventListener('keydown', event => { if (event.key === 'Escape') clearSelection(); });
     });
 
     const themeButton = document.getElementById('theme');
