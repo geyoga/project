@@ -179,7 +179,10 @@
         map.setView(marker.getLatLng(), Math.max(map.getZoom(), 11), {animate:true});
         if (window.innerWidth > 900 && !listingPanel.classList.contains('collapsed')) {
           const panelRight = listingPanel.getBoundingClientRect().right;
-          map.once('moveend', () => map.panBy([panelRight / 2, 0], {animate:true}));
+          map.once('moveend', () => map.panBy([-panelRight / 2, 0], {animate:true}));
+        } else if (window.innerWidth <= 900 && !listingPanel.classList.contains('collapsed')) {
+          const coveredHeight = window.innerHeight - listingPanel.getBoundingClientRect().top;
+          map.once('moveend', () => map.panBy([0, coveredHeight / 2], {animate:true}));
         }
       };
       const selectListing = (id, scroll = false) => {
