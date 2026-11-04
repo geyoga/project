@@ -89,6 +89,20 @@
     .marker-cluster div { background:#2563eb; color:#fff; }
     .location-source { color:#71717a; font-size:.82rem; }
     @media (max-width: 600px) { .listing-panel { top:104px; width:calc(100% - 32px); } }
+    .sheet-handle { display:none; width:44px; height:24px; margin:0 auto 10px; padding-top:9px; border-radius:999px; background:transparent; cursor:grab; touch-action:none; }
+    .sheet-handle::after { content:""; display:block; width:44px; height:5px; border-radius:999px; background:var(--border); }
+    .listing-panel.dragging { transition:none; user-select:none; }
+    @media (max-width: 900px) {
+      .map-tools { left:8px; right:8px; max-width:none; transform:none; }
+      .listing-panel { top:auto; right:0; bottom:0; left:0; width:100%; height:50vh; max-height:80vh; padding:10px 16px 16px; border-radius:16px 16px 0 0; transform:none; opacity:1; transition:height .25s ease, transform .25s ease, opacity .25s ease; }
+      .listing-panel.sheet-30 { height:30vh; }
+      .listing-panel.sheet-50 { height:50vh; }
+      .listing-panel.sheet-80 { height:80vh; }
+      .listing-panel.collapsed { height:30vh; transform:none; opacity:1; }
+      .sheet-handle { display:block; }
+      .panel-head { top:-10px; width:calc(100% + 32px); height:52px; flex:0 0 52px; margin:0 -16px; padding:10px 16px; cursor:grab; touch-action:none; }
+      .panel-head .panel-toggle, .panel-toggle-floating { display:none !important; }
+    }
   </style>
 </head>
 <body>
@@ -104,6 +118,7 @@
     <label class="theme">Dark mode <button class="switch" id="theme" type="button" role="switch" aria-checked="true" aria-label="Toggle dark mode"><span class="thumb"></span></button></label>
   </nav>
   <aside class="listing-panel" id="listingPanel" aria-label="Apartment listings">
+    <div class="sheet-handle" id="sheetHandle" aria-label="Resize apartment list"></div>
     <div class="panel-head">
       <h2>Apartments</h2>
       <button class="panel-toggle" id="collapsePanel" type="button" aria-label="Collapse apartment list" aria-expanded="true">‹</button>
@@ -132,6 +147,13 @@
       let selectedId = null;
       let listingMarkers = new Map();
       let listingCards = new Map();
+      const listingPanel = document.getElementById('listingPanel');
+      const setSheetHeight = height => {
+        if (window.innerWidth > 900) return;
+        listingPanel.classList.remove('sheet-30','sheet-50','sheet-80','dragging','collapsed');
+        listingPanel.classList.add(`sheet-${height}`);
+        listingPanel.style.height = `${height}vh`;
+      };
       const clearSelection = () => {
         selectedId = null;
         document.querySelectorAll('.listing-card.selected,.apartment-pin.selected').forEach(item => item.classList.remove('selected'));
@@ -145,6 +167,7 @@
       };
       const selectListing = (id, scroll = false) => {
         selectedId = id;
+        setSheetHeight('30');
         document.querySelectorAll('.listing-card.selected,.apartment-pin.selected').forEach(item => item.classList.remove('selected'));
         const card = listingCards.get(id);
         card?.classList.add('selected');
@@ -231,6 +254,35 @@
     });
     document.getElementById('expandPanel').addEventListener('click', () => {
       listingPanel.classList.remove('collapsed');
+      if (window.innerWidth <= 900) setSheetHeight('50');
+    });
+    const sheetHandle = document.getElementById('sheetHandle');
+    const sheetHeader = listingPanel.querySelector('.panel-head');
+    let sheetStartY, sheetStartHeight;
+    const startSheetDrag = event => {
+      if (window.innerWidth > 900) return;
+      sheetStartY = event.clientY;
+      sheetStartHeight = listingPanel.getBoundingClientRect().height;
+      event.currentTarget.setPointerCapture(event.pointerId);
+      listingPanel.classList.add('dragging');
+    };
+    const moveSheet = event => {
+      if (sheetStartY == null) return;
+      const height = Math.max(innerHeight * .3, Math.min(innerHeight * .8, sheetStartHeight + sheetStartY - event.clientY));
+      listingPanel.style.height = `${height}px`;
+    };
+    const endSheetDrag = () => {
+      if (sheetStartY == null) return;
+      const ratio = listingPanel.getBoundingClientRect().height / innerHeight;
+      sheetStartY = null;
+      listingPanel.classList.remove('dragging');
+      setSheetHeight(ratio < .4 ? '30' : ratio < .65 ? '50' : '80');
+    };
+    [sheetHandle, sheetHeader].forEach(target => {
+      target.addEventListener('pointerdown', startSheetDrag);
+      target.addEventListener('pointermove', moveSheet);
+      target.addEventListener('pointerup', endSheetDrag);
+      target.addEventListener('pointercancel', endSheetDrag);
     });
   </script>
 </body>
