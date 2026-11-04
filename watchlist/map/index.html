@@ -184,8 +184,10 @@
           const coveredHeight = window.innerHeight - listingPanel.getBoundingClientRect().top;
           offset = [0, coveredHeight / 2];
         }
-        map.once('moveend', () => map.panBy(offset, {animate:true}));
-        map.setView(marker.getLatLng(), Math.max(map.getZoom(), 11), {animate:true});
+        const zoom = Math.max(map.getZoom(), 11);
+        const markerPoint = map.project(marker.getLatLng(), zoom);
+        map.stop();
+        map.setView(map.unproject(markerPoint.add(L.point(offset)), zoom), zoom, {animate:false});
       };
       const selectListing = (id, scroll = false) => {
         selectedId = id;
@@ -228,7 +230,7 @@
         const latitude = apartment.coordinates.latitude + distance * Math.sin(angle);
         const longitude = apartment.coordinates.longitude + distance * Math.cos(angle) / Math.cos(apartment.coordinates.latitude * Math.PI / 180);
         const locationSource = apartment.ur_coordinates ? 'UR property map' : 'OpenStreetMap geocoding';
-        const marker = L.marker([latitude, longitude], {icon}).bindPopup(`<strong>${apartment.property_romaji || apartment.property}</strong><br>${apartment.room || ''}<br>${apartment.layout || 'Layout unavailable'} · ${apartment.area_m2 ?? '—'} m²<br>${yen(apartment.monthly_total)} / month<br><span class="location-source">Location: ${locationSource}</span>${qualified ? '' : `<br>${(apartment.filter_reasons || []).join(' · ')}`}`).addTo(markers);
+        const marker = L.marker([latitude, longitude], {icon}).bindPopup(`<strong>${apartment.property_romaji || apartment.property}</strong><br>${apartment.room || ''}<br>${apartment.layout || 'Layout unavailable'} · ${apartment.area_m2 ?? '—'} m²<br>${yen(apartment.monthly_total)} / month<br><span class="location-source">Location: ${locationSource}</span>${qualified ? '' : `<br>${(apartment.filter_reasons || []).join(' · ')}`}`, {autoPan:false}).addTo(markers);
         listingMarkers.set(apartment.listing_id, marker);
         marker.on('click', () => {
            selectListing(apartment.listing_id, true);
