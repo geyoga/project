@@ -146,9 +146,9 @@ def main():
     generated = generated.replace('<select class="control" id="familyFilter">', '<select class="control" id="bookmarkFilter"><option value="">All apartments</option><option value="bookmarked">Bookmarked only</option></select><select class="control" id="familyFilter">')
     generated = generated.replace("let q=$('search').value.toLowerCase(),layout", "let q=$('search').value.toLowerCase(),bookmarkFilter=$('bookmarkFilter').value,layout")
     generated = generated.replace("apartments.filter(x=>(!q||", "apartments.filter(x=>(bookmarkFilter!=='bookmarked'||window.apartmentBookmarks?.has(x))&&(!q||")
-    generated = generated.replace('</div>${x.matches_hard_filters?', '</div>${window.apartmentBookmarks?.icon(x)}${x.matches_hard_filters?')
+    generated = generated.replace('</div>${x.matches_hard_filters?', '</div>${window.apartmentBookmarks?.icon(x) || ''}${x.matches_hard_filters?')
     generated = generated.replace("'familyFilter'];", "'familyFilter','bookmarkFilter'];")
-    generated = generated.replace("</body>", '<script src="/bookmarks.js"></script></body>')
+    generated = generated.replace("</body>", '<script>window.render=render;</script><script src="/bookmarks.js"></script></body>')
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT.write_text(generated, encoding="utf-8")
     station_cache_path = DATA_DIR / "station_coordinates.json"
