@@ -250,6 +250,8 @@
       };
       ids.forEach(id => document.getElementById(id).addEventListener('input', () => { localStorage.setItem('watchlist-filters', JSON.stringify(Object.fromEntries(ids.map(key => [key, document.getElementById(key).value])))); renderListings(); }));
       renderListings();
+      window.addEventListener('bookmarks-ready', renderListings);
+      window.addEventListener('bookmarks-changed', renderListings);
       document.addEventListener('keydown', event => { if (event.key === 'Escape') clearSelection(); });
     });
 
