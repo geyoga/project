@@ -146,7 +146,7 @@ def main():
     generated = generated.replace('<select class="control" id="familyFilter">', '<select class="control" id="bookmarkFilter"><option value="">All apartments</option><option value="bookmarked">Bookmarked only</option></select><select class="control" id="familyFilter">')
     generated = generated.replace("let q=$('search').value.toLowerCase(),layout", "let q=$('search').value.toLowerCase(),bookmarkFilter=$('bookmarkFilter').value,layout")
     generated = generated.replace("apartments.filter(x=>(!q||", "apartments.filter(x=>(bookmarkFilter!=='bookmarked'||window.apartmentBookmarks?.has(x))&&(!q||")
-    generated = generated.replace('</div>${x.matches_hard_filters?', '</div><div class="card-badges">${x.matches_hard_filters?').replace('}</div><div class="price">', '}</div></div><div class="price">')
+    generated = generated.replace('</div>${x.matches_hard_filters?', '</div><div class="card-badges">${x.matches_hard_filters?').replace('}</div><div class="price">', "}${window.apartmentBookmarks?.icon(x) || ''}</div></div><div class=\"price\">")
     generated = generated.replace("'familyFilter'];", "'familyFilter','bookmarkFilter'];")
     generated = generated.replace("</head>", '<style>.bookmark-button svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linejoin:round}.bookmark-button.active svg{fill:currentColor;stroke:currentColor}</style></head>')
     generated = generated.replace("</body>", '<script>window.render=render;</script><script src="/bookmarks.js?v=2"></script></body>')
