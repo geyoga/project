@@ -81,7 +81,10 @@
     .apartment-pin span { transform:rotate(45deg); }
     .apartment-pin.match { background:#15803d; }
     .apartment-pin.other { background:#d97706; }
+    .apartment-pin.bookmarked { background:#7c3aed; }
     .apartment-pin.selected { animation:pin-pulse 1.2s ease-in-out infinite; outline:4px solid #2563ebaa; outline-offset:3px; }
+    .bookmark-button { flex:none; border:0; background:transparent; color:var(--muted); font-size:1.3rem; cursor:pointer; }
+    .bookmark-button.active { color:#a78bfa; }
     @keyframes pin-pulse { 50% { filter:brightness(1.2); box-shadow:0 2px 6px #0006,0 0 0 10px #2563eb22; } }
     .destination-pin { display:grid; place-items:center; width:34px; height:34px; border:3px solid #fff; border-radius:8px; background:#2563eb; color:#fff; font-size:1.1rem; box-shadow:0 2px 6px #0006; }
     .station-pin { display:grid; place-items:center; width:28px; height:28px; border:3px solid #fff; border-radius:50%; background:#7c3aed; color:#fff; font-size:.8rem; font-weight:700; box-shadow:0 2px 6px #0006; }
@@ -113,7 +116,7 @@
     <select id="locality" aria-label="Location"><option value="">All locations</option></select>
     <select id="matchFilter" aria-label="Match status"><option value="all">Show all</option><option value="matches">Matches only</option><option value="other">Other only</option></select>
     <select id="sort" aria-label="Sort"><option value="score">Highest score</option><option value="price">Lowest cost</option><option value="area">Largest area</option><option value="commute">Shortest commute</option></select>
-    <select id="familyFilter" aria-label="Family-friendly options"><option value="">Family-friendly options</option><option value="renovated">Renovated rooms</option><option value="bath">Separate bath toilet</option><option value="daycare">Daycare nearby</option><option value="supermarket">Supermarket nearby</option></select>
+    <select id="bookmarkFilter" aria-label="Bookmarks"><option value="">All apartments</option><option value="bookmarked">Bookmarked only</option></select><select id="familyFilter" aria-label="Family-friendly options"><option value="">Family-friendly options</option><option value="renovated">Renovated rooms</option><option value="bath">Separate bath toilet</option><option value="daycare">Daycare nearby</option><option value="supermarket">Supermarket nearby</option></select>
     <span class="separator" aria-hidden="true"></span>
     <label class="theme">Dark mode <button class="switch" id="theme" type="button" role="switch" aria-checked="true" aria-label="Toggle dark mode"><span class="thumb"></span></button></label>
   </nav>
@@ -181,21 +184,21 @@
         listingMarkers.get(id)?._icon?.querySelector('.apartment-pin')?.classList.add('selected');
         if (scroll) card?.scrollIntoView({behavior:'smooth', block:'center'});
       };
-      const ids = ['search','layout','property','locality','matchFilter','sort','familyFilter'];
+      const ids = ['search','layout','property','locality','matchFilter','sort','familyFilter','bookmarkFilter'];
       const options = (id, key, label = value => value) => [...new Set(apartments.map(x => x[key]).filter(Boolean))].sort().forEach(value => document.getElementById(id).insertAdjacentHTML('beforeend', `<option value="${value}">${label(value)}</option>`));
       options('layout','layout');
       options('property','property',value => apartments.find(x => x.property === value).property_romaji || value);
       options('locality','locality',value => apartments.find(x => x.locality === value).locality_romaji || value);
       const saved = JSON.parse(localStorage.getItem('watchlist-filters') || '{}');
       ids.forEach(id => { if (saved[id] != null) document.getElementById(id).value = saved[id]; });
-      const renderListings = () => {
+    const renderListings = window.render = () => {
       const q = document.getElementById('search').value.toLowerCase();
       const weights = preferences.weights || {};
       const targets = preferences.targets || {};
       const targetScore = (x, key) => { const target = targets[key], value = x[key]; if (value == null) return 50; if (key === 'area_m2') return Math.min(100, 60 + Math.max(0, value - target) * 1.5); return value <= target ? 100 : Math.max(20, 100 - (value - target) / (key === 'monthly_total' ? 1000 : 1) * 5); };
       const score = x => { const values = {...x.score_breakdown, budget:targetScore(x,'monthly_total'), commute:targetScore(x,'total_commute_minutes'), space:targetScore(x,'area_m2'), building_age:targetScore(x,'building_age_estimate_years'), renovation:x.renovation_start ? 100 : 50}; const total = Object.entries(weights).reduce((sum, [key, weight]) => sum + (values[key] ?? 50) * weight, 0) / (Object.values(weights).reduce((a,b) => a+b, 0) || 1); return Math.round(total * 10) / 10; };
       const family = document.getElementById('familyFilter').value;
-      let list = apartments.filter(x => (!q || [x.property,x.property_romaji,x.room,x.primary_station,x.train_line,x.layout].join(' ').toLowerCase().includes(q)) && (!document.getElementById('layout').value || x.layout === document.getElementById('layout').value) && (!document.getElementById('property').value || x.property === document.getElementById('property').value) && (!document.getElementById('locality').value || x.locality === document.getElementById('locality').value) && (document.getElementById('matchFilter').value === 'all' || (document.getElementById('matchFilter').value === 'matches' ? x.matches_hard_filters : !x.matches_hard_filters)) && (!family || (family === 'renovated' && x.renovation_start) || (family === 'bath' && x.bath_toilet_separate) || (family === 'daycare' && x.surroundings?.daycare?.walking_minutes <= 10) || (family === 'supermarket' && x.surroundings?.supermarket?.walking_minutes <= 10)));
+      let list = apartments.filter(x => (document.getElementById('bookmarkFilter').value !== 'bookmarked' || window.apartmentBookmarks?.has(x)) && (!q || [x.property,x.property_romaji,x.room,x.primary_station,x.train_line,x.layout].join(' ').toLowerCase().includes(q)) && (!document.getElementById('layout').value || x.layout === document.getElementById('layout').value) && (!document.getElementById('property').value || x.property === document.getElementById('property').value) && (!document.getElementById('locality').value || x.locality === document.getElementById('locality').value) && (document.getElementById('matchFilter').value === 'all' || (document.getElementById('matchFilter').value === 'matches' ? x.matches_hard_filters : !x.matches_hard_filters)) && (!family || (family === 'renovated' && x.renovation_start) || (family === 'bath' && x.bath_toilet_separate) || (family === 'daycare' && x.surroundings?.daycare?.walking_minutes <= 10) || (family === 'supermarket' && x.surroundings?.supermarket?.walking_minutes <= 10)));
       list.sort((a,b) => document.getElementById('sort').value === 'price' ? (a.monthly_total||Infinity)-(b.monthly_total||Infinity) : document.getElementById('sort').value === 'area' ? (b.area_m2||0)-(a.area_m2||0) : document.getElementById('sort').value === 'commute' ? (a.total_commute_minutes||Infinity)-(b.total_commute_minutes||Infinity) : score(b)-score(a));
       if (document.getElementById('matchFilter').value === 'all') list.sort((a,b) => Number(b.matches_hard_filters)-Number(a.matches_hard_filters));
       markers.clearLayers();
@@ -205,7 +208,7 @@
       mappedApartments.forEach(apartment => { const key = `${apartment.coordinates.latitude},${apartment.coordinates.longitude}`; coordinateGroups.set(key, [...(coordinateGroups.get(key) || []), apartment]); });
       mappedApartments.forEach(apartment => {
         const qualified = apartment.matches_hard_filters;
-        const icon = L.divIcon({className:'', html:`<div class="apartment-pin ${qualified ? 'match' : 'other'}"><span>${score(apartment)}</span></div>`, iconSize:[38,38], iconAnchor:[19,38], popupAnchor:[0,-38]});
+        const icon = L.divIcon({className:'', html:`<div class="apartment-pin ${window.apartmentBookmarks?.has(apartment) ? 'bookmarked' : qualified ? 'match' : 'other'}"><span>${score(apartment)}</span></div>`, iconSize:[38,38], iconAnchor:[19,38], popupAnchor:[0,-38]});
         const group = coordinateGroups.get(`${apartment.coordinates.latitude},${apartment.coordinates.longitude}`);
         const index = group.indexOf(apartment);
         const angle = Math.PI * 2 * index / group.length;
@@ -213,7 +216,7 @@
         const latitude = apartment.coordinates.latitude + distance * Math.sin(angle);
         const longitude = apartment.coordinates.longitude + distance * Math.cos(angle) / Math.cos(apartment.coordinates.latitude * Math.PI / 180);
         const locationSource = apartment.ur_coordinates ? 'UR property map' : 'OpenStreetMap geocoding';
-        const marker = L.marker([latitude, longitude], {icon}).bindPopup(`<strong>${apartment.property_romaji || apartment.property}</strong><br>${apartment.room || ''}<br>${apartment.layout || 'Layout unavailable'} · ${apartment.area_m2 ?? '—'} m²<br>${yen(apartment.monthly_total)} / month<br><span class="location-source">Location: ${locationSource}</span>${qualified ? '' : `<br>${(apartment.filter_reasons || []).join(' · ')}`}`).addTo(markers);
+        const marker = L.marker([latitude, longitude], {icon}).bindPopup(`${window.apartmentBookmarks?.icon(apartment) || ''}<strong>${apartment.property_romaji || apartment.property}</strong><br>${apartment.room || ''}<br>${apartment.layout || 'Layout unavailable'} · ${apartment.area_m2 ?? '—'} m²<br>${yen(apartment.monthly_total)} / month<br><span class="location-source">Location: ${locationSource}</span>${qualified ? '' : `<br>${(apartment.filter_reasons || []).join(' · ')}`}`).addTo(markers);
         listingMarkers.set(apartment.listing_id, marker);
         marker.on('click', () => {
           selectListing(apartment.listing_id, true);
@@ -223,7 +226,7 @@
       });
       document.getElementById('listingCards').innerHTML = list.map(apartment => `
       <article class="listing-card" data-listing-id="${apartment.listing_id}">
-        <div class="listing-card-head"><h3>${apartment.property_romaji || apartment.property || 'Apartment'}</h3>${apartment.matches_hard_filters ? `<span class="score">${score(apartment)}</span>` : `<span class="filter-warning">${(apartment.filter_reasons || ['Does not match preferences']).join(' · ')}</span>`}</div>
+        <div class="listing-card-head"><h3>${apartment.property_romaji || apartment.property || 'Apartment'}</h3>${window.apartmentBookmarks?.icon(apartment) || ''}${apartment.matches_hard_filters ? `<span class="score">${score(apartment)}</span>` : `<span class="filter-warning">${(apartment.filter_reasons || ['Does not match preferences']).join(' · ')}</span>`}</div>
         <p>${apartment.room || ''}</p>
         <p>${yen(apartment.monthly_total)} / month · ${apartment.layout || 'Layout unavailable'} · ${apartment.area_m2 ?? '—'} m²</p>
         <p>${apartment.building_age_estimate_years ?? '—'} years old · Commute to Rakuten: ${apartment.total_commute_minutes ?? '—'} min</p>
@@ -292,5 +295,5 @@
       target.addEventListener('pointercancel', endSheetDrag);
     });
   </script>
-</body>
+<script src="/bookmarks.js"></script></body>
 </html>

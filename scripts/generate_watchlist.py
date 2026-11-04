@@ -142,6 +142,13 @@ def main():
     generated = generated.replace("__NEXT_UPDATE__", html.escape(display_time(next_update.isoformat())))
     generated = generated.replace("__COUNT__", str(sum(row["matches_hard_filters"] for row in rows)))
     generated = generated.replace("__CRAWL_STATUS__", html.escape(f'{crawl.get("rooms_found", 0)} search results · {len(rows)} verified available · {crawl.get("areas_requested", 0) - crawl.get("areas_failed", 0)}/{crawl.get("areas_requested", 0)} areas succeeded' if crawl else "No completed crawl"))
+    generated = generated.replace("<style>", "<style>.bookmark-button{margin-left:auto;border:0;background:transparent;color:var(--muted);font-size:1.4rem;cursor:pointer}.bookmark-button.active{color:#7c3aed}", 1)
+    generated = generated.replace('<select class="control" id="familyFilter">', '<select class="control" id="bookmarkFilter"><option value="">All apartments</option><option value="bookmarked">Bookmarked only</option></select><select class="control" id="familyFilter">')
+    generated = generated.replace("let q=$('search').value.toLowerCase(),layout", "let q=$('search').value.toLowerCase(),bookmarkFilter=$('bookmarkFilter').value,layout")
+    generated = generated.replace("apartments.filter(x=>(!q||", "apartments.filter(x=>(bookmarkFilter!=='bookmarked'||window.apartmentBookmarks?.has(x))&&(!q||")
+    generated = generated.replace('</div>${x.matches_hard_filters?', '</div>${window.apartmentBookmarks?.icon(x)}${x.matches_hard_filters?')
+    generated = generated.replace("'familyFilter'];", "'familyFilter','bookmarkFilter'];")
+    generated = generated.replace("</body>", '<script src="/bookmarks.js"></script></body>')
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT.write_text(generated, encoding="utf-8")
     station_cache_path = DATA_DIR / "station_coordinates.json"
