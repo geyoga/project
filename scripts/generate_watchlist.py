@@ -149,7 +149,7 @@ def main():
     generated = generated.replace('</div>${x.matches_hard_filters?', '</div><div class="card-badges">${x.matches_hard_filters?').replace('}</div><div class="price">', "}${window.apartmentBookmarks?.icon(x) || ''}</div></div><div class=\"price\">")
     generated = generated.replace("'familyFilter'];", "'familyFilter','bookmarkFilter'];")
     generated = generated.replace("</head>", '<style>.bookmark-button svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linejoin:round}.bookmark-button.active svg{fill:currentColor;stroke:currentColor}</style></head>')
-    generated = generated.replace("</body>", '<script>window.render=render;</script><script src="/bookmarks.js?v=2"></script></body>')
+    generated = generated.replace("</body>", '<script>window.render=render;</script><script src="/bookmarks.js?v=3"></script></body>')
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT.write_text(generated, encoding="utf-8")
     station_cache_path = DATA_DIR / "station_coordinates.json"
