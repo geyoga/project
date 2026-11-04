@@ -67,7 +67,7 @@
     .listing-card { margin-top:12px; padding:14px; border:1px solid var(--border); border-radius:8px; background:color-mix(in srgb,var(--bg) 70%,var(--card)); cursor:pointer; }
     .listing-card-head { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
     .listing-card.selected { border-color:#2563eb; box-shadow:0 0 0 2px #2563eb66; }
-    .listing-card h3 { flex:1; min-width:0; margin:0 0 4px; font-size:.95rem; }
+    .listing-card h3 { flex:1 1 auto; min-width:0; margin:0 0 4px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:.95rem; }
     .listing-card p { margin:4px 0; color:var(--muted); font-size:.82rem; }
     .listing-actions { display:grid; grid-template-columns:1fr 1fr; gap:8px; max-height:0; margin-top:0; overflow:hidden; opacity:0; transform:translateY(-4px); transition:max-height .25s ease, margin-top .25s ease, opacity .2s ease, transform .25s ease; }
     .listing-card.selected .listing-actions { max-height:64px; margin-top:12px; opacity:1; transform:none; }
@@ -83,7 +83,8 @@
     .apartment-pin.other { background:#d97706; }
     .apartment-pin.bookmarked { background:#7c3aed; }
     .apartment-pin.selected { animation:pin-pulse 1.2s ease-in-out infinite; outline:4px solid #2563ebaa; outline-offset:3px; }
-    .card-badges { flex:none; margin-left:auto; display:flex; align-items:center; gap:8px; height:28px; }
+    .card-badges { flex:0 0 auto; margin-left:auto; display:flex; align-items:center; gap:8px; height:28px; white-space:nowrap; }
+    .card-badges .score, .card-badges .filter-warning { float:none; flex:none; white-space:nowrap; }
     .bookmark-button { flex:none; border:0; background:transparent; color:var(--muted); line-height:1; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; height:28px; width:28px; padding:0; }
     .bookmark-button svg { width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linejoin:round; }
     .bookmark-button.active { color:#7c3aed; }
