@@ -226,9 +226,10 @@
         const marker = L.marker([latitude, longitude], {icon}).bindPopup(`<strong>${apartment.property_romaji || apartment.property}</strong><br>${apartment.room || ''}<br>${apartment.layout || 'Layout unavailable'} · ${apartment.area_m2 ?? '—'} m²<br>${yen(apartment.monthly_total)} / month<br><span class="location-source">Location: ${locationSource}</span>${qualified ? '' : `<br>${(apartment.filter_reasons || []).join(' · ')}`}`).addTo(markers);
         listingMarkers.set(apartment.listing_id, marker);
         marker.on('click', () => {
-          selectListing(apartment.listing_id, true);
-          showStations(apartment);
-        });
+           selectListing(apartment.listing_id, true);
+           showStations(apartment);
+           markers.zoomToShowLayer(marker, () => { centerSelectedMarker(marker); marker.openPopup(); });
+         });
         marker.on('popupclose', () => { if (selectedId === apartment.listing_id && marker._map?._popup !== marker.getPopup()) clearSelection(); });
       });
       document.getElementById('listingCards').innerHTML = list.map(apartment => `
