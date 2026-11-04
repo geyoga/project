@@ -219,7 +219,7 @@
         const latitude = apartment.coordinates.latitude + distance * Math.sin(angle);
         const longitude = apartment.coordinates.longitude + distance * Math.cos(angle) / Math.cos(apartment.coordinates.latitude * Math.PI / 180);
         const locationSource = apartment.ur_coordinates ? 'UR property map' : 'OpenStreetMap geocoding';
-        const marker = L.marker([latitude, longitude], {icon}).bindPopup(`${window.apartmentBookmarks?.icon(apartment) || ''}<strong>${apartment.property_romaji || apartment.property}</strong><br>${apartment.room || ''}<br>${apartment.layout || 'Layout unavailable'} · ${apartment.area_m2 ?? '—'} m²<br>${yen(apartment.monthly_total)} / month<br><span class="location-source">Location: ${locationSource}</span>${qualified ? '' : `<br>${(apartment.filter_reasons || []).join(' · ')}`}`).addTo(markers);
+        const marker = L.marker([latitude, longitude], {icon}).bindPopup(`<strong>${apartment.property_romaji || apartment.property}</strong><br>${apartment.room || ''}<br>${apartment.layout || 'Layout unavailable'} · ${apartment.area_m2 ?? '—'} m²<br>${yen(apartment.monthly_total)} / month<br><span class="location-source">Location: ${locationSource}</span>${qualified ? '' : `<br>${(apartment.filter_reasons || []).join(' · ')}`}`).addTo(markers);
         listingMarkers.set(apartment.listing_id, marker);
         marker.on('click', () => {
           selectListing(apartment.listing_id, true);
