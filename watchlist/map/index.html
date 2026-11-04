@@ -85,7 +85,9 @@
     .apartment-pin.selected { animation:pin-pulse 1.2s ease-in-out infinite; outline:4px solid #2563ebaa; outline-offset:3px; }
     .card-badges { margin-left:auto; display:flex; align-items:center; gap:8px; }
     .bookmark-button { flex:none; border:0; background:transparent; color:var(--muted); font-size:1.3rem; line-height:1; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; height:28px; width:28px; padding:0; }
+    .bookmark-button svg { width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linejoin:round; }
     .bookmark-button.active { color:#a78bfa; }
+    .bookmark-button.active svg { fill:currentColor; stroke:currentColor; }
     @keyframes pin-pulse { 50% { filter:brightness(1.2); box-shadow:0 2px 6px #0006,0 0 0 10px #2563eb22; } }
     .destination-pin { display:grid; place-items:center; width:34px; height:34px; border:3px solid #fff; border-radius:8px; background:#2563eb; color:#fff; font-size:1.1rem; box-shadow:0 2px 6px #0006; }
     .station-pin { display:grid; place-items:center; width:28px; height:28px; border:3px solid #fff; border-radius:50%; background:#7c3aed; color:#fff; font-size:.8rem; font-weight:700; box-shadow:0 2px 6px #0006; }

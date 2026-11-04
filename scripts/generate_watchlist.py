@@ -148,6 +148,7 @@ def main():
     generated = generated.replace("apartments.filter(x=>(!q||", "apartments.filter(x=>(bookmarkFilter!=='bookmarked'||window.apartmentBookmarks?.has(x))&&(!q||")
     generated = generated.replace('</div>${x.matches_hard_filters?', '</div><div class="card-badges">${window.apartmentBookmarks?.icon(x) || ''}${x.matches_hard_filters?').replace('}</div><div class="price">', '}</div></div><div class="price">')
     generated = generated.replace("'familyFilter'];", "'familyFilter','bookmarkFilter'];")
+    generated = generated.replace("</head>", '<style>.bookmark-button svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linejoin:round}.bookmark-button.active svg{fill:currentColor;stroke:currentColor}</style></head>')
     generated = generated.replace("</body>", '<script>window.render=render;</script><script src="/bookmarks.js"></script></body>')
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT.write_text(generated, encoding="utf-8")
