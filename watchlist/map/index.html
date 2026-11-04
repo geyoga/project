@@ -54,12 +54,13 @@
       position:absolute; z-index:1000; top:104px; bottom:16px; left:16px; width:360px;
       padding:16px; overflow:auto; background:color-mix(in srgb,var(--card) 96%,transparent);
       border:1px solid var(--border); border-radius:12px; box-shadow:0 8px 28px #0005;
-      transition:transform .2s ease;
+      transition:transform .25s ease, opacity .25s ease;
     }
-    .listing-panel.collapsed { transform:translateX(calc(-100% - 16px)); }
-    .panel-head { position:sticky; top:-16px; z-index:1; display:flex; align-items:center; justify-content:space-between; gap:12px; margin:0 -16px; padding:16px; background:var(--card); border-bottom:1px solid var(--border); }
+    .listing-panel.collapsed { transform:translateX(calc(-100% - 16px)); opacity:0; }
+    .panel-head { position:sticky; top:-16px; z-index:1; display:flex; align-items:center; justify-content:center; gap:12px; margin:0 -16px; padding:16px; background:var(--card); border-bottom:1px solid var(--border); }
     .panel-head h2 { margin:0; font-size:1rem; }
     .panel-toggle { width:32px; height:32px; padding:0; border:1px solid var(--border); border-radius:8px; color:inherit; background:var(--control); cursor:pointer; }
+    .panel-head .panel-toggle { position:absolute; right:16px; }
     .panel-toggle:hover { background:var(--bg); }
     .panel-toggle-floating { position:absolute; z-index:1000; top:104px; left:16px; display:none; }
     .listing-panel.collapsed + .panel-toggle-floating { display:block; }
@@ -68,6 +69,10 @@
     .listing-card.selected { border-color:#2563eb; box-shadow:0 0 0 2px #2563eb66; }
     .listing-card h3 { margin:0 0 4px; font-size:.95rem; }
     .listing-card p { margin:4px 0; color:var(--muted); font-size:.82rem; }
+    .listing-actions { display:grid; grid-template-columns:1fr 1fr; gap:8px; max-height:0; margin-top:0; overflow:hidden; opacity:0; transform:translateY(-4px); transition:max-height .25s ease, margin-top .25s ease, opacity .2s ease, transform .25s ease; }
+    .listing-card.selected .listing-actions { max-height:64px; margin-top:12px; opacity:1; transform:none; }
+    .listing-actions a { display:flex; align-items:center; justify-content:center; min-height:36px; padding:8px 10px; color:inherit; border:1px solid var(--border); border-radius:8px; font-size:.78rem; text-align:center; text-decoration:none; background:var(--control); }
+    .listing-actions a:hover { background:var(--bg); }
     .listing-card .score { float:right; padding:4px 9px; color:#86efac; background:#14532d; border-radius:999px; font-size:.9rem; font-weight:600; line-height:1; }
     body.light .listing-card .score { color:#15803d; background:#dcfce7; }
     .listing-card .filter-warning { flex:0 1 auto; max-width:45%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding:4px 9px; color:#fbbf24; background:#713f12; border-radius:999px; font-size:.78rem; font-weight:600; line-height:1; }
@@ -156,6 +161,7 @@
         <p>${apartment.room || ''}</p>
         <p>${yen(apartment.monthly_total)} / month · ${apartment.layout || 'Layout unavailable'} · ${apartment.area_m2 ?? '—'} m²</p>
         <p>${apartment.building_age_estimate_years ?? '—'} years old · Commute to Rakuten: ${apartment.total_commute_minutes ?? '—'} min</p>
+        <div class="listing-actions"><a href="${apartment.source_url || '#'}" target="_blank" rel="noopener">Open UR listing ↗</a><a href="https://www.google.com/maps/dir/?api=1&destination=Rakuten%20Crimson%20House%2C%201-14-1%20Tamagawa%2C%20Setagaya-ku%2C%20Tokyo&origin=${encodeURIComponent(apartment.address || '')}" target="_blank" rel="noopener">Directions to Rakuten ↗</a></div>
       </article>`).join('');
       document.querySelectorAll('.listing-card').forEach(card => card.addEventListener('click', () => {
         document.querySelectorAll('.listing-card.selected').forEach(item => item.classList.remove('selected'));
