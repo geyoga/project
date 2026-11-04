@@ -138,9 +138,10 @@
         map.closePopup();
         stationMarkers.clearLayers();
       };
+      map.on('click', clearSelection);
       const showStations = apartment => {
         stationMarkers.clearLayers();
-        (apartment.access_options || []).filter(option => option.coordinates).forEach(option => L.marker([option.coordinates.latitude, option.coordinates.longitude], {icon:L.divIcon({className:'', html:'<div class="station-pin">駅</div>', iconSize:[28,28], iconAnchor:[14,14]})}).bindPopup(`<strong>${option.station_romaji || option.station}</strong><br>${option.line || 'Train station'}${option.walk_minutes != null ? `<br>${option.walk_minutes} min walk` : ''}${option.bus_minutes != null ? `<br>${option.bus_minutes} min bus` : ''}`).addTo(stationMarkers));
+        (apartment.access_options || []).filter(option => option.coordinates).forEach(option => L.marker([option.coordinates.latitude, option.coordinates.longitude], {icon:L.divIcon({className:'', html:'<div class="station-pin">駅</div>', iconSize:[28,28], iconAnchor:[14,14]})}).bindPopup(`<strong>${option.station_romaji || option.station}</strong>${option.station_romaji ? ` (${option.station})` : ''}<br>${option.line || 'Train station'}${option.walk_minutes != null ? `<br>${option.walk_minutes} min walk` : ''}${option.bus_minutes != null ? `<br>${option.bus_minutes} min bus` : ''}`).addTo(stationMarkers));
       };
       const selectListing = (id, scroll = false) => {
         selectedId = id;
@@ -169,11 +170,20 @@
       if (document.getElementById('matchFilter').value === 'all') list.sort((a,b) => Number(b.matches_hard_filters)-Number(a.matches_hard_filters));
       markers.clearLayers();
       listingMarkers = new Map();
-      list.filter(x => x.coordinates?.latitude != null && x.coordinates?.longitude != null).forEach(apartment => {
+      const mappedApartments = list.filter(x => x.coordinates?.latitude != null && x.coordinates?.longitude != null);
+      const coordinateGroups = new Map();
+      mappedApartments.forEach(apartment => { const key = `${apartment.coordinates.latitude},${apartment.coordinates.longitude}`; coordinateGroups.set(key, [...(coordinateGroups.get(key) || []), apartment]); });
+      mappedApartments.forEach(apartment => {
         const qualified = apartment.matches_hard_filters;
         const icon = L.divIcon({className:'', html:`<div class="apartment-pin ${qualified ? 'match' : 'other'}"><span>${score(apartment)}</span></div>`, iconSize:[38,38], iconAnchor:[19,38], popupAnchor:[0,-38]});
+        const group = coordinateGroups.get(`${apartment.coordinates.latitude},${apartment.coordinates.longitude}`);
+        const index = group.indexOf(apartment);
+        const angle = Math.PI * 2 * index / group.length;
+        const distance = group.length > 1 ? 0.00012 * Math.ceil(Math.sqrt(group.length)) : 0;
+        const latitude = apartment.coordinates.latitude + distance * Math.sin(angle);
+        const longitude = apartment.coordinates.longitude + distance * Math.cos(angle) / Math.cos(apartment.coordinates.latitude * Math.PI / 180);
         const locationSource = apartment.ur_coordinates ? 'UR property map' : 'OpenStreetMap geocoding';
-        const marker = L.marker([apartment.coordinates.latitude, apartment.coordinates.longitude], {icon}).bindPopup(`<strong>${apartment.property_romaji || apartment.property}</strong><br>${apartment.room || ''}<br>${apartment.layout || 'Layout unavailable'} · ${apartment.area_m2 ?? '—'} m²<br>${yen(apartment.monthly_total)} / month<br><span class="location-source">Location: ${locationSource}</span>${qualified ? '' : `<br>${(apartment.filter_reasons || []).join(' · ')}`}`).addTo(markers);
+        const marker = L.marker([latitude, longitude], {icon}).bindPopup(`<strong>${apartment.property_romaji || apartment.property}</strong><br>${apartment.room || ''}<br>${apartment.layout || 'Layout unavailable'} · ${apartment.area_m2 ?? '—'} m²<br>${yen(apartment.monthly_total)} / month<br><span class="location-source">Location: ${locationSource}</span>${qualified ? '' : `<br>${(apartment.filter_reasons || []).join(' · ')}`}`).addTo(markers);
         listingMarkers.set(apartment.listing_id, marker);
         marker.on('click', () => {
           selectListing(apartment.listing_id, true);
