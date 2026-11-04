@@ -230,7 +230,7 @@
       });
       document.getElementById('listingCards').innerHTML = list.map(apartment => `
       <article class="listing-card" data-listing-id="${apartment.listing_id}">
-        <div class="listing-card-head"><h3>${apartment.property_romaji || apartment.property || 'Apartment'}</h3><div class="card-badges">${window.apartmentBookmarks?.icon(apartment) || ''}${apartment.matches_hard_filters ? `<span class="score">${score(apartment)}</span>` : `<span class="filter-warning">${(apartment.filter_reasons || ['Does not match preferences']).join(' · ')}</span>`}</div></div>
+        <div class="listing-card-head"><h3>${apartment.property_romaji || apartment.property || 'Apartment'}</h3><div class="card-badges">${apartment.matches_hard_filters ? `<span class="score">${score(apartment)}</span>` : `<span class="filter-warning">${(apartment.filter_reasons || ['Does not match preferences']).join(' · ')}</span>`}${window.apartmentBookmarks?.icon(apartment) || ''}</div></div>
         <p>${apartment.room || ''}</p>
         <p>${yen(apartment.monthly_total)} / month · ${apartment.layout || 'Layout unavailable'} · ${apartment.area_m2 ?? '—'} m²</p>
         <p>${apartment.building_age_estimate_years ?? '—'} years old · Commute to Rakuten: ${apartment.total_commute_minutes ?? '—'} min</p>
