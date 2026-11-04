@@ -176,14 +176,16 @@
         (apartment.access_options || []).filter(option => option.coordinates).forEach(option => L.marker([option.coordinates.latitude, option.coordinates.longitude], {icon:L.divIcon({className:'', html:'<div class="station-pin">駅</div>', iconSize:[28,28], iconAnchor:[14,14]})}).bindPopup(`<strong>${option.station_romaji || option.station}</strong>${option.station_romaji ? ` (${option.station})` : ''}<br>${option.line || 'Train station'}${option.walk_minutes != null ? `<br>${option.walk_minutes} min walk` : ''}${option.bus_minutes != null ? `<br>${option.bus_minutes} min bus` : ''}`).addTo(stationMarkers));
       };
       const centerSelectedMarker = marker => {
-        map.setView(marker.getLatLng(), Math.max(map.getZoom(), 11), {animate:true});
+        let offset = [0, 0];
         if (window.innerWidth > 900 && !listingPanel.classList.contains('collapsed')) {
           const panelRight = listingPanel.getBoundingClientRect().right;
-          map.once('moveend', () => map.panBy([-panelRight / 2, 0], {animate:true}));
+          offset = [-panelRight / 2, 0];
         } else if (window.innerWidth <= 900 && !listingPanel.classList.contains('collapsed')) {
           const coveredHeight = window.innerHeight - listingPanel.getBoundingClientRect().top;
-          map.once('moveend', () => map.panBy([0, coveredHeight / 2], {animate:true}));
+          offset = [0, coveredHeight / 2];
         }
+        map.once('moveend', () => map.panBy(offset, {animate:true}));
+        map.setView(marker.getLatLng(), Math.max(map.getZoom(), 11), {animate:true});
       };
       const selectListing = (id, scroll = false) => {
         selectedId = id;
