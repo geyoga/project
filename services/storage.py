@@ -1005,12 +1005,14 @@ def save_observed_listings(
 
 
 def get_current_listings():
-    """Return only rooms verified available by the latest successful crawl."""
+    """Return available rooms and rooms awaiting a second availability check."""
     with connect() as conn:
         rows = conn.execute(
             """
             SELECT *
-            FROM current_listings
+            FROM listings
+            WHERE active = 1
+              AND availability_state IN ('available', 'verification_pending')
             ORDER BY score DESC, monthly_total ASC, area_m2 DESC
             """
         ).fetchall()
