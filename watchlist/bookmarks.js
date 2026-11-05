@@ -1,28 +1,28 @@
 (() => {
-  let bookmarks = new Set(), ready = false;
+  let bookmarks = [], notes = {}, ready = false, dragged;
   const id = apartment => String(apartment.listing_id);
-  const icon = apartment => `<button class="bookmark-button${bookmarks.has(id(apartment)) ? ' active' : ''}" type="button" data-bookmark="${id(apartment)}" aria-label="${bookmarks.has(id(apartment)) ? 'Remove apartment bookmark' : 'Bookmark apartment'}" aria-pressed="${bookmarks.has(id(apartment))}"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 3.75A1.75 1.75 0 0 1 7.75 2h8.5A1.75 1.75 0 0 1 18 3.75v17.1a.65.65 0 0 1-1.04.52L12 17.5l-4.96 3.87A.65.65 0 0 1 6 20.85V3.75Z"/></svg></button>`;
-  const save = async () => {
-    const response = await fetch('/bookmarks.json', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({bookmarks:[...bookmarks]})});
-    if (!response.ok) throw new Error('Could not save bookmark');
-  };
-  window.apartmentBookmarks = {has: apartment => bookmarks.has(id(apartment)), ready: () => ready, icon};
-  window.addEventListener('click', async event => {
-    const button = event.target.closest('[data-bookmark]');
-    if (!button) return;
-    event.preventDefault(); event.stopPropagation();
-    const key = button.dataset.bookmark;
-    bookmarks.has(key) ? bookmarks.delete(key) : bookmarks.add(key);
-    window.dispatchEvent(new CustomEvent('bookmarks-changed')); window.render?.();
-    try { await save(); } catch (error) { bookmarks.has(key) ? bookmarks.delete(key) : bookmarks.add(key); window.dispatchEvent(new CustomEvent('bookmarks-changed')); window.render?.(); alert(error.message); }
+  const has = apartment => bookmarks.includes(id(apartment));
+  const escape = text => text.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+  const icon = apartment => `<button class="bookmark-button${has(apartment) ? ' active' : ''}" type="button" data-bookmark="${id(apartment)}" aria-label="${has(apartment) ? 'Remove apartment bookmark' : 'Bookmark apartment'}" aria-pressed="${has(apartment)}"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 3.75A1.75 1.75 0 0 1 7.75 2h8.5A1.75 1.75 0 0 1 18 3.75v17.1a.65.65 0 0 1-1.04.52L12 17.5l-4.96 3.87A.65.65 0 0 1 6 20.85V3.75Z"/></svg></button>`;
+  const noteIcon = apartment => `<button class="note-button${notes[id(apartment)]?' active':''}" type="button" data-note-open="${id(apartment)}" aria-label="${notes[id(apartment)]?'Edit apartment note':'Add apartment note'}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14v12H9l-4 4V4Z"/><path d="M8 8h8M8 12h5"/></svg></button>`;
+  const noteSummary = apartment => notes[id(apartment)] ? `<div class="note-summary"><strong>Note</strong><p>${escape(notes[id(apartment)]).replace(/\n/g,'<br>')}</p></div>` : '';
+  const orderControls = apartment => `<div class="bookmark-tools"><button class="drag-handle secondary" draggable="true" type="button" aria-label="Drag to reorder">↕</button><button class="move-button secondary" type="button" data-move="up" data-note-id="${id(apartment)}" aria-label="Move apartment up"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 15 6-6 6 6"/></svg></button><button class="move-button secondary" type="button" data-move="down" data-note-id="${id(apartment)}" aria-label="Move apartment down"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button></div>`;
+  const save = async () => { const response = await fetch('/bookmarks.json',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({bookmarks,notes})}); if(!response.ok) throw new Error('Could not save changes'); };
+  const closeNote = () => { const drawer=document.getElementById('noteDrawer');if(!drawer||drawer.hidden||drawer.classList.contains('closing'))return;drawer.classList.add('closing');drawer.addEventListener('animationend',()=>{drawer.hidden=true;drawer.classList.remove('closing');},{once:true}); };
+  const commit = async (previous, message, noteChange) => { window.render?.();if(noteChange)requestAnimationFrame(()=>document.querySelector(`[data-listing-id="${CSS.escape(noteChange.key)}"]`)?.classList.add(noteChange.cleared?'note-cleared':'note-saved')); try { await save(); } catch(error) { bookmarks=previous.bookmarks; notes=previous.notes; window.render?.(); alert(message||error.message); } };
+  window.apartmentBookmarks = {has,ready:()=>ready,order:apartment=>bookmarks.indexOf(id(apartment)),icon,noteIcon,noteSummary,orderControls,closeNote};
+  window.addEventListener('click', event => {
+    const bookmark=event.target.closest('[data-bookmark]');
+    if(bookmark){event.preventDefault();event.stopPropagation();const previous={bookmarks:[...bookmarks],notes:{...notes}},key=bookmark.dataset.bookmark;bookmarks=bookmarks.includes(key)?bookmarks.filter(x=>x!==key):[...bookmarks,key];commit(previous);return;}
+    const open=event.target.closest('[data-note-open]'); if(open){event.preventDefault();event.stopPropagation();const drawer=document.getElementById('noteDrawer');if(!drawer.hidden&&drawer.dataset.noteId===open.dataset.noteOpen){closeNote();return;}const rect=open.closest('article').getBoundingClientRect(),width=Math.min(360,innerWidth-24),left=Math.min(rect.right+24,innerWidth-width-12),top=Math.min(Math.max(12,rect.top),innerHeight-280);drawer.classList.remove('closing');drawer.dataset.noteId=open.dataset.noteOpen;drawer.querySelector('textarea').value=notes[open.dataset.noteOpen]||'';drawer.style.left=`${left}px`;drawer.style.top=`${top}px`;drawer.hidden=false;drawer.querySelector('textarea').focus();return;}
+    if(event.target.closest('[data-note-close]')){closeNote();return;}
+    const action=event.target.closest('[data-note-save],[data-note-clear]'); if(action){const drawer=document.getElementById('noteDrawer'),previous={bookmarks:[...bookmarks],notes:{...notes}},key=drawer.dataset.noteId,value=action.dataset.noteClear!==undefined?'':drawer.querySelector('textarea').value.trim(),cleared=!value;if(cleared){drawer.classList.add('clearing');document.querySelector(`[data-listing-id="${CSS.escape(key)}"] .note-summary`)?.classList.add('removing');setTimeout(()=>{delete notes[key];drawer.hidden=true;drawer.classList.remove('clearing');commit(previous,null,{key,cleared:true});},240);}else{notes[key]=value;drawer.hidden=true;commit(previous,null,{key,cleared:false});}return;}
+    const move=event.target.closest('[data-move]'); if(move){const previous={bookmarks:[...bookmarks],notes:{...notes}},key=move.dataset.noteId,i=bookmarks.indexOf(key),j=i+(move.dataset.move==='up'?-1:1),other=bookmarks[j];if(j>=0&&j<bookmarks.length){[bookmarks[i],bookmarks[j]]=[bookmarks[j],bookmarks[i]];window.render?.();requestAnimationFrame(()=>{document.querySelector(`[data-listing-id="${CSS.escape(key)}"]`)?.classList.add(move.dataset.move==='up'?'moving-up':'moving-down');document.querySelector(`[data-listing-id="${CSS.escape(other)}"]`)?.classList.add(move.dataset.move==='up'?'moving-down':'moving-up');});save().catch(error=>{bookmarks=previous.bookmarks;notes=previous.notes;window.render?.();alert('Could not save bookmark order');});}}
   });
-  const load = () => fetch('/bookmarks.json', {cache:'no-store'}).then(response => response.json()).then(data => {
-    const available = new Set((window.apartments || apartments).map(id));
-    bookmarks = new Set((data.bookmarks || []).filter(key => available.has(key)));
-    if (bookmarks.size !== (data.bookmarks || []).length) save();
-    ready = true;
-    window.dispatchEvent(new CustomEvent('bookmarks-ready')); window.render?.();
-  });
-  if (window.apartments || typeof apartments !== 'undefined') load();
-  else window.addEventListener('apartments-ready', load, {once:true});
+  document.addEventListener('dragstart',event=>{if(!event.target.closest('.drag-handle'))return;const card=event.target.closest('.bookmark-card');dragged=card.dataset.listingId;card.classList.add('dragging');});
+  const clearDropIndicators = () => document.querySelectorAll('.drop-before,.drop-after').forEach(card=>card.classList.remove('drop-before','drop-after'));
+  document.addEventListener('dragend',event=>{event.target.closest('.bookmark-card')?.classList.remove('dragging');clearDropIndicators();dragged=null;});
+  document.addEventListener('dragover',event=>{const card=event.target.closest('.bookmark-card');if(!card||card.dataset.listingId===dragged)return;event.preventDefault();clearDropIndicators();card.classList.add(event.clientY<card.getBoundingClientRect().top+card.offsetHeight/2?'drop-before':'drop-after');});
+  document.addEventListener('drop',event=>{const card=event.target.closest('.bookmark-card');if(!card||!dragged||card.dataset.listingId===dragged)return;event.preventDefault();const previous={bookmarks:[...bookmarks],notes:{...notes}},key=dragged,target=card.dataset.listingId,before=card.classList.contains('drop-before');bookmarks=bookmarks.filter(item=>item!==key);let to=bookmarks.indexOf(target)+(before?0:1);bookmarks.splice(to,0,key);clearDropIndicators();dragged=null;commit(previous,'Could not save bookmark order');});
+  fetch('/bookmarks.json',{cache:'no-store'}).then(r=>r.json()).then(data=>{const available=new Set((window.apartments||apartments).map(id));bookmarks=(data.bookmarks||[]).filter(key=>available.has(key));notes=data.notes||{};ready=true;window.dispatchEvent(new CustomEvent('bookmarks-ready'));window.render?.();});
 })();

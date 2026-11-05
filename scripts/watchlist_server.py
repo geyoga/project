@@ -35,11 +35,19 @@ def validate_preferences(data):
 
 def validate_bookmarks(data):
     bookmarks = data.get("bookmarks") if isinstance(data, dict) else None
-    if not isinstance(bookmarks, list) or len(bookmarks) > 10_000 or any(not isinstance(item, str) or len(item) > 200 for item in bookmarks):
+    notes = data.get("notes", {}) if isinstance(data, dict) else None
+    if (not isinstance(bookmarks, list) or len(bookmarks) > 10_000
+            or any(not isinstance(item, str) or len(item) > 200 for item in bookmarks)
+            or not isinstance(notes, dict) or len(notes) > 10_000
+            or any(not isinstance(key, str) or len(key) > 200 or not isinstance(note, str) or len(note) > 10_000 for key, note in notes.items())):
         raise ValueError()
-    return {"bookmarks": list(dict.fromkeys(bookmarks))}
+    return {"bookmarks": list(dict.fromkeys(bookmarks)), "notes": notes}
 
 class Handler(SimpleHTTPRequestHandler):
+    def end_headers(self):
+        self.send_header("Cache-Control", "no-store")
+        super().end_headers()
+
     def do_GET(self):
         if self.path == "/bookmarks.json":
             body = json.dumps(json.loads(BOOKMARKS.read_text()) if BOOKMARKS.exists() else {"bookmarks": []}).encode()

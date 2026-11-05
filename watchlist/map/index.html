@@ -90,6 +90,53 @@
     .bookmark-button svg { width:24px; height:24px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linejoin:round; }
     .bookmark-button.active { color:#7c3aed; }
     .bookmark-button.active svg { fill:currentColor; stroke:currentColor; }
+    .note-button { width:30px; height:34px; padding:0; border:0; color:var(--muted); background:transparent; cursor:pointer; }
+    .note-button svg { width:22px; height:22px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+    .note-button.active { color:#7c3aed; }
+    .note-summary { margin-top:12px; padding:12px; border:1px solid var(--border); border-radius:8px; background:var(--card); font-size:.875rem; transform-origin:top; animation:note-summary-in .32s ease-out; }
+    .note-summary strong { font-size:.78rem; }
+    .note-summary p { margin:5px 0 0; color:var(--muted); line-height:1.5; }
+    @keyframes note-summary-in { from { opacity:0; transform:translateY(-8px) scaleY(.85); } to { opacity:1; transform:none; } }
+    .note-summary.removing { animation:note-summary-out .24s ease-in forwards; }
+    @keyframes note-summary-out { from { opacity:1; transform:none; max-height:200px; } to { opacity:0; transform:translateY(-8px) scaleY(.8); max-height:0; margin-top:0; padding-top:0; padding-bottom:0; } }
+    .note-drawer { position:fixed; z-index:2000; width:min(360px,calc(100vw - 24px)); padding:16px; border:1px solid var(--border); border-radius:10px; color:inherit; background:var(--card); box-shadow:0 12px 36px #0008; transform-origin:top left; animation:note-in .16s ease-out; }
+    .note-drawer.closing { pointer-events:none; animation:note-out .13s ease-in forwards; }
+    .note-drawer.clearing { pointer-events:none; animation:note-clear .24s ease-in forwards; }
+    @keyframes note-in { from { opacity:0; transform:translateY(-6px) scale(.97); } to { opacity:1; transform:none; } }
+    @keyframes note-out { from { opacity:1; transform:none; } to { opacity:0; transform:translateY(-4px) scale(.97); } }
+    @keyframes note-clear { 0% { opacity:1; transform:none; } 35% { transform:translateX(-5px) scale(.98); } 65% { transform:translateX(5px) scale(.96); } 100% { opacity:0; transform:translateY(-8px) scale(.92); } }
+    .note-drawer[hidden] { display:none; }
+    .note-drawer-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+    .note-drawer h2 { margin:0; font-size:1.1rem; }
+    .note-drawer textarea { width:100%; min-height:150px; padding:12px; resize:vertical; border:1px solid var(--border); border-radius:8px; color:inherit; background:var(--bg); font:inherit; }
+    .note-drawer .note-actions { display:flex; gap:8px; margin-top:12px; }
+    @media (max-width:600px) { .note-drawer { left:12px !important; top:50% !important; transform:translateY(-50%); animation:none; } }
+    .bookmark-tools { display:flex; align-items:center; gap:6px; margin-top:12px; }
+    .bookmark-tools button,.note-actions button { min-height:36px; padding:0 12px; border:1px solid var(--border); border-radius:6px; color:inherit; background:var(--control); font:inherit; font-size:.82rem; font-weight:500; cursor:pointer; }
+    .bookmark-tools button:hover,.note-actions button:hover { background:var(--bg); }
+    .bookmark-tools .drag-handle { padding:0 10px; cursor:grab; color:var(--muted); }
+    .bookmark-tools .move-button { display:grid; place-items:center; width:36px; padding:0; }
+    .move-button svg { width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+    .note-panel { margin-top:10px; padding:12px; border:1px solid var(--border); border-radius:8px; background:var(--card); }
+    .note-panel[hidden],.note-editor[hidden],.note-display[hidden] { display:none; }
+    .note-display { color:var(--muted); font-size:.875rem; line-height:1.5; white-space:pre-wrap; }
+    .note-panel textarea { width:100%; min-height:96px; padding:10px 12px; resize:vertical; border:1px solid var(--border); border-radius:6px; outline:none; color:inherit; background:var(--bg); font:inherit; }
+    .note-panel textarea:focus { border-color:#2563eb; box-shadow:0 0 0 2px #2563eb44; }
+    .note-actions { display:flex; gap:8px; margin-top:8px; }
+    .note-actions .primary { border-color:#fafafa; color:#18181b; background:#fafafa; }
+    body.light .note-actions .primary { border-color:#18181b; color:#fafafa; background:#18181b; }
+    .listing-card.dragging { opacity:.45; }
+    .listing-card.drop-before::before,.listing-card.drop-after::after { content:""; display:block; height:3px; margin:-16px -14px 13px; border-radius:999px; background:#22c55e; box-shadow:0 0 0 2px #22c55e33; }
+    .listing-card.drop-after::after { margin:13px -14px -16px; }
+    .listing-card.note-saved { animation:note-card-saved .55s ease-out; }
+    .listing-card.note-cleared { animation:note-card-cleared .55s ease-out; }
+    .listing-card.moving-up { animation:card-move-up .34s ease-out; }
+    .listing-card.moving-down { animation:card-move-down .34s ease-out; }
+    @keyframes note-card-saved { 0% { border-color:#7c3aed; box-shadow:0 0 0 3px #7c3aed55; transform:scale(.985); } 100% { box-shadow:none; transform:none; } }
+    @keyframes note-card-cleared { 0% { opacity:.65; border-color:var(--muted); transform:scale(.985); } 100% { opacity:1; transform:none; } }
+    @keyframes card-move-up { from { opacity:.55; transform:translateY(24px); } to { opacity:1; transform:none; } }
+    @keyframes card-move-down { from { opacity:.55; transform:translateY(-24px); } to { opacity:1; transform:none; } }
+    @media (prefers-reduced-motion:reduce) { .listing-card.note-saved,.listing-card.note-cleared,.listing-card.moving-up,.listing-card.moving-down,.note-drawer.clearing,.note-summary,.note-summary.removing { animation:none; } }
     @keyframes pin-pulse { 50% { filter:brightness(1.2); box-shadow:0 2px 6px #0006,0 0 0 10px #2563eb22; } }
     .destination-pin { display:grid; place-items:center; width:34px; height:34px; border:3px solid #fff; border-radius:8px; background:#2563eb; color:#fff; font-size:1.1rem; box-shadow:0 2px 6px #0006; }
     .station-pin { display:grid; place-items:center; width:28px; height:28px; border:3px solid #fff; border-radius:50%; background:#6b7280; color:#fff; font-size:.8rem; font-weight:700; box-shadow:0 2px 6px #0006; }
@@ -135,6 +182,7 @@
   </aside>
   <button class="panel-toggle panel-toggle-floating" id="expandPanel" type="button" aria-label="Expand apartment list">›</button>
   <div id="map" aria-label="Apartment map"></div>
+  <aside class="note-drawer" id="noteDrawer" hidden aria-label="Apartment note"><div class="note-drawer-head"><h2>Apartment note</h2><button class="panel-toggle" type="button" data-note-close aria-label="Close note panel">×</button></div><textarea aria-label="Note" placeholder="Write anything you want to remember..."></textarea><div class="note-actions"><button class="primary" type="button" data-note-save>Save note</button><button type="button" data-note-clear>Clear note</button><button type="button" data-note-close>Cancel</button></div></aside>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
   <script>
@@ -166,6 +214,7 @@
       };
       const clearSelection = () => {
         selectedId = null;
+        window.apartmentBookmarks?.closeNote?.();
         document.querySelectorAll('.listing-card.selected,.apartment-pin.selected').forEach(item => item.classList.remove('selected'));
         map.closePopup();
         stationMarkers.clearLayers();
@@ -194,6 +243,7 @@
         requestAnimationFrame(() => requestAnimationFrame(() => marker.openPopup()));
       });
       const selectListing = (id, scroll = false) => {
+        if (selectedId !== id) window.apartmentBookmarks?.closeNote?.();
         selectedId = id;
         setSheetHeight('30');
         document.querySelectorAll('.listing-card.selected,.apartment-pin.selected').forEach(item => item.classList.remove('selected'));
@@ -217,7 +267,8 @@
       const score = x => { const values = {...x.score_breakdown, budget:targetScore(x,'monthly_total'), commute:targetScore(x,'total_commute_minutes'), space:targetScore(x,'area_m2'), building_age:targetScore(x,'building_age_estimate_years'), renovation:x.renovation_start ? 100 : 50}; const total = Object.entries(weights).reduce((sum, [key, weight]) => sum + (values[key] ?? 50) * weight, 0) / (Object.values(weights).reduce((a,b) => a+b, 0) || 1); return Math.round(total * 10) / 10; };
       const family = document.getElementById('familyFilter').value;
       let list = apartments.filter(x => (document.getElementById('bookmarkFilter').value !== 'bookmarked' || !window.apartmentBookmarks?.ready?.() || window.apartmentBookmarks.has(x)) && (!q || [x.property,x.property_romaji,x.room,x.primary_station,x.train_line,x.layout].join(' ').toLowerCase().includes(q)) && (!document.getElementById('layout').value || x.layout === document.getElementById('layout').value) && (!document.getElementById('property').value || x.property === document.getElementById('property').value) && (!document.getElementById('locality').value || x.locality === document.getElementById('locality').value) && (document.getElementById('matchFilter').value === 'all' || (document.getElementById('matchFilter').value === 'matches' ? x.matches_hard_filters : !x.matches_hard_filters)) && (!family || (family === 'renovated' && x.renovation_start) || (family === 'bath' && x.bath_toilet_separate) || (family === 'daycare' && x.surroundings?.daycare?.walking_minutes <= 10) || (family === 'supermarket' && x.surroundings?.supermarket?.walking_minutes <= 10)));
-      list.sort((a,b) => document.getElementById('sort').value === 'price' ? (a.monthly_total||Infinity)-(b.monthly_total||Infinity) : document.getElementById('sort').value === 'area' ? (b.area_m2||0)-(a.area_m2||0) : document.getElementById('sort').value === 'commute' ? (a.total_commute_minutes||Infinity)-(b.total_commute_minutes||Infinity) : score(b)-score(a));
+      if (document.getElementById('bookmarkFilter').value === 'bookmarked' && window.apartmentBookmarks?.ready()) list.sort((a,b) => window.apartmentBookmarks.order(a)-window.apartmentBookmarks.order(b));
+      else list.sort((a,b) => document.getElementById('sort').value === 'price' ? (a.monthly_total||Infinity)-(b.monthly_total||Infinity) : document.getElementById('sort').value === 'area' ? (b.area_m2||0)-(a.area_m2||0) : document.getElementById('sort').value === 'commute' ? (a.total_commute_minutes||Infinity)-(b.total_commute_minutes||Infinity) : score(b)-score(a));
       if (document.getElementById('matchFilter').value === 'all') list.sort((a,b) => Number(b.matches_hard_filters)-Number(a.matches_hard_filters));
       markers.clearLayers();
       listingMarkers = new Map();
@@ -244,11 +295,13 @@
         marker.on('popupclose', () => { if (selectedId === apartment.listing_id && marker._map?._popup !== marker.getPopup()) clearSelection(); });
       });
       document.getElementById('listingCards').innerHTML = list.map(apartment => `
-      <article class="listing-card" data-listing-id="${apartment.listing_id}">
-        <div class="listing-card-head"><h3>${apartment.property_romaji || apartment.property || 'Apartment'}</h3><div class="card-badges">${apartment.matches_hard_filters ? `<span class="score">${score(apartment)}</span>` : `<span class="filter-warning">${(apartment.filter_reasons || ['Does not match preferences']).join(' · ')}</span>`}${window.apartmentBookmarks?.icon(apartment) || ''}</div></div>
+      <article class="listing-card ${document.getElementById('bookmarkFilter').value === 'bookmarked' ? 'bookmark-card' : ''}" data-listing-id="${apartment.listing_id}">
+        <div class="listing-card-head"><h3>${apartment.property_romaji || apartment.property || 'Apartment'}</h3><div class="card-badges">${apartment.matches_hard_filters ? `<span class="score">${score(apartment)}</span>` : `<span class="filter-warning">${(apartment.filter_reasons || ['Does not match preferences']).join(' · ')}</span>`}${window.apartmentBookmarks?.noteIcon(apartment) || ''}${window.apartmentBookmarks?.icon(apartment) || ''}</div></div>
         <p>${apartment.room || ''}</p>
         <p>${yen(apartment.monthly_total)} / month · ${apartment.layout || 'Layout unavailable'} · ${apartment.area_m2 ?? '—'} m²</p>
         <p>${apartment.building_age_estimate_years ?? '—'} years old · Commute to Rakuten: ${apartment.total_commute_minutes ?? '—'} min</p>
+        ${window.apartmentBookmarks?.noteSummary(apartment) || ''}
+        ${document.getElementById('bookmarkFilter').value === 'bookmarked' ? window.apartmentBookmarks?.orderControls(apartment) || '' : ''}
         <div class="listing-actions"><a href="${apartment.source_url || '#'}" target="_blank" rel="noopener">Open UR listing ↗</a><a href="https://www.google.com/maps/dir/?api=1&destination=Rakuten%20Crimson%20House%2C%201-14-1%20Tamagawa%2C%20Setagaya-ku%2C%20Tokyo&origin=${encodeURIComponent(apartment.address || '')}&travelmode=transit" target="_blank" rel="noopener">Direction ↗</a></div>
       </article>`).join('');
       listingCards = new Map([...document.querySelectorAll('.listing-card')].map(card => [card.dataset.listingId, card]));
@@ -261,6 +314,7 @@
         if (!marker) return;
          revealSelectedMarker(marker);
       }));
+      window.render = renderListings;
       };
       ids.forEach(id => document.getElementById(id).addEventListener('input', () => { localStorage.setItem('watchlist-filters', JSON.stringify(Object.fromEntries(ids.map(key => [key, document.getElementById(key).value])))); renderListings(); }));
       renderListings();
@@ -316,5 +370,5 @@
       target.addEventListener('pointercancel', endSheetDrag);
     });
   </script>
-<script src="/bookmarks.js?v=3"></script></body>
+<script src="/bookmarks.js?v=17"></script></body>
 </html>
