@@ -11,6 +11,8 @@
     :root { color-scheme: dark; font-family: Inter,ui-sans-serif,system-ui,sans-serif; --bg:#18181b; --border:#3f3f46; --muted:#a1a1aa; --card:#27272a; --control:#27272a; }
     * { box-sizing: border-box; }
     html, body, #map { height: 100%; margin: 0; }
+    .leaflet-tile-pane { filter:brightness(.78) saturate(.85); }
+    body.light .leaflet-tile-pane { filter:brightness(.9) saturate(.9); }
     .map-tools {
       position: absolute;
       z-index: 1000;
@@ -78,7 +80,7 @@
     .listing-card .score { float:right; padding:4px 9px; color:#86efac; background:#14532d; border-radius:999px; font-size:.9rem; font-weight:600; line-height:1; }
     body.light .listing-card .score { color:#15803d; background:#dcfce7; }
     .listing-card .filter-warning { flex:0 1 auto; max-width:45%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding:4px 9px; color:#fbbf24; background:#713f12; border-radius:999px; font-size:.78rem; font-weight:600; line-height:1; }
-    .verification-badge { padding:4px 9px; border-radius:999px; color:#93c5fd; background:#1e3a8a; font-size:.72rem; font-weight:600; }
+    .verification-badge { display:inline-flex; align-items:center; height:25px; padding:0 9px; border-radius:999px; color:#93c5fd; background:#1e3a8a; font-size:.72rem; font-weight:600; line-height:1; }
     body.light .verification-badge { color:#1d4ed8; background:#dbeafe; }
     body.light .listing-card .filter-warning { color:#92400e; background:#fef3c7; }
     .apartment-pin { display:grid; place-items:center; width:38px; height:38px; border:3px solid #fff; border-radius:50% 50% 50% 0; color:#fff; font-size:.72rem; font-weight:700; box-shadow:0 2px 6px #0006; transform:rotate(-45deg); }
@@ -142,7 +144,7 @@
     @keyframes card-move-down { from { opacity:.55; transform:translateY(-24px); } to { opacity:1; transform:none; } }
     @media (prefers-reduced-motion:reduce) { .listing-card.note-saved,.listing-card.note-cleared,.listing-card.moving-up,.listing-card.moving-down,.note-drawer.clearing,.note-summary,.note-summary.removing { animation:none; } }
     @keyframes pin-pulse { 50% { filter:brightness(1.2); box-shadow:0 2px 6px #0006,0 0 0 10px #2563eb22; } }
-    .destination-pin { display:grid; place-items:center; width:34px; height:34px; border:3px solid #fff; border-radius:8px; background:#2563eb; color:#fff; font-size:1.1rem; box-shadow:0 2px 6px #0006; }
+    .destination-pin { display:grid; place-items:center; width:34px; height:34px; border:3px solid #fff; border-radius:8px; background:#dc2626; color:#fff; font-size:1.1rem; box-shadow:0 2px 6px #0006; }
     .station-pin { display:grid; place-items:center; width:28px; height:28px; border:3px solid #fff; border-radius:50%; background:#6b7280; color:#fff; font-size:.8rem; font-weight:700; box-shadow:0 2px 6px #0006; }
     .marker-cluster { background:#2563eb99; }
     .marker-cluster div { background:#2563eb; color:#fff; }
@@ -304,7 +306,7 @@
       });
       document.getElementById('listingCards').innerHTML = list.map(apartment => `
       <article class="listing-card ${document.getElementById('bookmarkFilter').value === 'bookmarked' ? 'bookmark-card' : ''}" data-listing-id="${apartment.listing_id}">
-        <div class="listing-card-head"><h3>${apartment.property_romaji || apartment.property || 'Apartment'}</h3><div class="card-badges">${apartment.availability_state === 'verification_pending' ? '<span class="verification-badge">Verification pending</span>' : apartment.matches_hard_filters ? `<span class="score">${score(apartment)}</span>` : `<span class="filter-warning">${(apartment.filter_reasons || ['Does not match preferences']).join(' · ')}</span>`}${window.apartmentBookmarks?.noteIcon(apartment) || ''}${window.apartmentBookmarks?.icon(apartment) || ''}</div></div>
+        <div class="listing-card-head"><h3>${apartment.property_romaji || apartment.property || 'Apartment'}</h3><div class="card-badges">${apartment.availability_state === 'verification_pending' ? '<span class="verification-badge">Pending</span>' : ''}${apartment.matches_hard_filters ? `<span class="score">${score(apartment)}</span>` : `<span class="filter-warning">${(apartment.filter_reasons || ['Does not match preferences']).join(' · ')}</span>`}${window.apartmentBookmarks?.noteIcon(apartment) || ''}${window.apartmentBookmarks?.icon(apartment) || ''}</div></div>
         <p>${apartment.room || ''}</p>
         <p>${yen(apartment.monthly_total)} / month · ${apartment.layout || 'Layout unavailable'} · ${apartment.area_m2 ?? '—'} m²</p>
         <p>${apartment.building_age_estimate_years ?? '—'} years old · Commute to Rakuten: ${apartment.total_commute_minutes ?? '—'} min</p>
