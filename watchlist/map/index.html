@@ -49,9 +49,11 @@
     @media (max-width: 600px) { .map-tools { left: 8px; right: 8px; max-width: none; transform: none; } }
     body.light { color:#18181b; --bg:#fafafa; --border:#e4e4e7; --muted:#71717a; --card:#fff; --control:#fff; }
     body.light .theme { color:#18181b; }
+    body.light .switch[aria-checked="true"] { background:#18181b; }
+    body.light .switch[aria-checked="true"] .thumb { background:#fff; }
     body.light .map-tools select { background-color:var(--control); }
     .listing-panel {
-      position:absolute; z-index:1000; top:104px; bottom:16px; left:16px; width:360px;
+      position:absolute; z-index:1000; top:104px; bottom:16px; left:16px; width:400px;
       padding:16px; overflow:auto; background:color-mix(in srgb,var(--card) 96%,transparent);
       border:1px solid var(--border); border-radius:12px; box-shadow:0 8px 28px #0005;
       transition:transform .25s ease, opacity .25s ease;
@@ -168,7 +170,7 @@
     <select id="locality" aria-label="Location"><option value="">All locations</option></select>
     <select id="matchFilter" aria-label="Match status"><option value="all">Show all</option><option value="matches">Matches only</option><option value="other">Other only</option></select>
     <select id="sort" aria-label="Sort"><option value="score">Highest score</option><option value="price">Lowest cost</option><option value="area">Largest area</option><option value="commute">Shortest commute</option></select>
-    <select id="bookmarkFilter" aria-label="Bookmarks"><option value="">All apartments</option><option value="bookmarked">Bookmarked only</option></select><select id="familyFilter" aria-label="Family-friendly options"><option value="">Family-friendly options</option><option value="renovated">Renovated rooms</option><option value="bath">Separate bath toilet</option><option value="daycare">Daycare nearby</option><option value="supermarket">Supermarket nearby</option></select>
+    <select id="familyFilter" aria-label="Family-friendly options"><option value="">Family-friendly options</option><option value="renovated">Renovated rooms</option><option value="bath">Separate bath toilet</option><option value="daycare">Daycare nearby</option><option value="supermarket">Supermarket nearby</option></select><label class="theme">Bookmarks <button class="switch" id="bookmarkFilter" type="button" role="switch" aria-checked="false" aria-label="Show bookmarked apartments only" value=""><span class="thumb"></span></button></label>
     <span class="separator" aria-hidden="true"></span>
     <label class="theme">Dark mode <button class="switch" id="theme" type="button" role="switch" aria-checked="true" aria-label="Toggle dark mode"><span class="thumb"></span></button></label>
   </nav>
@@ -259,6 +261,10 @@
       options('locality','locality',value => apartments.find(x => x.locality === value).locality_romaji || value);
       const saved = JSON.parse(localStorage.getItem('watchlist-filters') || '{}');
       ids.forEach(id => { if (saved[id] != null) document.getElementById(id).value = saved[id]; });
+      const bookmarkFilter = document.getElementById('bookmarkFilter');
+      const syncBookmarkSwitch = () => bookmarkFilter.setAttribute('aria-checked', bookmarkFilter.value === 'bookmarked');
+      syncBookmarkSwitch();
+      bookmarkFilter.addEventListener('click', () => { bookmarkFilter.value = bookmarkFilter.value === 'bookmarked' ? '' : 'bookmarked'; syncBookmarkSwitch(); bookmarkFilter.dispatchEvent(new Event('input')); });
     const renderListings = window.render = () => {
       const q = document.getElementById('search').value.toLowerCase();
       const weights = preferences.weights || {};
