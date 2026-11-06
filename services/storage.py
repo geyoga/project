@@ -1004,17 +1004,18 @@ def save_observed_listings(
     return changes
 
 
-def get_current_listings():
+def get_current_listings(include_unavailable_ids=()):
     """Return available rooms and rooms awaiting a second availability check."""
     with connect() as conn:
         rows = conn.execute(
             """
             SELECT *
             FROM listings
-            WHERE active = 1
-              AND availability_state IN ('available', 'verification_pending')
+            WHERE (active = 1 AND availability_state IN ('available', 'verification_pending'))
+               OR listing_id IN ({})
             ORDER BY score DESC, monthly_total ASC, area_m2 DESC
-            """
+            """.format(",".join("?" for _ in include_unavailable_ids) or "NULL"),
+            tuple(include_unavailable_ids),
         ).fetchall()
         return [dict(row) for row in rows]
 

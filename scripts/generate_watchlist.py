@@ -22,6 +22,7 @@ from domain.listings import passes_hard_filters  # noqa: E402
 OUTPUT = Path(os.getenv("APARTMENT_AGENT_WATCHLIST", ROOT / "watchlist" / "index.html"))
 PREFERENCES = DATA_DIR / "watchlist_preferences.json"
 DEFAULT_PREFERENCES = DATA_DIR / "watchlist_defaults.json"
+BOOKMARKS = DATA_DIR / "watchlist_bookmarks.json"
 INTERVAL_MINUTES = int(os.getenv("WATCHLIST_UPDATE_INTERVAL_MINUTES", "180"))
 DISPLAY_ZONE = ZoneInfo("Asia/Jakarta")
 
@@ -111,7 +112,8 @@ def main():
         profile["maximum_commute_minutes"] = targets.get(
             "total_commute_minutes", profile["maximum_commute_minutes"]
         )
-    current = [listing_payload(row) for row in get_current_listings()]
+    bookmarks = json.loads(BOOKMARKS.read_text(encoding="utf-8")).get("bookmarks", []) if BOOKMARKS.exists() else []
+    current = [listing_payload(row) for row in get_current_listings(bookmarks)]
     for row in current:
         reasons = []
         if row.get("monthly_total") is None or row["monthly_total"] > profile["absolute_monthly_max"]:
@@ -142,13 +144,13 @@ def main():
     generated = generated.replace("__NEXT_UPDATE__", html.escape(display_time(next_update.isoformat())))
     generated = generated.replace("__COUNT__", str(sum(row["matches_hard_filters"] for row in rows)))
     generated = generated.replace("__CRAWL_STATUS__", html.escape(f'{crawl.get("rooms_found", 0)} search results · {len(rows)} verified available · {crawl.get("areas_requested", 0) - crawl.get("areas_failed", 0)}/{crawl.get("areas_requested", 0)} areas succeeded' if crawl else "No completed crawl"))
-    generated = generated.replace("<style>", "<style>.card-badges{justify-self:end;display:flex;align-items:center;justify-content:flex-end;gap:8px;height:28px;min-width:0;white-space:nowrap}.card-badges .bookmark-button{border:0;background:transparent;color:var(--muted);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;height:34px;width:34px;padding:0}.bookmark-button.active{color:#7c3aed}.verification-badge{display:inline-flex;align-items:center;height:25px;padding:0 9px;border-radius:999px;color:#1d4ed8;background:#dbeafe;font-size:.72rem;font-weight:600;line-height:1}.dark .verification-badge{color:#93c5fd;background:#1e3a8a}", 1)
+    generated = generated.replace("<style>", "<style>.card.unavailable{opacity:.58;filter:saturate(.55)}.unavailable-badge{display:inline-flex;align-items:center;height:25px;padding:0 9px;border-radius:999px;color:#52525b;background:#e4e4e7;font-size:.72rem;font-weight:600;line-height:1}.dark .unavailable-badge{color:#d4d4d8;background:#3f3f46}.card-badges{justify-self:end;display:flex;align-items:center;justify-content:flex-end;gap:8px;height:28px;min-width:0;white-space:nowrap}.card-badges .bookmark-button{border:0;background:transparent;color:var(--muted);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;height:34px;width:34px;padding:0}.bookmark-button.active{color:#7c3aed}.verification-badge{display:inline-flex;align-items:center;height:25px;padding:0 9px;border-radius:999px;color:#1d4ed8;background:#dbeafe;font-size:.72rem;font-weight:600;line-height:1}.dark .verification-badge{color:#93c5fd;background:#1e3a8a}", 1)
     generated = generated.replace('<select class="control" id="familyFilter">', '<select class="control" id="bookmarkFilter"><option value="">All apartments</option><option value="bookmarked">Bookmarked only</option></select><select class="control" id="familyFilter">')
     generated = generated.replace("let q=$('search').value.toLowerCase(),layout", "let q=$('search').value.toLowerCase(),bookmarkFilter=$('bookmarkFilter').value,layout")
     generated = generated.replace("apartments.filter(x=>(!q||", "apartments.filter(x=>(bookmarkFilter!=='bookmarked'||!window.apartmentBookmarks?.ready?.()||window.apartmentBookmarks.has(x))&&(!q||")
     generated = generated.replace("'familyFilter'];", "'familyFilter','bookmarkFilter'];")
     generated = generated.replace("</head>", '<style>.bookmark-button svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linejoin:round}.bookmark-button.active svg{fill:currentColor;stroke:currentColor}</style></head>')
-    generated = generated.replace('</div>${x.matches_hard_filters?', '</div><div class="card-badges">${x.availability_state==="verification_pending"?`<span class="verification-badge">Pending</span>`:""}${x.matches_hard_filters?').replace('}</div><div class="price">', "}${window.apartmentBookmarks?.icon(x) || ''}</div></div><div class=\"price\">")
+    generated = generated.replace('</div>${x.matches_hard_filters?', '</div><div class="card-badges">${x.availability_state==="unavailable"?`<span class="unavailable-badge">Unavailable</span>`:x.availability_state==="verification_pending"?`<span class="verification-badge">Pending</span>`:""}${x.matches_hard_filters?').replace('}</div><div class="price">', "}${window.apartmentBookmarks?.icon(x) || ''}</div></div><div class=\"price\">")
     generated = generated.replace("</body>", '<script src="/bookmarks.js?v=19"></script></body>')
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT.write_text(generated, encoding="utf-8")

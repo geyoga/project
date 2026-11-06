@@ -4948,5 +4948,545 @@
         "routing_source": "Valhalla/OpenStreetMap"
       }
     }
+  },
+  "40_427": {
+    "coordinates": {
+      "latitude": 35.46424235242056,
+      "longitude": 139.61669080312632,
+      "geocoded_name": null
+    },
+    "surroundings": {
+      "supermarket": {
+        "name": "イオンフードスタイル",
+        "straight_line_distance_m": 73,
+        "latitude": 35.4643798,
+        "longitude": 139.6174773,
+        "walking_distance_m": 99,
+        "walking_minutes": 1,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "convenience_store": {
+        "name": "ローソン",
+        "straight_line_distance_m": 97,
+        "latitude": 35.4635366,
+        "longitude": 139.6160603,
+        "walking_distance_m": 150,
+        "walking_minutes": 2,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "daycare": {
+        "name": "横浜岡野すきっぷ保育園",
+        "straight_line_distance_m": 229,
+        "latitude": 35.4636575,
+        "longitude": 139.6142679,
+        "walking_distance_m": 298,
+        "walking_minutes": 4,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "elementary_school": {
+        "name": "横浜市立平沼小学校",
+        "straight_line_distance_m": 750,
+        "latitude": 35.457557,
+        "longitude": 139.6156041,
+        "walking_distance_m": 1020,
+        "walking_minutes": 12,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "clinic": {
+        "name": "横浜わかば眼科",
+        "straight_line_distance_m": 43,
+        "latitude": 35.4643882,
+        "longitude": 139.6171342,
+        "walking_distance_m": 71,
+        "walking_minutes": 1,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "pediatric_clinic": {
+        "name": "横浜東口中村クリニック",
+        "straight_line_distance_m": 522,
+        "latitude": 35.461109,
+        "longitude": 139.6209888,
+        "walking_distance_m": 711,
+        "walking_minutes": 8,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "hospital": {
+        "name": "横浜第一病院",
+        "straight_line_distance_m": 640,
+        "latitude": 35.4612783,
+        "longitude": 139.6227419,
+        "walking_distance_m": 978,
+        "walking_minutes": 11,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "park": {
+        "name": "北幸町公園",
+        "straight_line_distance_m": 299,
+        "latitude": 35.4667464,
+        "longitude": 139.6154883,
+        "walking_distance_m": 452,
+        "walking_minutes": 6,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "pharmacy": {
+        "name": "HACドラッグ",
+        "straight_line_distance_m": 73,
+        "latitude": 35.4643096,
+        "longitude": 139.6174952,
+        "walking_distance_m": 98,
+        "walking_minutes": 1,
+        "routing_source": "Valhalla/OpenStreetMap"
+      }
+    }
+  },
+  "40_204": {
+    "coordinates": {
+      "latitude": 35.36325861610889,
+      "longitude": 139.6365382170875,
+      "geocoded_name": null
+    },
+    "surroundings": {
+      "supermarket": {
+        "name": "イオン",
+        "straight_line_distance_m": 426,
+        "latitude": 35.3618921,
+        "longitude": 139.6409214,
+        "walking_distance_m": 492,
+        "walking_minutes": 6,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "convenience_store": {
+        "name": "セブン-イレブン",
+        "straight_line_distance_m": 258,
+        "latitude": 35.3620916,
+        "longitude": 139.6390006,
+        "walking_distance_m": 325,
+        "walking_minutes": 4,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "daycare": {
+        "name": "フレンド幼稚園",
+        "straight_line_distance_m": 227,
+        "latitude": 35.3648302,
+        "longitude": 139.6381288,
+        "walking_distance_m": 392,
+        "walking_minutes": 5,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "elementary_school": {
+        "name": "横浜市立並木中央小学校",
+        "straight_line_distance_m": 595,
+        "latitude": 35.3668857,
+        "longitude": 139.6413627,
+        "walking_distance_m": 901,
+        "walking_minutes": 11,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "clinic": {
+        "name": "シーサイドクリニック",
+        "straight_line_distance_m": 248,
+        "latitude": 35.3651733,
+        "longitude": 139.6379343,
+        "walking_distance_m": 350,
+        "walking_minutes": 5,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "pediatric_clinic": {
+        "name": "江原小児科医院",
+        "straight_line_distance_m": 993,
+        "latitude": 35.371699,
+        "longitude": 139.6401136,
+        "walking_distance_m": 1275,
+        "walking_minutes": 16,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "hospital": {
+        "name": "横浜なみきリハビリテーション病院",
+        "straight_line_distance_m": 133,
+        "latitude": 35.363088,
+        "longitude": 139.63799,
+        "walking_distance_m": 134,
+        "walking_minutes": 2,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "park": {
+        "name": "長浜公園",
+        "straight_line_distance_m": 267,
+        "latitude": 35.3608688,
+        "longitude": 139.6362931,
+        "walking_distance_m": 552,
+        "walking_minutes": 7,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "pharmacy": {
+        "name": "なぎさ薬局",
+        "straight_line_distance_m": 248,
+        "latitude": 35.3646881,
+        "longitude": 139.6386413,
+        "walking_distance_m": 346,
+        "walking_minutes": 4,
+        "routing_source": "Valhalla/OpenStreetMap"
+      }
+    }
+  },
+  "20_518": {
+    "coordinates": {
+      "latitude": 35.640730290943885,
+      "longitude": 139.71401900571,
+      "geocoded_name": null
+    },
+    "surroundings": {
+      "supermarket": {
+        "name": "セントラルスクエア",
+        "straight_line_distance_m": 180,
+        "latitude": 35.6423452,
+        "longitude": 139.7140068,
+        "walking_distance_m": 384,
+        "walking_minutes": 6,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "convenience_store": {
+        "name": "ファミリーマート",
+        "straight_line_distance_m": 122,
+        "latitude": 35.6417749,
+        "longitude": 139.7135895,
+        "walking_distance_m": 154,
+        "walking_minutes": 2,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "daycare": {
+        "name": "第二田道保育園",
+        "straight_line_distance_m": 542,
+        "latitude": 35.636547,
+        "longitude": 139.710939,
+        "walking_distance_m": 826,
+        "walking_minutes": 10,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "elementary_school": {
+        "name": "渋谷区立加計塚小学校",
+        "straight_line_distance_m": 397,
+        "latitude": 35.6442489,
+        "longitude": 139.7147642,
+        "walking_distance_m": 506,
+        "walking_minutes": 7,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "clinic": {
+        "name": "楓の森 メンタルクリニック",
+        "straight_line_distance_m": 590,
+        "latitude": 35.6427723,
+        "longitude": 139.7079961,
+        "walking_distance_m": 723,
+        "walking_minutes": 9,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "pediatric_clinic": {
+        "name": "かただ小児科クリニック",
+        "straight_line_distance_m": 1810,
+        "latitude": 35.6367452,
+        "longitude": 139.7334366,
+        "walking_distance_m": 2568,
+        "walking_minutes": 34,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "hospital": {
+        "name": "厚生中央病院",
+        "straight_line_distance_m": 161,
+        "latitude": 35.6415616,
+        "longitude": 139.7125661,
+        "walking_distance_m": 381,
+        "walking_minutes": 5,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "park": {
+        "name": "三田西児童遊園",
+        "straight_line_distance_m": 257,
+        "latitude": 35.6412381,
+        "longitude": 139.7112441,
+        "walking_distance_m": 350,
+        "walking_minutes": 4,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "pharmacy": {
+        "name": "トモズ",
+        "straight_line_distance_m": 169,
+        "latitude": 35.6422296,
+        "longitude": 139.713734,
+        "walking_distance_m": 195,
+        "walking_minutes": 3,
+        "routing_source": "Valhalla/OpenStreetMap"
+      }
+    }
+  },
+  "20_648": {
+    "coordinates": {
+      "latitude": 35.643507504819446,
+      "longitude": 139.69874236875916,
+      "geocoded_name": null
+    },
+    "surroundings": {
+      "supermarket": {
+        "name": "プレッセ",
+        "straight_line_distance_m": 38,
+        "latitude": 35.6433997,
+        "longitude": 139.6991366,
+        "walking_distance_m": 65,
+        "walking_minutes": 1,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "convenience_store": {
+        "name": "セブン-イレブン",
+        "straight_line_distance_m": 35,
+        "latitude": 35.6431964,
+        "longitude": 139.698707,
+        "walking_distance_m": 60,
+        "walking_minutes": 1,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "daycare": {
+        "name": "明日葉保育園",
+        "straight_line_distance_m": 187,
+        "latitude": 35.6428581,
+        "longitude": 139.6968291,
+        "walking_distance_m": 273,
+        "walking_minutes": 4,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "elementary_school": {
+        "name": "目黒区立中目黒小学校",
+        "straight_line_distance_m": 425,
+        "latitude": 35.639713,
+        "longitude": 139.6992753,
+        "walking_distance_m": 746,
+        "walking_minutes": 10,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "clinic": {
+        "name": "浅川治療院",
+        "straight_line_distance_m": 74,
+        "latitude": 35.6435907,
+        "longitude": 139.6979263,
+        "walking_distance_m": 100,
+        "walking_minutes": 1,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "pediatric_clinic": {
+        "name": "いば小児科",
+        "straight_line_distance_m": 2726,
+        "latitude": 35.6477747,
+        "longitude": 139.6690358,
+        "walking_distance_m": 3540,
+        "walking_minutes": 44,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "hospital": {
+        "name": "東京共済病院",
+        "straight_line_distance_m": 531,
+        "latitude": 35.6414441,
+        "longitude": 139.7040422,
+        "walking_distance_m": 905,
+        "walking_minutes": 12,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "park": {
+        "name": "Unnamed",
+        "straight_line_distance_m": 103,
+        "latitude": 35.6429579,
+        "longitude": 139.6978208,
+        "walking_distance_m": 147,
+        "walking_minutes": 2,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "pharmacy": {
+        "name": "ココカラファイン",
+        "straight_line_distance_m": 91,
+        "latitude": 35.6433928,
+        "longitude": 139.699744,
+        "walking_distance_m": 246,
+        "walking_minutes": 3,
+        "routing_source": "Valhalla/OpenStreetMap"
+      }
+    }
+  },
+  "40_342": {
+    "coordinates": {
+      "latitude": 35.56018116780056,
+      "longitude": 139.58903309470168,
+      "geocoded_name": null
+    },
+    "surroundings": {
+      "supermarket": {
+        "name": "ビッグヨーサン",
+        "straight_line_distance_m": 218,
+        "latitude": 35.5619381,
+        "longitude": 139.5900903,
+        "walking_distance_m": 572,
+        "walking_minutes": 7,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "convenience_store": {
+        "name": "セブン-イレブン",
+        "straight_line_distance_m": 243,
+        "latitude": 35.5623549,
+        "longitude": 139.5887459,
+        "walking_distance_m": 439,
+        "walking_minutes": 5,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "daycare": {
+        "name": "第二しらとり台保育園",
+        "straight_line_distance_m": 81,
+        "latitude": 35.560807,
+        "longitude": 139.588566,
+        "walking_distance_m": 113,
+        "walking_minutes": 1,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "elementary_school": {
+        "name": "横浜市立南山田小学校",
+        "straight_line_distance_m": 315,
+        "latitude": 35.5573522,
+        "longitude": 139.5891041,
+        "walking_distance_m": 519,
+        "walking_minutes": 6,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "clinic": {
+        "name": "クローバー整骨院",
+        "straight_line_distance_m": 754,
+        "latitude": 35.5539754,
+        "longitude": 139.5856761,
+        "walking_distance_m": 1013,
+        "walking_minutes": 13,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "pediatric_clinic": {
+        "name": "ほしの小児クリニック",
+        "straight_line_distance_m": 1698,
+        "latitude": 35.5631564,
+        "longitude": 139.5706183,
+        "walking_distance_m": 2009,
+        "walking_minutes": 25,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "hospital": {
+        "name": "聖マリアンナ会東横恵愛病院",
+        "straight_line_distance_m": 1765,
+        "latitude": 35.575129,
+        "longitude": 139.582472,
+        "walking_distance_m": 2233,
+        "walking_minutes": 29,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "park": {
+        "name": "北山田しゃぼんだま公園",
+        "straight_line_distance_m": 80,
+        "latitude": 35.5603072,
+        "longitude": 139.5881619,
+        "walking_distance_m": 118,
+        "walking_minutes": 1,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "pharmacy": {
+        "name": "フィットケアデポ",
+        "straight_line_distance_m": 210,
+        "latitude": 35.5617005,
+        "longitude": 139.5904125,
+        "walking_distance_m": 609,
+        "walking_minutes": 8,
+        "routing_source": "Valhalla/OpenStreetMap"
+      }
+    }
+  },
+  "20_554": {
+    "coordinates": {
+      "latitude": 35.5760154031,
+      "longitude": 139.73763113576416,
+      "geocoded_name": null
+    },
+    "surroundings": {
+      "supermarket": {
+        "name": "マルエツ",
+        "straight_line_distance_m": 427,
+        "latitude": 35.5744878,
+        "longitude": 139.7333006,
+        "walking_distance_m": 593,
+        "walking_minutes": 8,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "convenience_store": {
+        "name": "ローソン・スリーエフ",
+        "straight_line_distance_m": 194,
+        "latitude": 35.5769137,
+        "longitude": 139.735791,
+        "walking_distance_m": 244,
+        "walking_minutes": 3,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "daycare": {
+        "name": "美原保育園",
+        "straight_line_distance_m": 74,
+        "latitude": 35.576554,
+        "longitude": 139.738106,
+        "walking_distance_m": 130,
+        "walking_minutes": 2,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "elementary_school": {
+        "name": "大田区立 大森東小学校",
+        "straight_line_distance_m": 114,
+        "latitude": 35.5753768,
+        "longitude": 139.7386159,
+        "walking_distance_m": 110,
+        "walking_minutes": 1,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "clinic": {
+        "name": "みはら耳鼻咽喉科",
+        "straight_line_distance_m": 202,
+        "latitude": 35.5769289,
+        "longitude": 139.7356998,
+        "walking_distance_m": 280,
+        "walking_minutes": 4,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "pediatric_clinic": {
+        "name": "長山医院",
+        "straight_line_distance_m": 791,
+        "latitude": 35.5730184,
+        "longitude": 139.7297017,
+        "walking_distance_m": 1011,
+        "walking_minutes": 13,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "hospital": {
+        "name": "城南福祉医療協会大田病院",
+        "straight_line_distance_m": 765,
+        "latitude": 35.5691365,
+        "longitude": 139.7378548,
+        "walking_distance_m": 1021,
+        "walking_minutes": 12,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "park": {
+        "name": "大田区立美原児童公園",
+        "straight_line_distance_m": 31,
+        "latitude": 35.576295,
+        "longitude": 139.7376593,
+        "walking_distance_m": 62,
+        "walking_minutes": 1,
+        "routing_source": "Valhalla/OpenStreetMap"
+      },
+      "pharmacy": {
+        "name": "Unnamed",
+        "straight_line_distance_m": 235,
+        "latitude": 35.5754173,
+        "longitude": 139.7351443,
+        "walking_distance_m": 311,
+        "walking_minutes": 4,
+        "routing_source": "Valhalla/OpenStreetMap"
+      }
+    }
   }
 }

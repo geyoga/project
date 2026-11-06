@@ -69,6 +69,9 @@
     .panel-toggle-floating { position:absolute; z-index:1000; top:104px; left:16px; display:none; }
     .listing-panel.collapsed + .panel-toggle-floating { display:block; }
     .listing-card { margin-top:12px; padding:14px; border:1px solid var(--border); border-radius:8px; background:color-mix(in srgb,var(--bg) 70%,var(--card)); cursor:pointer; }
+    .listing-card.unavailable { opacity:.58; filter:saturate(.55); }
+    .unavailable-badge { padding:4px 9px; border-radius:999px; color:#d4d4d8; background:#3f3f46; font-size:.72rem; font-weight:600; }
+    body.light .unavailable-badge { color:#52525b; background:#e4e4e7; }
     .listing-card-head { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; gap:10px; }
     .listing-card.selected { border-color:#2563eb; box-shadow:0 0 0 2px #2563eb66; }
     .listing-card h3 { min-width:0; margin:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:.95rem; }
@@ -88,6 +91,7 @@
     .apartment-pin.match { background:#15803d; }
     .apartment-pin.other { background:#d97706; }
     .apartment-pin.bookmarked { background:#7c3aed; }
+    .apartment-pin.unavailable { background:#71717a; opacity:.65; }
     .apartment-pin.selected { animation:pin-pulse 1.2s ease-in-out infinite; outline:4px solid #2563ebaa; outline-offset:3px; }
     .card-badges { justify-self:end; display:flex; align-items:center; justify-content:flex-end; gap:8px; height:28px; min-width:0; white-space:nowrap; }
     .card-badges .score { float:none; flex:none; white-space:nowrap; }
@@ -287,7 +291,7 @@
       mappedApartments.forEach(apartment => { const key = `${apartment.coordinates.latitude},${apartment.coordinates.longitude}`; coordinateGroups.set(key, [...(coordinateGroups.get(key) || []), apartment]); });
       mappedApartments.forEach(apartment => {
         const qualified = apartment.matches_hard_filters;
-        const icon = L.divIcon({className:'', html:`<div class="apartment-pin ${window.apartmentBookmarks?.has(apartment) ? 'bookmarked' : qualified ? 'match' : 'other'}"><span>${score(apartment)}</span></div>`, iconSize:[38,38], iconAnchor:[19,38], popupAnchor:[0,-38]});
+        const icon = L.divIcon({className:'', html:`<div class="apartment-pin ${apartment.availability_state === 'unavailable' ? 'unavailable' : window.apartmentBookmarks?.has(apartment) ? 'bookmarked' : qualified ? 'match' : 'other'}"><span>${score(apartment)}</span></div>`, iconSize:[38,38], iconAnchor:[19,38], popupAnchor:[0,-38]});
         const group = coordinateGroups.get(`${apartment.coordinates.latitude},${apartment.coordinates.longitude}`);
         const index = group.indexOf(apartment);
         const angle = Math.PI * 2 * index / group.length;
@@ -305,8 +309,8 @@
         marker.on('popupclose', () => { if (selectedId === apartment.listing_id && marker._map?._popup !== marker.getPopup()) clearSelection(); });
       });
       document.getElementById('listingCards').innerHTML = list.map(apartment => `
-      <article class="listing-card ${document.getElementById('bookmarkFilter').value === 'bookmarked' ? 'bookmark-card' : ''}" data-listing-id="${apartment.listing_id}">
-        <div class="listing-card-head"><h3>${apartment.property_romaji || apartment.property || 'Apartment'}</h3><div class="card-badges">${apartment.availability_state === 'verification_pending' ? '<span class="verification-badge">Pending</span>' : ''}${apartment.matches_hard_filters ? `<span class="score">${score(apartment)}</span>` : `<span class="filter-warning">${(apartment.filter_reasons || ['Does not match preferences']).join(' · ')}</span>`}${window.apartmentBookmarks?.noteIcon(apartment) || ''}${window.apartmentBookmarks?.icon(apartment) || ''}</div></div>
+      <article class="listing-card ${apartment.availability_state === 'unavailable' ? 'unavailable' : ''} ${document.getElementById('bookmarkFilter').value === 'bookmarked' ? 'bookmark-card' : ''}" data-listing-id="${apartment.listing_id}">
+        <div class="listing-card-head"><h3>${apartment.property_romaji || apartment.property || 'Apartment'}</h3><div class="card-badges">${apartment.availability_state === 'unavailable' ? '<span class="unavailable-badge">Unavailable</span>' : apartment.availability_state === 'verification_pending' ? '<span class="verification-badge">Pending</span>' : ''}${apartment.matches_hard_filters ? `<span class="score">${score(apartment)}</span>` : `<span class="filter-warning">${(apartment.filter_reasons || ['Does not match preferences']).join(' · ')}</span>`}${window.apartmentBookmarks?.noteIcon(apartment) || ''}${window.apartmentBookmarks?.icon(apartment) || ''}</div></div>
         <p>${apartment.room || ''}</p>
         <p>${yen(apartment.monthly_total)} / month · ${apartment.layout || 'Layout unavailable'} · ${apartment.area_m2 ?? '—'} m²</p>
         <p>${apartment.building_age_estimate_years ?? '—'} years old · Commute to Rakuten: ${apartment.total_commute_minutes ?? '—'} min</p>

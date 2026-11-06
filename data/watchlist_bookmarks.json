@@ -1,24 +1,21 @@
 {
   "bookmarks": [
     "ur:40:384:0:6\u53f7\u68df 206\u53f7\u5ba4",
-    "ur:40:308:0:7\u53f7\u68df 303\u53f7\u5ba4",
     "ur:40:288:0:3\u53f7\u68df 502\u53f7\u5ba4",
-    "ur:40:141:0:3\u53f7\u68df 212\u53f7\u5ba4",
-    "ur:40:203:0:24-7\u53f7\u68df 503\u53f7\u5ba4",
-    "ur:40:132:0:20-3\u53f7\u68df 303\u53f7\u5ba4",
-    "ur:40:145:0:5-6\u53f7\u68df 502\u53f7\u5ba4",
-    "ur:40:141:0:6\u53f7\u68df 608\u53f7\u5ba4",
     "ur:40:288:0:2\u53f7\u68df 507\u53f7\u5ba4",
+    "ur:40:203:0:24-7\u53f7\u68df 503\u53f7\u5ba4",
+    "ur:40:308:0:7\u53f7\u68df 303\u53f7\u5ba4",
+    "ur:40:141:0:6\u53f7\u68df 608\u53f7\u5ba4",
     "ur:40:288:0:3\u53f7\u68df 301\u53f7\u5ba4",
     "ur:40:243:0:13\u53f7\u68df 506\u53f7\u5ba4",
     "ur:40:118:0:1-30\u53f7\u68df 206\u53f7\u5ba4",
     "ur:40:301:0:501\u53f7\u5ba4",
-    "ur:40:385:0:9\u53f7\u68df 204\u53f7\u5ba4"
+    "ur:40:338:0:9\u53f7\u68df 405\u53f7\u5ba4"
   ],
   "notes": {
     "ur:40:308:0:7\u53f7\u68df 303\u53f7\u5ba4": "* Over budget\n* full-trains 3 times transfer",
     "ur:40:165:0:6-23\u53f7\u68df 203\u53f7\u5ba4": "* Need bus to commute",
-    "ur:40:288:0:3\u53f7\u68df 502\u53f7\u5ba4": "* commute with bus, but able to force with train\n* good layout",
+    "ur:40:288:0:3\u53f7\u68df 502\u53f7\u5ba4": "* normally commute with bus, but able to force with train\n* kodomonokuni st - nagatsuta st - futako tamagawa\n* good layout",
     "ur:40:141:0:3\u53f7\u68df 212\u53f7\u5ba4": "* pretty old\n* forcely able to commute with train",
     "ur:40:203:0:24-7\u53f7\u68df 503\u53f7\u5ba4": "* able to commute with train\n* pretty old\n* 5th floor without elevator",
     "ur:40:132:0:20-3\u53f7\u68df 303\u53f7\u5ba4": "* old, no image\n* able to use train",
@@ -27,6 +24,8 @@
     "ur:40:243:0:13\u53f7\u68df 506\u53f7\u5ba4": "* 5th floor no elevator",
     "ur:40:118:0:8-12\u53f7\u68df 202\u53f7\u5ba4": "* 90 minutes commute with train",
     "ur:40:118:0:1-30\u53f7\u68df 206\u53f7\u5ba4": "* 90 minutes commute with train",
-    "ur:40:301:0:501\u53f7\u5ba4": "* 90 minutes to commute"
+    "ur:40:301:0:501\u53f7\u5ba4": "* 90 minutes to commute",
+    "ur:40:288:0:2\u53f7\u68df 507\u53f7\u5ba4": "* normally commute with bus, but able to force with train\n* kodomonokuni st - nagatsuta st - futako tamagawa",
+    "ur:40:338:0:9\u53f7\u68df 405\u53f7\u5ba4": "lumayan"
   }
 }
